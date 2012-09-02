@@ -16,6 +16,7 @@
 		sStart:"Starts with",
 		sContain:"Contains",
 		sFinish:"Finishes with",
+		sInList:"In list",
 		sIsNull:"Is empty",
 		sIsNotNull:"Is not empty",
 		
@@ -49,17 +50,18 @@
 	}
 	
 	var soEqual = 'eq', soStartWith = 'sw', soFinishWith = 'fw', soContain = 'ct';
-	var soIsNull = 'null', soIsNotNull = 'nn';
+	var soIsNull = 'null', soIsNotNull = 'nn', soInList='in'
 	var soGreaterThan = 'gt', soSmallerThan = 'st';
 /*	var so={
 		soEqual: 'eq', 
 		soStartWith: 'sw', 
 		soFinishWith: 'fw', 
-		soContain: 'ct';
+		soContain: 'ct',
 		soIsNull: 'null', 
-		soIsNotNull: 'nn';
+		soIsNotNull: 'nn',
 		soGreaterThan: 'gt', 
-		soSmallerThan: 'st';		
+		soSmallerThan: 'st',
+		soInList: 'in'
 	} */	
 	
 	fieldTypes= { 
@@ -237,40 +239,30 @@ $.widget( 'evol.advancedSearch', {
 				label: f.find('option:selected').text(),
 				value: f.val()
 			},
-			operator:{
-				label: o.find('option:selected').text(),
-				value: o.val()
-			} 
-		}  
+			operator:{},
+			value:{}
+		};
 		if(this._fType==fieldTypes.lov){
 			var vs=[], ls=[]; 
 			this.element.find('#value').find('input:checked').each(function(){
 				vs.push(this.value);
 				ls.push(this.nextSibling.innerHTML);
-			})
-			filterDef.operator = {
-				label: ' in ',
-				value: 'in' 
-			} 		
-			filterDef.value = {
-				label: '(' + ls.join(', ') + ')',
-				value: vs.join(',')
-			}					
+			});
+			filterDef.operator.label=EvolLang.sInList;
+			filterDef.operator.value=soInList;
+			filterDef.value.label='(' + ls.join(', ') + ')';
+			filterDef.value.value=vs.join(',')
 		}else if(this._fType==fieldTypes.bool){
-			filterDef.operator = {
-				label: EvolLang.sEquals,
-				value: soEqual
-			}
+			filterDef.operator.label=EvolLang.sEquals;
+			filterDef.operator.value=soEqual;
 			var val=(v.find('#value1').attr('checked')=='checked')?1:0;
-			filterDef.value = {
-				label: (val==1)?EvolLang.yes:EvolLang.no,
-				value: val
-			}					
+			filterDef.value.label=(val==1)?EvolLang.yes:EvolLang.no;
+			filterDef.value.value=val;
 		}else{
-			filterDef.value = {
-				label: '"' + v.val() + '"',
-				value: v.val()
-			}
+			filterDef.operator.label=o.find('option:selected').text();
+			filterDef.operator.value=o.val();
+			filterDef.value.label='"' + v.val() + '"';
+			filterDef.value.value=v.val();
 		} 
 		return filterDef;  
     },
@@ -280,9 +272,9 @@ $.widget( 'evol.advancedSearch', {
 			'<span class="lBold">', filterDef.field.label,'</span> ', 
 			'<span class="lLight">', filterDef.operator.label.toLowerCase(),'</span> ', 
 			' <span class="lBold">', filterDef.value.label, '</span>',
-			EvoUI._htmlHidden('f-'+idx, filterDef.field.value),
-			EvoUI._htmlHidden('o-'+idx, filterDef.operator.value),
-			EvoUI._htmlHidden('v-'+idx, filterDef.value.value)
+			EvoUI.inputHidden('f-'+idx, filterDef.field.value),
+			EvoUI.inputHidden('o-'+idx, filterDef.operator.value),
+			EvoUI.inputHidden('v-'+idx, filterDef.value.value)
 		].join('');
     },	
 	
@@ -325,19 +317,18 @@ $.widget( 'evol.advancedSearch', {
     },
 
 	_setFilterOperator: function(fType, cond) {
-		var beginSelect = '<select class="evolOperator" id="operator">';
 		if(this.state<1){
 			var h=[]; 
 			switch (fType) {
 				case fieldTypes.lov: 
-					h.push(EvolLang.anyof);
-					h.push(EvoUI._htmlHidden('operator','in'));	
+					//h.push(EvolLang.anyOf);
+					h.push(EvoUI.inputHidden('operator','in'));	
 					break;
 				case fieldTypes.bool:
 				case fieldTypes.pix:
 				case fieldTypes.doc: 
-					h.push(EvolLang.sEquals);
-					h.push(EvoUI._htmlHidden('operator',soEqual));	
+					//h.push(EvolLang.sEquals);
+					h.push(EvoUI.inputHidden('operator',soEqual));	
 					break;
 				case 'date':
 	/*
@@ -348,38 +339,36 @@ $.widget( 'evol.advancedSearch', {
 	*/			
 					break;
 				default: 
-					h.push(beginSelect); 
+					h.push('<select class="evolOperator" id="operator">'); 
 					switch (fType) {
 						case fieldTypes.date:
 						case fieldTypes.datetime:
 						case fieldTypes.time: 
 							if (fType==fieldTypes.time){
-								h.push(EvoUI.HTMLOption(soEqual, EvolLang.cAt));
+								h.push(EvoUI.inputOption(soEqual, EvolLang.cAt));
 							}else{
-								h.push(EvoUI.HTMLOption(soEqual, EvolLang.sOn));
+								h.push(EvoUI.inputOption(soEqual, EvolLang.sOn));
 							}
-							h.push(EvoUI.HTMLOption(soGreaterThan, EvolLang.sAfter))
-							h.push(EvoUI.HTMLOption(soSmallerThan, EvolLang.sBefore));
+							h.push(EvoUI.inputOption(soGreaterThan, EvolLang.sAfter))
+							h.push(EvoUI.inputOption(soSmallerThan, EvolLang.sBefore));
 							break;
 	//					case fieldTypes.dec:
 	//					case fieldTypes.integer:
 	//						h.push('_c">', EvoUI.inputOption(soEqual, "&#61;"), EvoUI.inputOption(soGreaterThan, "&#62;", true), EvoUI.inputOption(soSmallerThan, "&#60;"));
 	//						break;
 						default:
-							var opts=[
-								{l:EvolLang.sEquals, v:soEqual},
-								{l:EvolLang.sStart, v:soStartWith},
-								{l:EvolLang.sContain, v:soContain},
-								{l:EvolLang.sFinish, v:soFinishWith}
-							]; 
+							h.push('<option value=""></option>');
+							h.push(EvoUI.inputOption(soEqual, EvolLang.sEquals));
+							h.push(EvoUI.inputOption(soStartWith, EvolLang.sStart));
+							h.push(EvoUI.inputOption(soContain, EvolLang.sContain));
+							h.push(EvoUI.inputOption(soFinishWith, EvolLang.sFinish)); 
 							if (this.required!='1'){
-								opts.push({l:EvolLang.sIsNull, v:soIsNull});
-								opts.push({l:EvolLang.sIsNotNull, v:soIsNotNull});
-							} 
-							h.push(EvoUI._htmlOptions(opts));
+								h.push(EvoUI.inputOption(soIsNull, EvolLang.sIsNull));
+								h.push(EvoUI.inputOption(soIsNotNull, EvolLang.sIsNotNull));
+							}
 							break;
 					}
-					h.push("</option></select>");
+					h.push("</select>");
 					break;
 			} 
 			this.element.find('.editFilter').append(h.join(''));
@@ -396,7 +385,7 @@ $.widget( 'evol.advancedSearch', {
 			for(var i in fLOV){
 				var lv=fLOV[i];
 				fh.push(inputCheckbox(lv.id,lv.id));
-				fh.push(EvoUI.fieldLabel(lv.id,lv.label),' ');
+				fh.push('<label for="',lv.id,'">',lv.label,'</label> ');
 			} 	
 			fh.push('</span>');		
 			return fh.join('');
@@ -424,8 +413,8 @@ $.widget( 'evol.advancedSearch', {
 				case fieldTypes.pix:
 				case fieldTypes.doc: 
 					h.push('<span id="value">');
-					h.push(EvoUI.HTMLInputRadio('value', '1', EvolLang.yes, false, this.id + '1'));
-					h.push(EvoUI.HTMLInputRadio('value', '0', EvolLang.no, false, this.id + '0'));
+					h.push(EvoUI.inputRadio('value', '1', EvolLang.yes, false, this.id + '1'));
+					h.push(EvoUI.inputRadio('value', '0', EvolLang.no, false, this.id + '0'));
 					h.push('</span>');
 					break;
 				case fieldTypes.date:
@@ -505,31 +494,6 @@ $.widget( 'evol.advancedSearch', {
 
 var EvoUI={
 
-	_htmlHidden: function( id, val){
-		return ['<input type="hidden" name="',id,'" id="',id,'" value="',val,'"/>'].join('');
-	},
-	
-	_htmlOptions: function( values){ 
-		var sb = ['<option value=""></option>'];
-		for(var i=0,iMax=values.length; i<iMax; i++){
-			var v = values[i];
-			sb.push('<option value="',v.v,'">', v.l, '</option>');
-		}
-		return sb.join('');
-	},
-	HTMLInputRadio: function ( fName, fValue, fLabel, selected, id) { 
-		var h=[]
-		h.push('<label for="',id,'"><input id="',id,'" name="',fName,'" value="',fValue);
-		if (selected)
-			h.push(qChecked);
-		h.push('" type="radio">',fLabel,'</label>&nbsp;');
-		return h.join('');
-	},
-		
-	fieldLabel:function(fID,fLbl){
-		return ['<label class="FieldLabel" for="',fID,'">',fLbl,'</label>'].join('');
-	},
-
 	inputText:function(fID,fV,ml){
 		var fh=['<input type="text" name="',fID,'" id="',fID,'" value="',fV];
 		if(ml>0){
@@ -555,16 +519,17 @@ var EvoUI={
 	},
 	inputRadio:function(fN,fV,fLbl,sel,fID){
 		var fh=['<label for="',fID,'"><input ID="',fID,'" name="',fN,'" type="radio" value="',fV,'"'];
-		if(sel)
+		if(sel){
 			fh.push(' checked="checked"');
-		fh.push('"><small>',fLbl,"</small></label>&nbsp;");
+		}
+		fh.push('">',fLbl,"</label>&nbsp;");
 		return fh.join('');
 	},
-	inputHidden:function(fID,fV){
-		return ['<input type="hidden" name="',fID,'" id="',fID,'" value="',fV,'"/>'].join('');
+	inputHidden:function( id, val){
+		return ['<input type="hidden" name="',id,'" id="',id,'" value="',val,'"/>'].join('');
 	},
 	inputOption:function(fID,fV){
-		return ['<option value="',fID,'"/>',fV,'</option>'].join('');
+		return ['<option value="',fID,'">',fV,'</option>'].join('');
 	} 
 	
 }
