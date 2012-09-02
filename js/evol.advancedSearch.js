@@ -1,5 +1,5 @@
 ﻿/*!
- * Evol.StructuredSearch 0.1
+ * evol.advancedSearch 0.1
  *
  * Copyright (c) 2012, Olivier Giulieri 
  *
@@ -43,7 +43,9 @@
 
 		opAnd:" and ",
 		//opOr:" or " 
-	
+		
+		yes:'Yes',
+		no:'No'
 	}
 	
 	var soEqual = 'eq', soStartWith = 'sw', soFinishWith = 'fw', soContain = 'ct';
@@ -134,7 +136,7 @@ $.widget( 'evol.advancedSearch', {
 			that._field=that._getFieldById($(evt.currentTarget).val())
 			var fType=that._field.type;
 			that._setFilterOperator(fType);
-			if(fType=='lov'){
+			if(fType==fieldTypes.lov || fType==fieldTypes.bool){
 				that._setFilterValue(fType);
 			}
 			that._fType = fType;
@@ -240,7 +242,7 @@ $.widget( 'evol.advancedSearch', {
 				value: o.val()
 			} 
 		}  
-		if(this._fType=='lov'){
+		if(this._fType==fieldTypes.lov){
 			var vs=[], ls=[]; 
 			this.element.find('#value').find('input:checked').each(function(){
 				vs.push(this.value);
@@ -253,7 +255,17 @@ $.widget( 'evol.advancedSearch', {
 			filterDef.value = {
 				label: '(' + ls.join(', ') + ')',
 				value: vs.join(',')
-			} 						
+			}					
+		}else if(this._fType==fieldTypes.bool){
+			filterDef.operator = {
+				label: EvolLang.sEquals,
+				value: soEqual
+			}
+			var val=(v.find('#value1').attr('checked')=='checked')?1:0;
+			filterDef.value = {
+				label: (val==1)?EvolLang.yes:EvolLang.no,
+				value: val
+			}					
 		}else{
 			filterDef.value = {
 				label: '"' + v.val() + '"',
@@ -314,14 +326,6 @@ $.widget( 'evol.advancedSearch', {
 
 	_setFilterOperator: function(fType, cond) {
 		var beginSelect = '<select class="evolOperator" id="operator">';
-		function HTMLInputRadio ( fName, fValue, fLabel, selected, id) { 
-			var h=[]
-			h.push('<label for="',id,'"><input id="',id,'" name="',fName,'" value="',fValue);
-			if (selected)
-				h.push(qChecked);
-			h.push('" type="radio">',fLabel,'</label>&nbsp;');
-			return h.join('');
-		} 
 		if(this.state<1){
 			var h=[]; 
 			switch (fType) {
@@ -420,8 +424,8 @@ $.widget( 'evol.advancedSearch', {
 				case fieldTypes.pix:
 				case fieldTypes.doc: 
 					h.push('<span id="value">');
-					h.push(EvoUI.HTMLInputRadio(this.id, '1', EvolLang.yes, false, this.id + '1'));
-					h.push(EvoUI.HTMLInputRadio(this.id, '0', EvolLang.no, false, this.id + '0'));
+					h.push(EvoUI.HTMLInputRadio('value', '1', EvolLang.yes, false, this.id + '1'));
+					h.push(EvoUI.HTMLInputRadio('value', '0', EvolLang.no, false, this.id + '0'));
 					h.push('</span>');
 					break;
 				case fieldTypes.date:
@@ -448,11 +452,17 @@ $.widget( 'evol.advancedSearch', {
 			this.element.find('.editFilter').append(h.join('')); 
 		}
 		if(v){
-			if(fType==fieldTypes.lov){
-				v='#'+v.split(',').join(',#');
-				this.element.find('#value').find(v).attr("checked", "checked");
-			}else{
-				this.element.find('#value').val(v);
+			var p=this.element.find('#value');
+			switch (fType) {
+				case fieldTypes.lov:
+					p.find('#'+v.split(',').join(',#')).attr("checked", "checked");
+					break;
+				case fieldTypes.bool:
+					p.find('#'+this.id+v).attr("checked", "checked");
+					break;				
+				default:
+					p.val(v);
+					break;
 			}
 		}
 		this.element.find('.bAdd').fadeIn(); 
@@ -506,6 +516,14 @@ var EvoUI={
 			sb.push('<option value="',v.v,'">', v.l, '</option>');
 		}
 		return sb.join('');
+	},
+	HTMLInputRadio: function ( fName, fValue, fLabel, selected, id) { 
+		var h=[]
+		h.push('<label for="',id,'"><input id="',id,'" name="',fName,'" value="',fValue);
+		if (selected)
+			h.push(qChecked);
+		h.push('" type="radio">',fLabel,'</label>&nbsp;');
+		return h.join('');
 	},
 		
 	fieldLabel:function(fID,fLbl){
