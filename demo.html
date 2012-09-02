@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml" > 
+<head>
+<title>Advanced Search Demo</title>
+	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
+	<link rel="stylesheet" href="css/demo.css" type="text/css" media="all">
+	<link rel="stylesheet" href="css/evol.advancedSearch.css" type="text/css" media="all">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+
+	<script src="js/evol.advancedSearch.js" type="text/javascript"></script>
+	<script src="js/model-demo1.js" type="text/javascript"></script> 
+</head>
+<body>   
+
+<h1>Advanced Search Demo</h1> 
+
+Theme: <a href="#" class="css">le-frog</a> - 
+<a href="#" class="css">redmond</a> - 
+<a href="#" class="css">start</a> - 
+<a href="#" class="css">ui-darkness</a> - 
+<a href="#" class="css">ui-lightness</a>
+</p>
+
+<div id="evol"></div>
+	 
+<a href="#" id="bVal">Val</a> - <a href="#" id="bTextVal">Text Val</a>
+
+<script> 
+
+    $('.css').click(function(){
+        $('#jquiCSS').attr('href','http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/'+this.innerHTML+'/jquery-ui.css');
+    });
+
+    $('#evol').advancedSearch({fields:contacts }); 
+	
+	$('#bVal').click(function(){
+		var v=$('#evol').advancedSearch("val")
+		alert(JSON.stringify(v))
+	})
+	$('#bTextVal').click(function(){
+		var v=$('#evol').advancedSearch("textVal")
+		alert(v)
+	})
+	
+</script>
+ 
+
+<br />
+
+  
+</body>
+</html>

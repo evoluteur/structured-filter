@@ -1,0 +1,17 @@
+
+body{
+	padding: 10px 20px;
+	font-size: 11pt;
+	font-family: "Century Gothic",arial;	
+	color: #777;
+	font-weight: 300;
+}
+a {
+	color: #39C;
+	font-weight: 400;
+}
+.footer{
+	text-align: center;
+	font-size:smaller;
+	color:Gray;
+}

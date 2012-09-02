@@ -1,0 +1,25 @@
+/*  (c) 2012 Olivier Giulieri  */
+/*  ColorPicker for jQuery UI  */
+
+.structuredSearch{
+	min-height:20px;
+	padding:6px 6px 1px 6px;
+}
+.editFilter select, .editFilter input{
+	margin:1px 6px 6px 1px;
+	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+	font-size: 1.1em; 
+}
+.bPlus, .bAdd, .bDel, .searchFilters a{
+	margin:1px 6px 6px 1px;	
+}
+.lBold{
+	font-weight: bold;
+}
+.lLight{
+	font-weight: normal;
+}
+
+#value input[type="checkbox"] {
+	margin-left:5px;
+}
