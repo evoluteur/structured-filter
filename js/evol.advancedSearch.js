@@ -6,45 +6,25 @@
  * Depends:
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
+ *	jquery.ui.datepicker.js
  */
 
 (function( $, undefined ) {
 
 	var EvolLang={
-		// --- search form dropdown ---
-		sEquals:"Equals",
-		sStart:"Starts with",
-		sContain:"Contains",
-		sFinish:"Finishes with",
-		sInList:"In list",
-		sIsNull:"Is empty",
-		sIsNotNull:"Is not empty",
-		
-		sBefore:"Before",
-		sAfter:"After",		
-		//sDateRangeLast:" in the last ",
-		//sDateRangeNext:" in the next ",
-		//sDateRangeWithin:" within ",
-		//sDateRangeAny:" any time ",
-		//sDateRange:"day|24 hours,week|1 week,month|1 month,year|1 year",
-
-		qEquals:" equals ",
-		qStart:" starts with ",
-		qInList:" in list ",
-		qNot:" not ",
-		qWith:" with ",
-				
-	// --- search result conditions --- 
-		lEquals:" = \"{0}\"", //{0}= FieldValue 
-		lStart:" starts with \"{0}\"", //{0}= FieldValue 
-		lFinish:" finishes with \"{0}\"", //{0}= FieldValue 
-		lContain:" contains \"{0}\"", //{0}= FieldValue 
-		lIsNull:"\"{0}\" is empty", //{0}= FieldValue 
-		lIsNotNull:"\"{0}\" is not empty", //{0}= FieldValue 
-
-		opAnd:" and ",
-		//opOr:" or " 
-		
+		sEquals:'Equals',
+		sStart:'Starts with',
+		sContain:'Contains',
+		sFinish:'Finishes with',
+		sInList:'In list',
+		sIsNull:'Is empty',
+		sIsNotNull:'Is not empty',		
+		sBefore:'Before',
+		sAfter:'After',	
+		sOn:'On',
+		sAt:'At',
+		opAnd:' and ',
+		//opOr:' or ', 
 		yes:'Yes',
 		no:'No'
 	}
@@ -330,22 +310,15 @@ $.widget( 'evol.advancedSearch', {
 					//h.push(EvolLang.sEquals);
 					h.push(EvoUI.inputHidden('operator',soEqual));	
 					break;
-				case 'date':
-	/*
-		h.push("<nobr>", SelectTagBegin, fID, "dir\" style=\"width:50%\"><option value=\"\">");
-		h.push(EvolLang.sDateRangeWithin, "<option value=\"P\">", EvolLang.sDateRangeLast, "<option value=\"F\">", EvolLang.sDateRangeNext, "</select>");
-		h.push(SelectTagBegin, fID, "\" style=\"width:50%\"><option value=\"\">", EvolLang.sDateRangeAny);
-		h.push(EvoUI.HTMLlovEnum(EvolLang.sDateRange, String.Empty, 0, false), "</select></nobr>");
-	*/			
-					break;
 				default: 
 					h.push('<select class="evolOperator" id="operator">'); 
+					h.push('<option value=""></option>');
 					switch (fType) {
 						case fieldTypes.date:
 						case fieldTypes.datetime:
 						case fieldTypes.time: 
 							if (fType==fieldTypes.time){
-								h.push(EvoUI.inputOption(soEqual, EvolLang.cAt));
+								h.push(EvoUI.inputOption(soEqual, EvolLang.sAt));
 							}else{
 								h.push(EvoUI.inputOption(soEqual, EvolLang.sOn));
 							}
@@ -357,7 +330,6 @@ $.widget( 'evol.advancedSearch', {
 	//						h.push('_c">', EvoUI.inputOption(soEqual, "&#61;"), EvoUI.inputOption(soGreaterThan, "&#62;", true), EvoUI.inputOption(soSmallerThan, "&#60;"));
 	//						break;
 						default:
-							h.push('<option value=""></option>');
 							h.push(EvoUI.inputOption(soEqual, EvolLang.sEquals));
 							h.push(EvoUI.inputOption(soStartWith, EvolLang.sStart));
 							h.push(EvoUI.inputOption(soContain, EvolLang.sContain));
@@ -418,9 +390,9 @@ $.widget( 'evol.advancedSearch', {
 					h.push('</span>');
 					break;
 				case fieldTypes.date:
-				case fieldTypes.datetime:
-				case fieldTypes.time:
-					h.push('date field'); 
+				//case fieldTypes.datetime:
+				//case fieldTypes.time:
+					h.push('<input class="" type="text" id="value"/>');
 					break;
 	//					//Case fieldTypes.integer
 	//					case fieldTypes.pix:
@@ -439,6 +411,9 @@ $.widget( 'evol.advancedSearch', {
 					break;
 			}
 			this.element.find('.editFilter').append(h.join('')); 
+			if(fType==fieldTypes.date){
+				this.element.find('#value').datepicker();
+			}
 		}
 		if(v){
 			var p=this.element.find('#value');
