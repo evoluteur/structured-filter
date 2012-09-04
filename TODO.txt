@@ -1,0 +1,2 @@
+index for position in addfilter
+event delegate like in colorpicker

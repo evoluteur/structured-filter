@@ -86,9 +86,8 @@ $.widget( 'evol.advancedSearch', {
 				text: false,
 				icons: {secondary:'ui-icon-check'}
 			}).on('click', function(evt){
-				var idx=that._fMaxId++; 
 				that._step=0;  
-				that._addFilter( idx, that._htmlFilter(idx, that._jsonFilterDef( idx)));
+				that.addFilter( that._jsonFilterDef());
 				that._removeFilterEditor();
 				//that.trigger('filteradd');
 			});
@@ -121,25 +120,6 @@ $.widget( 'evol.advancedSearch', {
 				}
 				that._setFilterValue(that._fType);
 			});
-		
-		// TEST BEGIN - to be removed
-		var filterDef = {
-			field:{
-				label: 'Lastname',
-				value: 'Lastname'
-			},
-			operator:{
-				label: 'start w/',
-				value: 'sw'
-			}, 
-			value:{
-				label: 'Abc',
-				value: 'Abc'
-			}
-		} 
-		var idx=this._fMaxId++;
-		that._addFilter( idx, that._htmlFilter(idx, filterDef));
-		// TEST END 
     },
 	
 	_getFieldById: function(fId) {
@@ -164,15 +144,15 @@ $.widget( 'evol.advancedSearch', {
 		//this.trigger('filterremove');		
 	},
 	
-	_addFilter: function(idx, html) { 
-		var that=this;
+	addFilter: function(filterData) {
+		var idx=this._fMaxId++,
+			html=this._htmlFilter(idx, filterData)
 		if(this._cFilterTag){
 			this._cFilterTag.button('enable').removeClass('ui-state-hover');
 			this._enableFilterTag(html);
 		}else{
-			this._fMaxId++;
-			this.element.find('div:first').prepend(['<a id="filter-',idx,'" data-type="',this._fType,'">',html,'</a>'].join(''))
-			this.element.find('#filter-'+idx)
+			var that=this;
+			$(['<a data-type="',this._fType,'">',html,'</a>'].join('')).prependTo(this.element.find('div:first'))
 				.button({
 					icons: { secondary: "ui-icon-close" }
 				})
@@ -198,9 +178,15 @@ $.widget( 'evol.advancedSearch', {
 					}
 				})
 		}
-    }, 
+		return this;
+    },
 
-	_jsonFilterDef: function( idx) {
+	removeFilter: function(index){
+		this.element.find('div:first').children().eq(index).remove();
+		return this;
+	},
+
+	_jsonFilterDef: function() {
 		var e=this.element.find('.editFilter'),
 			f=e.find('#field'),
 			o=e.find('#operator'),
@@ -411,9 +397,8 @@ $.widget( 'evol.advancedSearch', {
 		var v=[];
 		this.element.find('div:first a').each(function(){
 			var $this=$(this),
-				vf={};
-			vf.label=this.innerText;
-			var w=$this.find('input:first');
+				vf={label:this.innerText},
+				w=$this.find('input:first');
 			vf.field=w.val();
 			w=w.next();
 			vf.operator=w.val();
@@ -433,8 +418,13 @@ $.widget( 'evol.advancedSearch', {
     },
 	
     destroy: function() {
-        this.element.empty()
-			.removeClass('structuredSearch ui-widget-content ui-corner-all');
+		var e=this.element;
+		e.find('.bPlus').off('click');
+		e.find('.bAdd').off('click');
+		e.find('.bDel').off('click');
+		//e.find('#field').die('change');
+		//e.find('#operator').die('change');
+		e.empty().removeClass('structuredSearch ui-widget-content ui-corner-all');
         $.Widget.prototype.destroy.call(this);
     }
 

@@ -25,6 +25,7 @@
 <div id="evol"></div>
 	 
 <p>Tests: 
+<a href="#" id="addFilter">Add Filter</a> - <a href="#" id="delFilter">Remove First Filter</a>
 <a href="#" id="bVal">Val</a> - 
 <a href="#" id="bTextVal">Text Val</a>
 </p>
@@ -44,6 +45,26 @@
 	$('#bTextVal').click(function(){
 		var v=$('#evol').advancedSearch("textVal")
 		alert(v)
+	})
+	$('#addFilter').click(function(){
+		var filterDef = {
+			field:{
+				label: 'Lastname',
+				value: 'Lastname'
+			},
+			operator:{
+				label: 'start w/',
+				value: 'sw'
+			}, 
+			value:{
+				label: '"abc"',
+				value: 'abc'
+			}
+		}
+		var v=$('#evol').advancedSearch("addFilter", filterDef);		
+	})
+	$('#delFilter').click(function(){
+		$('#evol').advancedSearch("removeFilter", 0);		
 	})
 	
 </script>
