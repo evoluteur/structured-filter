@@ -393,20 +393,28 @@ $.widget( 'evol.advancedSearch', {
 		this._step=3;
     }, 
 
-	val: function() {
-		var v=[];
-		this.element.find('div:first a').each(function(){
-			var $this=$(this),
-				vf={label:this.innerText},
-				w=$this.find('input:first');
-			vf.field=w.val();
-			w=w.next();
-			vf.operator=w.val();
-			w=w.next();
-			vf.value=w.val();
-			v.push(vf);			
-		})
-        return v;
+	val: function(value) {
+		if (typeof value=='undefined') {
+			var v=[];
+			this.element.find('div:first a').each(function(){
+				var $this=$(this),
+					vf={label:this.innerText},
+					w=$this.find('input:first');
+				vf.field=w.val();
+				w=w.next();
+				vf.operator=w.val();
+				w=w.next();
+				vf.value=w.val();
+				v.push(vf);			
+			})
+			return v;
+		}else{
+			this.element.find('div:first').empty();
+			for(var i=0,iMax=value.length;i<iMax;i++){
+				this.addFilter(value[i]);
+			}
+			return this;
+		}
     },
 	
 	textVal: function() {
@@ -414,7 +422,7 @@ $.widget( 'evol.advancedSearch', {
 		this.element.find('div:first a').each(function(){ 
 			v.push(this.innerText);
 		})
-        return v.join(EvolLang.opAnd);
+		return v.join(EvolLang.opAnd);
     },
 	
     destroy: function() {
