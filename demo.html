@@ -26,8 +26,10 @@
 	 
 <p>Tests: 
 <a href="#" id="addFilter">Add Filter</a> - <a href="#" id="delFilter">Remove First Filter</a>
+<br/>Value: 
 <a href="#" id="bVal">Val</a> - 
-<a href="#" id="bTextVal">Text Val</a>
+<a href="#" id="bValText">Text Val</a> - 
+<a href="#" id="bValUrl">URL Val</a>
 </p>
 
 <script> 
@@ -42,8 +44,12 @@
 		var v=$('#evol').advancedSearch("val")
 		alert(JSON.stringify(v))
 	})
-	$('#bTextVal').click(function(){
-		var v=$('#evol').advancedSearch("textVal")
+	$('#bValText').click(function(){
+		var v=$('#evol').advancedSearch("valText")
+		alert(v)
+	})
+	$('#bValUrl').click(function(){
+		var v=$('#evol').advancedSearch("valUrl")
 		alert(v)
 	})
 	$('#addFilter').click(function(){
@@ -70,7 +76,7 @@
 </script>
  
 
-<p><br/>evol.advancedSearch on GitHub: <a href="https://github.com/evoluteur/advancedSearch" target="download">https://github.com/evoluteur/advancedSearch</a></p>
+<p><br/>See on GitHub: <a href="https://github.com/evoluteur/advancedSearch" target="download">https://github.com/evoluteur/advancedSearch</a></p>
 
 <br/><br/>
 <div class="footer">© 2012 Olivier Giulieri</div> 

@@ -39,8 +39,8 @@
 		sInList:'in',
 		sIsNull:'null',
 		sIsNotNull:'nn',
-		sGreaterThan:'gt',
-		sSmallerThan:'st'
+		sGreater:'gt',
+		sSmaller:'st'
 	},
 	fieldTypes={ 
 		text:'text',
@@ -57,9 +57,9 @@
 $.widget( 'evol.advancedSearch', {
 
     options: {
-        fields: [] 
+        fields: []
     },
-	
+
     _create: function() {
 		var h=[],
 			that=this,
@@ -68,7 +68,8 @@ $.widget( 'evol.advancedSearch', {
 		this._step=0;
 		this._fMaxId=0;
 		h.push('<div class="searchFilters"></div>');
-		h.push('<a class="bPlus" href="javascript:void(0)">New filter</a><span class="editFilter"></span>');
+		h.push('<a class="bPlus" href="javascript:void(0)">New filter</a>');
+		h.push('<span class="editFilter"></span>');
 		h.push('<a class="bAdd" style="display:none;" href="javascript:void(0)">Add condition</a>');
 		h.push('<a class="bDel" style="display:none;" href="javascript:void(0)">Cancel</a>');
 		e.addClass('structuredSearch ui-widget-content ui-corner-all')
@@ -87,9 +88,8 @@ $.widget( 'evol.advancedSearch', {
 				icons: {secondary:'ui-icon-check'}
 			}).on('click', function(evt){
 				that._step=0;  
-				that.addFilter( that._jsonFilterDef());
+				that.addFilter( that._jsonFilter());
 				that._removeFilterEditor();
-				//that.trigger('filteradd');
 			});
 		e.find('.bDel').button({
 				text: false,
@@ -121,7 +121,7 @@ $.widget( 'evol.advancedSearch', {
 				that._setFilterValue(that._fType);
 			});
     },
-	
+
 	_getFieldById: function(fId) {
 		var fields=this.options.fields;
 		for (var i=0,iMax=fields.length;i<iMax;i++){
@@ -131,43 +131,43 @@ $.widget( 'evol.advancedSearch', {
 		}
 		return null;
 	},
-	
+
 	_removeFilterEditor: function() {
 		var p=this.element.find('.editFilter').empty().parent();
 		p.find('.bAdd,.bDel').hide();
-		p.find('.bPlus').fadeIn();	
+		p.find('.bPlus').fadeIn();
 		this._step=0; 
-		if(this._cFilterTag){
-			this._cFilterTag.button('enable').removeClass('ui-state-hover');
-			this._cFilterTag=null;
+		if(this._cFilter){
+			this._cFilter.button('enable').removeClass('ui-state-hover');
+			this._cFilter=null;
 		}
-		//this.trigger('filterremove');		
 	},
-	
+
 	addFilter: function(filterData) {
 		var idx=this._fMaxId++,
 			html=this._htmlFilter(idx, filterData)
-		if(this._cFilterTag){
-			this._cFilterTag.button('enable').removeClass('ui-state-hover');
+		if(this._cFilter){
+			this._cFilter.button('enable').removeClass('ui-state-hover');
 			this._enableFilterTag(html);
 		}else{
 			var that=this;
-			$(['<a data-type="',this._fType,'">',html,'</a>'].join('')).prependTo(this.element.find('div:first'))
+			$(['<a data-type="',this._fType,'">',html,'</a>'].join(''))
+				.prependTo(this.element.find('div:first'))
 				.button({
-					icons: { secondary: "ui-icon-close" }
+					icons: {secondary:"ui-icon-close"}
 				})
-				.click(function(e){ 
+				.click(function(e){
 					var $this=$(this),
 						efs=$this.find('input[type="hidden"]');
-					if(that._cFilterTag){
+					if(that._cFilter){
 						that._enableFilterTag();
 					}
 					that._removeFilterEditor();
-					that._cFilterTag=$this;
+					that._cFilter=$this;
 					that._showFilter(efs[0].value, efs[1].value, efs[2].value);
 					$this.button('disable');
 				})
-				.fadeIn() 
+				.fadeIn()
 				.find('.ui-button-icon-secondary').click(function(e){
 					e.stopPropagation();
 					var filter=$(this).parent();
@@ -186,7 +186,7 @@ $.widget( 'evol.advancedSearch', {
 		return this;
 	},
 
-	_jsonFilterDef: function() {
+	_jsonFilter: function() {
 		var e=this.element.find('.editFilter'),
 			f=e.find('#field'),
 			o=e.find('#operator'),
@@ -226,30 +226,30 @@ $.widget( 'evol.advancedSearch', {
 				filterData.value.value=v.val();
 			}
 		} 
-		return filterData;  
+		return filterData;
     },
-	
+
 	_htmlFilter: function( idx, filterData) {
 		return [
-			'<span class="lBold">', filterData.field.label,'</span> ', 
-			'<span class="lLight">', filterData.operator.label.toLowerCase(),'</span> ', 
+			'<span class="lBold">', filterData.field.label,'</span> ',
+			'<span class="lLight">', filterData.operator.label.toLowerCase(),'</span> ',
 			' <span class="lBold">', filterData.value.label, '</span>',
 			EvoUI.inputHidden('f-'+idx, filterData.field.value),
 			EvoUI.inputHidden('o-'+idx, filterData.operator.value),
 			EvoUI.inputHidden('v-'+idx, filterData.value.value)
 		].join('');
     },	
-	
+
 	_enableFilterTag: function(html) {
-		if(this._cFilterTag){
+		if(this._cFilter){
 			if(html){
-				this._cFilterTag.find(':first-child').html(html);
+				this._cFilter.find(':first-child').html(html);
 			}
-			this._cFilterTag.button('enable').removeClass('ui-state-hover');
-			this._cFilterTag=null;
+			this._cFilter.button('enable').removeClass('ui-state-hover');
+			this._cFilter=null;
 		}
     },
-	
+
 	_showFilter: function( f, o, v) {
 		var fType = this._getFieldById(f).type;
 	    this._setFilterField(f);
@@ -257,20 +257,20 @@ $.widget( 'evol.advancedSearch', {
         this._setFilterValue(fType, v);
         this._step=3;
 	},
-	
+
 	_setFilterField: function(fid) {
 		if(this._step<1){
 			var fields=this.options.fields,
 				h=[];
-			h.push('<select class="evolField" id="field"><option value=""></option>'); 
+			h.push('<select id="field"><option value=""></option>'); 
 			for (var i=0,iMax=fields.length;i<iMax;i++){
 				var f=fields[i];
 				h.push('<option value="',f.id,'">',f.label,'</option>');
 			}
-			h.push('</select>'); 
+			h.push('</select>');
 			var p=this.element.find('.editFilter').append(h.join('')).parent();
 			p.find('.bPlus').hide();
-			p.find('.bDel').fadeIn();	
+			p.find('.bDel').fadeIn();
 		}
 		if(fid){
 			this._field=this._getFieldById(fid);
@@ -283,54 +283,44 @@ $.widget( 'evol.advancedSearch', {
 		if(this._step<2){
 			var h=[]; 
 			switch (fType) {
-				case fieldTypes.lov: 
+				case fieldTypes.lov:
 					//h.push(EvolLang.sInList);
-					h.push(EvoUI.inputHidden('operator',APIstr.sInList));	
+					h.push(EvoUI.inputHidden('operator',APIstr.sInList));
 					break;
 				case fieldTypes.bool:
 					//h.push(EvolLang.sEquals);
-					h.push(EvoUI.inputHidden('operator',APIstr.sEqual));	
+					h.push(EvoUI.inputHidden('operator',APIstr.sEqual));
 					break;
 				default: 
-					h.push('<select id="operator">'); 
+					h.push('<select id="operator">');
 					h.push('<option value=""></option>');
 					switch (fType) {
 						case fieldTypes.date:
 						case fieldTypes.datetime:
-						case fieldTypes.time: 
+						case fieldTypes.time:
 							if (fType==fieldTypes.time){
 								h.push(EvoUI.inputOption(APIstr.sEqual, EvolLang.sAt));
 							}else{
 								h.push(EvoUI.inputOption(APIstr.sEqual, EvolLang.sOn));
 							}
-							h.push(EvoUI.inputOption(APIstr.sGreaterThan, EvolLang.sAfter))
-							h.push(EvoUI.inputOption(APIstr.sSmallerThan, EvolLang.sBefore));
-							if (this.required!='1'){
-								h.push(EvoUI.inputOption(APIstr.sIsNull, EvolLang.sIsNull));
-								h.push(EvoUI.inputOption(APIstr.sIsNotNull, EvolLang.sIsNotNull));
-							}
+							h.push(EvoUI.inputOption(APIstr.sGreater, EvolLang.sAfter))
+							h.push(EvoUI.inputOption(APIstr.sSmaller, EvolLang.sBefore));
 							break;
 						case fieldTypes.dec:
-						case fieldTypes.integer:	
+						case fieldTypes.integer:
 							h.push(EvoUI.inputOption(APIstr.sEqual, EvolLang.sNumEqual));
-							h.push(EvoUI.inputOption(APIstr.sGreaterThan, EvolLang.sNumGreater));
-							h.push(EvoUI.inputOption(APIstr.sSmallerThan, EvolLang.sNumSmaller));
-							if (this.required!='1'){
-								h.push(EvoUI.inputOption(APIstr.sIsNull, EvolLang.sIsNull));
-								h.push(EvoUI.inputOption(APIstr.sIsNotNull, EvolLang.sIsNotNull));
-							}
+							h.push(EvoUI.inputOption(APIstr.sGreater, EvolLang.sNumGreater));
+							h.push(EvoUI.inputOption(APIstr.sSmaller, EvolLang.sNumSmaller));
 							break;
 						default:
 							h.push(EvoUI.inputOption(APIstr.sEqual, EvolLang.sEquals));
 							h.push(EvoUI.inputOption(APIstr.sStart, EvolLang.sStart));
 							h.push(EvoUI.inputOption(APIstr.sContain, EvolLang.sContain));
 							h.push(EvoUI.inputOption(APIstr.sFinish, EvolLang.sFinish)); 
-							if (this.required!='1'){
-								h.push(EvoUI.inputOption(APIstr.sIsNull, EvolLang.sIsNull));
-								h.push(EvoUI.inputOption(APIstr.sIsNotNull, EvolLang.sIsNotNull));
-							}
 							break;
 					}
+					h.push(EvoUI.inputOption(APIstr.sIsNull, EvolLang.sIsNull));
+					h.push(EvoUI.inputOption(APIstr.sIsNotNull, EvolLang.sIsNotNull));
 					h.push("</select>");
 					break;
 			} 
@@ -341,13 +331,13 @@ $.widget( 'evol.advancedSearch', {
 		}
 		this._step=2;
     },
-		
+
 	_setFilterValue: function( fType, v) {
 		var editor=this.element.find('.editFilter'),
 			opVal=this.element.find('#operator').val();
 		if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
 			editor.append(EvoUI.inputHidden('value',''));
-		}else{		
+		}else{
 			if(this._step<3){
 				var h=[];
 				switch (fType) {
@@ -382,7 +372,7 @@ $.widget( 'evol.advancedSearch', {
 						break;
 					case fieldTypes.bool:
 						p.find('#value'+v).attr("checked", "checked");
-						break;				
+						break;
 					default:
 						p.val(v);
 						break;
@@ -391,7 +381,7 @@ $.widget( 'evol.advancedSearch', {
 		}
 		this.element.find('.bAdd').fadeIn(); 
 		this._step=3;
-    }, 
+    },
 
 	val: function(value) {
 		if (typeof value=='undefined') {
@@ -416,15 +406,30 @@ $.widget( 'evol.advancedSearch', {
 			return this;
 		}
     },
-	
-	textVal: function() {
+
+	valText: function() {
 		var v=[];
 		this.element.find('div:first a').each(function(){ 
 			v.push(this.innerText);
 		})
 		return v.join(EvolLang.opAnd);
     },
-	
+
+	valUrl: function() {
+		var vs=this.val(),
+			iMax=vs.length,
+			url=['elem=',iMax];
+		for(var i=0;i<iMax;i++){
+			var v=vs[i];
+			url.push(
+				'&field-',i,'=',v.field,
+				'&operator-',i,'=',v.operator,
+				'&value-',i,'=',encodeURIComponent(v.value)
+			);
+		}
+		return url.join('');
+    },
+
     destroy: function() {
 		var e=this.element;
 		e.find('.bPlus').off('click');
@@ -442,7 +447,7 @@ $.widget( 'evol.advancedSearch', {
 var EvoUI={
 
 	inputText:function(fID,fV){
-		return ['<input type="text" name="',fID,'" id="',fID,'" value="',fV,'" class="Field">'].join('');
+		return ['<input type="text" name="',fID,'" id="',fID,'" value="',fV,'">'].join('');
 	},
 	inputTextInt:function(fID,fV,fT,max,min){
 		return ['<input type="text" name="',fID,'" id="',fID,'" value="',fV,
@@ -450,8 +455,9 @@ var EvoUI={
 	},
 	inputCheckbox:function(fID,fV){
 		var fh=['<input type="checkbox" id="',fID,'"'];
-		if(fV!=null&&fV!=''&&fV!='0')
+		if(fV!=null&&fV!=''&&fV!='0'){
 			fh.push(' checked');
+		}
 		fh.push(' value="1">');
 		return fh.join("");
 	},
@@ -476,10 +482,10 @@ var EvoUI={
 			fh.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'">');
 			fh.push('<label for="',lv.id,'">',lv.label,'</label> ');
 		} 	
-		fh.push('</span>');		
+		fh.push('</span>');
 		return fh.join('');
 	}
-	
+
 }
 
 })(jQuery);
