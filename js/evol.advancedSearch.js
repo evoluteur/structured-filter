@@ -74,6 +74,7 @@ $.widget( 'evol.advancedSearch', {
 		h.push('<a class="bDel" style="display:none;" href="javascript:void(0)">Cancel</a>');
 		e.addClass('structuredSearch ui-widget-content ui-corner-all')
 		    .html(h.join(''));
+		this._editSpan=e.find('.editFilter');
 		e.find('.bPlus').button({
 				text: false,
 				icons: {secondary:'ui-icon-plusthick'}
@@ -87,7 +88,6 @@ $.widget( 'evol.advancedSearch', {
 				text: false,
 				icons: {secondary:'ui-icon-check'}
 			}).on('click', function(evt){
-				that._step=0;  
 				that.addFilter( that._jsonFilter());
 				that._removeFilterEditor();
 			});
@@ -97,29 +97,46 @@ $.widget( 'evol.advancedSearch', {
 			}).on('click', function(evt){ 
 				that._removeFilterEditor();
 			});
-		e.find('#field').live('change', function(evt){
-				if(that._step>2){
-					e.find('#value').remove();
-				}
-				if(that._step>1){
-					e.find('#operator').remove();
-				}
-				that._step=1;
-				that._field=that._getFieldById($(evt.currentTarget).val())
-				var fType=that._field.type;
-				that._setFilterOperator(fType);
-				if(fType==fieldTypes.lov || fType==fieldTypes.bool){
-					that._setFilterValue(fType);
-				}
-				that._fType=fType;
-			});
-		e.find('#operator').live('change', function(evt){
-				if(that._step>2){
-					e.find('#value').remove();
-					that._step=2;
-				}
-				that._setFilterValue(that._fType);
-			});
+		e.on('change', '#field', function(evt){
+			if(that._step>2){
+				e.find('#value').remove();
+			}
+			if(that._step>1){
+				e.find('#operator').remove();
+			}
+			that._step=1;
+			that._field=that._getFieldById($(evt.currentTarget).val())
+			var fType=that._field.type;
+			that._setFilterOperator(fType);
+			if(fType==fieldTypes.lov || fType==fieldTypes.bool){
+				that._setFilterValue(fType);
+			}
+			that._fType=fType;
+		}).on('change', '#operator', function(evt){
+			if(that._step>2){
+				e.find('#value').remove();
+				that._step=2;
+			}
+			that._setFilterValue(that._fType);
+		}).on('click', '.searchFilters a', function(e){
+			var $this=$(this),
+				efs=$this.find('input[type="hidden"]');
+			if(that._cFilter){
+				that._enableFilterTag();
+			}
+			that._removeFilterEditor();
+			that._cFilter=$this;
+			that._showFilter(efs[0].value, efs[1].value, efs[2].value);
+			$this.button('disable');
+		}).on('click', '.searchFilters a .ui-button-icon-secondary', function(e){
+			e.stopPropagation();
+			var filter=$(this).parent();
+			if(!filter.hasClass('ui-state-disabled')){
+				filter.fadeOut('slow',function() {
+					filter.remove();
+				});
+			}
+		})
     },
 
 	_getFieldById: function(fId) {
@@ -133,50 +150,25 @@ $.widget( 'evol.advancedSearch', {
 	},
 
 	_removeFilterEditor: function() {
-		var p=this.element.find('.editFilter').empty().parent();
+		var p=this._editSpan.empty().parent();
 		p.find('.bAdd,.bDel').hide();
-		p.find('.bPlus').fadeIn();
-		this._step=0; 
-		if(this._cFilter){
-			this._cFilter.button('enable').removeClass('ui-state-hover');
-			this._cFilter=null;
-		}
+		p.find('.bPlus').removeClass('ui-state-active').show().focus();
+		this._step=0;
+		this._enableFilterTag();
 	},
 
 	addFilter: function(filterData) {
-		var idx=this._fMaxId++,
-			html=this._htmlFilter(idx, filterData)
+		var html=this._htmlFilter(this._fMaxId++, filterData)
 		if(this._cFilter){
-			this._cFilter.button('enable').removeClass('ui-state-hover');
 			this._enableFilterTag(html);
 		}else{
 			var that=this;
-			$(['<a data-type="',this._fType,'">',html,'</a>'].join(''))
+			$(['<a href="javascript:void(0)">',html,'</a>'].join(''))
 				.prependTo(this.element.find('div:first'))
 				.button({
 					icons: {secondary:"ui-icon-close"}
 				})
-				.click(function(e){
-					var $this=$(this),
-						efs=$this.find('input[type="hidden"]');
-					if(that._cFilter){
-						that._enableFilterTag();
-					}
-					that._removeFilterEditor();
-					that._cFilter=$this;
-					that._showFilter(efs[0].value, efs[1].value, efs[2].value);
-					$this.button('disable');
-				})
-				.fadeIn()
-				.find('.ui-button-icon-secondary').click(function(e){
-					e.stopPropagation();
-					var filter=$(this).parent();
-					if(!filter.hasClass('ui-state-disabled')){
-						filter.fadeOut('slow',function() {
-							filter.remove();
-						});
-					}
-				})
+				.fadeIn();
 		}
 		return this;
     },
@@ -187,7 +179,7 @@ $.widget( 'evol.advancedSearch', {
 	},
 
 	_jsonFilter: function() {
-		var e=this.element.find('.editFilter'),
+		var e=this._editSpan,
 			f=e.find('#field'),
 			o=e.find('#operator'),
 			v=e.find('#value'),
@@ -245,13 +237,13 @@ $.widget( 'evol.advancedSearch', {
 			if(html){
 				this._cFilter.find(':first-child').html(html);
 			}
-			this._cFilter.button('enable').removeClass('ui-state-hover');
+			this._cFilter.button('enable').removeClass('ui-state-hover ui-state-active');
 			this._cFilter=null;
 		}
     },
 
 	_showFilter: function( f, o, v) {
-		var fType = this._getFieldById(f).type;
+		var fType=this._getFieldById(f).type;
 	    this._setFilterField(f);
         this._setFilterOperator(fType, o);
         this._setFilterValue(fType, v);
@@ -268,12 +260,14 @@ $.widget( 'evol.advancedSearch', {
 				h.push('<option value="',f.id,'">',f.label,'</option>');
 			}
 			h.push('</select>');
-			var p=this.element.find('.editFilter').append(h.join('')).parent();
-			p.find('.bPlus').hide();
+			var p=this._editSpan.append(h.join('')).parent();
+			p.find('.bPlus').stop().hide();
 			p.find('.bDel').fadeIn();
+			p.find('#field').focus();
 		}
 		if(fid){
 			this._field=this._getFieldById(fid);
+			this._fType=this._field.type;
 		    this.element.find('#field').val(fid); 
 		}
 		this._step=1;
@@ -324,7 +318,7 @@ $.widget( 'evol.advancedSearch', {
 					h.push("</select>");
 					break;
 			} 
-			this.element.find('.editFilter').append(h.join(''));
+			this._editSpan.append(h.join(''));
 		}
 		if(cond){
 		    this.element.find('#operator').val(cond); 
@@ -333,7 +327,7 @@ $.widget( 'evol.advancedSearch', {
     },
 
 	_setFilterValue: function( fType, v) {
-		var editor=this.element.find('.editFilter'),
+		var editor=this._editSpan,
 			opVal=this.element.find('#operator').val();
 		if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
 			editor.append(EvoUI.inputHidden('value',''));
@@ -342,7 +336,9 @@ $.widget( 'evol.advancedSearch', {
 				var h=[];
 				switch (fType) {
 					case fieldTypes.lov:
-						h.push(EvoUI.inputLOV('value',this._field.list));
+						h.push('<span id="value">');
+						h.push(EvoUI.inputCheckboxLOV(this._field.list));
+						h.push('</span>');
 						break;
 					case fieldTypes.bool:
 						h.push('<span id="value">');
@@ -352,16 +348,24 @@ $.widget( 'evol.advancedSearch', {
 						break;
 					case fieldTypes.integer:
 					case fieldTypes.dec:
-						h.push('<input class="" type="text" id="value"/>');
+						h.push('<input id="value" class="" type="text">');
 						// h.push("\" OnKeyUp=\"EvoVal.checkNum(this,'", fType.Substring(0, 1), "')\">");
 						break;
 					default:
 						h.push('<input id="value" class="" type="text">');
 						break;
 				}
-				editor.append(h.join('')); 
-				if(fType==fieldTypes.date){
-					editor.find('#value').datepicker();
+				editor.append(h.join(''));
+				if(fType!=fieldTypes.bool){
+					var $value=editor.find('#value');
+					if(fType==fieldTypes.date){
+						$value.datepicker();
+					}
+					$value.on('keyup', function(evt){
+						if (evt.which == 13) {
+							$(this).parent().next().trigger('click');
+						}
+					})
 				}
 			}
 			if(v){
@@ -431,12 +435,8 @@ $.widget( 'evol.advancedSearch', {
     },
 
     destroy: function() {
-		var e=this.element;
-		e.find('.bPlus').off('click');
-		e.find('.bAdd').off('click');
-		e.find('.bDel').off('click');
-		//e.find('#field').die('change');
-		//e.find('#operator').die('change');
+		var e=this.element.off('change click');
+		e.find('.bPlus,.bAdd,.bDel').off('click');
 		e.empty().removeClass('structuredSearch ui-widget-content ui-corner-all');
         $.Widget.prototype.destroy.call(this);
     }
@@ -475,14 +475,13 @@ var EvoUI={
 	inputOption:function(fID,fV){
 		return ['<option value="',fID,'">',fV,'</option>'].join('');
 	},
-	inputLOV:function( fID, fLOV){
-		var fh=['<span id="',fID,'">']; 
+	inputCheckboxLOV:function(fLOV){
+		var fh=[]; 
 		for(var i in fLOV){
 			var lv=fLOV[i];
 			fh.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'">');
 			fh.push('<label for="',lv.id,'">',lv.label,'</label> ');
-		} 	
-		fh.push('</span>');
+		}
 		return fh.join('');
 	}
 
