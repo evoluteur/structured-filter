@@ -88,7 +88,11 @@ $.widget( 'evol.advancedSearch', {
 				text: false,
 				icons: {secondary:'ui-icon-check'}
 			}).on('click', function(evt){
-				that.addFilter( that._jsonFilter());
+				if(that._cFilter){
+					that._enableFilterTag(that._htmlFilter(that._fMaxId++, that._jsonFilter()));
+				}else{
+					that.addFilter( that._jsonFilter());
+				}
 				that._removeFilterEditor();
 			});
 		e.find('.bDel').button({
@@ -158,18 +162,13 @@ $.widget( 'evol.advancedSearch', {
 	},
 
 	addFilter: function(filterData) {
-		var html=this._htmlFilter(this._fMaxId++, filterData)
-		if(this._cFilter){
-			this._enableFilterTag(html);
-		}else{
-			var that=this;
-			$(['<a href="javascript:void(0)">',html,'</a>'].join(''))
-				.prependTo(this.element.find('div:first'))
-				.button({
-					icons: {secondary:"ui-icon-close"}
-				})
-				.fadeIn();
-		}
+		var that=this;
+		$(['<a href="javascript:void(0)">',this._htmlFilter(this._fMaxId++, filterData),'</a>'].join(''))
+			.prependTo(this.element.find('div:first'))
+			.button({
+				icons: {secondary:"ui-icon-close"}
+			})
+			.fadeIn();
 		return this;
     },
 
