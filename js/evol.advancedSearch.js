@@ -109,13 +109,17 @@ $.widget( 'evol.advancedSearch', {
 				e.find('#operator').remove();
 			}
 			that._step=1;
-			that._field=that._getFieldById($(evt.currentTarget).val())
-			var fType=that._field.type;
-			that._setFilterOperator(fType);
-			if(fType==fieldTypes.lov || fType==fieldTypes.bool){
-				that._setFilterValue(fType);
+			var fieldID=$(evt.currentTarget).val();
+			if(fieldID!=''){
+				that._field=that._getFieldById(fieldID)
+				var fType=that._fType=that._field.type;
+				that._setFilterOperator(fType);
+				if(fType==fieldTypes.lov || fType==fieldTypes.bool){
+					that._setFilterValue(fType);
+				}
+			}else{
+				that._field=null;
 			}
-			that._fType=fType;
 		}).on('change', '#operator', function(evt){
 			if(that._step>2){
 				e.find('#value').remove();
@@ -140,7 +144,7 @@ $.widget( 'evol.advancedSearch', {
 					filter.remove();
 				});
 			}
-		})
+		});
     },
 
 	_getFieldById: function(fId) {
@@ -328,62 +332,64 @@ $.widget( 'evol.advancedSearch', {
 	_setFilterValue: function( fType, v) {
 		var editor=this._editSpan,
 			opVal=this.element.find('#operator').val();
-		if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
-			editor.append(EvoUI.inputHidden('value',''));
-		}else{
-			if(this._step<3){
-				var h=[];
-				switch (fType) {
-					case fieldTypes.lov:
-						h.push('<span id="value">');
-						h.push(EvoUI.inputCheckboxLOV(this._field.list));
-						h.push('</span>');
-						break;
-					case fieldTypes.bool:
-						h.push('<span id="value">');
-						h.push(EvoUI.inputRadio('value', '1', EvolLang.yes, false, 'value1'));
-						h.push(EvoUI.inputRadio('value', '0', EvolLang.no, false, 'value0'));
-						h.push('</span>');
-						break;
-					case fieldTypes.integer:
-					case fieldTypes.dec:
-						h.push('<input id="value" class="" type="text">');
-						// h.push("\" OnKeyUp=\"EvoVal.checkNum(this,'", fType.Substring(0, 1), "')\">");
-						break;
-					default:
-						h.push('<input id="value" class="" type="text">');
-						break;
-				}
-				editor.append(h.join(''));
-				if(fType!=fieldTypes.bool){
-					var $value=editor.find('#value');
-					if(fType==fieldTypes.date){
-						$value.datepicker();
+		if(opVal!=''){
+			if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
+				editor.append(EvoUI.inputHidden('value',''));
+			}else{
+				if(this._step<3){
+					var h=[];
+					switch (fType) {
+						case fieldTypes.lov:
+							h.push('<span id="value">');
+							h.push(EvoUI.inputCheckboxLOV(this._field.list));
+							h.push('</span>');
+							break;
+						case fieldTypes.bool:
+							h.push('<span id="value">');
+							h.push(EvoUI.inputRadio('value', '1', EvolLang.yes, false, 'value1'));
+							h.push(EvoUI.inputRadio('value', '0', EvolLang.no, false, 'value0'));
+							h.push('</span>');
+							break;
+						case fieldTypes.integer:
+						case fieldTypes.dec:
+							h.push('<input id="value" class="" type="text">');
+							// h.push("\" OnKeyUp=\"EvoVal.checkNum(this,'", fType.Substring(0, 1), "')\">");
+							break;
+						default:
+							h.push('<input id="value" class="" type="text">');
+							break;
 					}
-					$value.on('keyup', function(evt){
-						if (evt.which == 13) {
-							$(this).parent().next().trigger('click');
+					editor.append(h.join(''));
+					if(fType!=fieldTypes.bool){
+						var $value=editor.find('#value');
+						if(fType==fieldTypes.date){
+							$value.datepicker();
 						}
-					})
+						$value.on('keyup', function(evt){
+							if (evt.which == 13) {
+								$(this).parent().next().trigger('click');
+							}
+						})
+					}
+				}
+				if(v){
+					var p=editor.find('#value');
+					switch (fType) {
+						case fieldTypes.lov:
+							p.find('#'+v.split(',').join(',#')).attr("checked", "checked");
+							break;
+						case fieldTypes.bool:
+							p.find('#value'+v).attr("checked", "checked");
+							break;
+						default:
+							p.val(v);
+							break;
+					}
 				}
 			}
-			if(v){
-				var p=editor.find('#value');
-				switch (fType) {
-					case fieldTypes.lov:
-						p.find('#'+v.split(',').join(',#')).attr("checked", "checked");
-						break;
-					case fieldTypes.bool:
-						p.find('#value'+v).attr("checked", "checked");
-						break;
-					default:
-						p.val(v);
-						break;
-				}
-			}
+			this.element.find('.bAdd').fadeIn(); 
+			this._step=3;
 		}
-		this.element.find('.bAdd').fadeIn(); 
-		this._step=3;
     },
 
 	val: function(value) {
