@@ -143,6 +143,14 @@ $.widget( 'evol.advancedSearch', {
 					filter.remove();
 				});
 			}
+		}).on('click', '#checkAll', function(e){
+			var vc=$(this).attr('checked'),
+				allChecks=$(this).parent().children();
+			if(vc=='checked'){
+				allChecks.attr('checked',vc);
+			}else{
+				allChecks.removeAttr('checked');
+			}			
 		});
     },
 
@@ -195,7 +203,7 @@ $.widget( 'evol.advancedSearch', {
 			};
 		if(this._fType==fieldTypes.lov){
 			var vs=[], ls=[]; 
-			v.find('input:checked').each(function(){
+			v.find('input:checked').not('#checkAll').each(function(){
 				vs.push(this.value);
 				ls.push(this.nextSibling.innerHTML);
 			});
@@ -345,6 +353,10 @@ $.widget( 'evol.advancedSearch', {
 					switch (fType) {
 						case fieldTypes.lov:
 							h.push('<span id="value">');
+							if(this._field.list.length>7){
+								h.push('(<input type="checkbox" id="checkAll" value="1">');
+								h.push('<label for="checkAll">All</label>) ');
+							}
 							h.push(EvoUI.inputCheckboxLOV(this._field.list));
 							h.push('</span>');
 							break;
