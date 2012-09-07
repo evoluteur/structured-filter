@@ -456,6 +456,13 @@ $.widget( 'evol.advancedSearch', {
 		return url.join('');
     },
 
+	empty: function() {
+		this._cFilter=null;
+		this._removeFilterEditor();
+		this.element.find('div:first a');
+		return this;
+    },
+
     destroy: function() {
 		var e=this.element.off('change click');
 		e.find('.bPlus,.bAdd,.bDel').off('click');
