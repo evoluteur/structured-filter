@@ -1,7 +1,8 @@
 var contacts=[
 	{ type:"text", id:"Lastname", label:"Lastname", required:"1"},
 	{ type:"text", id:"Firstname", label:"Firstname"},
-	{ type:"boolean", id:"active", label:"Is active"},		   
+	{ type:"boolean", id:"active", label:"Is active"},	
+	{ type:"number", id:"age", label:"Age"},		   
 	{type:"lov", id:"CategoryID", label:"Category",
 		list:[
 			{id:'1',label:"Friends"},
@@ -70,7 +71,7 @@ var contacts=[
 			{id:"WY", label:"Wyoming"} 
 		]
 	},
-	{type:"integer", id:"Zip", label:"Zip"},
+	{type:"text", id:"Zip", label:"Zip"},
 	{type:"lov", id:"Country", label:"Country",
 		list:[ 
 			{label: 'Afghanistan', id: 'AF'}, 

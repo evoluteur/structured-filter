@@ -1,14 +1,9 @@
 /*  (c) 2012 Olivier Giulieri  */
-/*  ColorPicker for jQuery UI  */
+/*  Advanced Search for jQuery UI  */
 
-.structuredSearch{
+.advSearch{
 	min-height:20px;
-	padding:6px 6px 1px 6px;
-}
-.editFilter select, .editFilter input{
-	margin:1px 6px 6px 1px;
-	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
-	font-size: 1.1em; 
+	padding:6px 1px 1px 6px;
 }
 .bPlus, .bAdd, .bDel, .searchFilters a{
 	margin:1px 6px 6px 1px;	
@@ -20,6 +15,16 @@
 	font-weight: normal;
 }
 
+.editFilter select, .editFilter input{
+	margin:1px 6px 6px 1px;
+	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+	font-size: 1.1em; 
+}
 #value input[type="checkbox"] {
 	margin-left:5px;
 }
+
+input[type="number"]#value {
+	width:7em;
+}
+

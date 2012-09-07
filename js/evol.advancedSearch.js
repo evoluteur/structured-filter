@@ -13,6 +13,7 @@
 
 	var EvolLang={
 		sEquals:'Equals',
+		//sNotEquals:'Not equals',
 		sStart:'Starts with',
 		sContain:'Contains',
 		sFinish:'Finishes with',
@@ -26,6 +27,7 @@
 		sNumSmaller:'&#60;',
 		sOn:'On',
 		sAt:'At',
+		//sBetween:'Between',
 		opAnd:' and ',
 		//opOr:' or ', 
 		yes:'Yes',
@@ -45,8 +47,7 @@
 	fieldTypes={ 
 		text:'text',
 		bool:'boolean',
-		dec:'decimal',
-		integer:'integer',
+		number:'number',
 		date:'date',
 		//time:'time',
 		//datetime:'datetime',
@@ -61,19 +62,17 @@ $.widget( 'evol.advancedSearch', {
     },
 
     _create: function() {
-		var h=[],
-			that=this,
-			opts=this.options,
+		var that=this,
 			e=this.element;
 		this._step=0;
 		this._fMaxId=0;
-		h.push('<div class="searchFilters"></div>');
-		h.push('<a class="bPlus" href="javascript:void(0)">New filter</a>');
-		h.push('<span class="editFilter"></span>');
-		h.push('<a class="bAdd" style="display:none;" href="javascript:void(0)">Add condition</a>');
-		h.push('<a class="bDel" style="display:none;" href="javascript:void(0)">Cancel</a>');
-		e.addClass('structuredSearch ui-widget-content ui-corner-all')
-		    .html(h.join(''));
+		e.addClass('advSearch ui-widget-content ui-corner-all')
+		    .html(['<div class="searchFilters"></div>',
+				'<a class="bPlus" href="javascript:void(0)">New filter</a>',
+				'<span class="editFilter"></span>',
+				'<a class="bAdd" style="display:none;" href="javascript:void(0)">Add condition</a>',
+				'<a class="bDel" style="display:none;" href="javascript:void(0)">Cancel</a>'].join('')
+			);
 		this._editSpan=e.find('.editFilter');
 		e.find('.bPlus').button({
 				text: false,
@@ -196,7 +195,7 @@ $.widget( 'evol.advancedSearch', {
 			};
 		if(this._fType==fieldTypes.lov){
 			var vs=[], ls=[]; 
-			this.element.find('#value').find('input:checked').each(function(){
+			v.find('input:checked').each(function(){
 				vs.push(this.value);
 				ls.push(this.nextSibling.innerHTML);
 			});
@@ -217,7 +216,11 @@ $.widget( 'evol.advancedSearch', {
 			if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
 				filterData.value.label=filterData.value.value='';
 			}else{
-				filterData.value.label='"' + v.val() + '"';
+				if(this._fType==fieldTypes.number){
+					filterData.value.label=v.val();
+				}else{
+					filterData.value.label='"'+v.val()+'"';
+				}
 				filterData.value.value=v.val();
 			}
 		} 
@@ -303,17 +306,18 @@ $.widget( 'evol.advancedSearch', {
 							h.push(EvoUI.inputOption(APIstr.sGreater, EvolLang.sAfter))
 							h.push(EvoUI.inputOption(APIstr.sSmaller, EvolLang.sBefore));
 							break;
-						case fieldTypes.dec:
-						case fieldTypes.integer:
-							h.push(EvoUI.inputOption(APIstr.sEqual, EvolLang.sNumEqual));
-							h.push(EvoUI.inputOption(APIstr.sGreater, EvolLang.sNumGreater));
-							h.push(EvoUI.inputOption(APIstr.sSmaller, EvolLang.sNumSmaller));
+						case fieldTypes.number:
+							h.push(EvoUI.inputOption(APIstr.sEqual, EvolLang.sNumEqual),
+								EvoUI.inputOption(APIstr.sGreater, EvolLang.sNumGreater),
+								EvoUI.inputOption(APIstr.sSmaller, EvolLang.sNumSmaller)
+							);
 							break;
 						default:
-							h.push(EvoUI.inputOption(APIstr.sEqual, EvolLang.sEquals));
-							h.push(EvoUI.inputOption(APIstr.sStart, EvolLang.sStart));
-							h.push(EvoUI.inputOption(APIstr.sContain, EvolLang.sContain));
-							h.push(EvoUI.inputOption(APIstr.sFinish, EvolLang.sFinish)); 
+							h.push(EvoUI.inputOption(APIstr.sEqual, EvolLang.sEquals),
+								EvoUI.inputOption(APIstr.sStart, EvolLang.sStart),
+								EvoUI.inputOption(APIstr.sContain, EvolLang.sContain),
+								EvoUI.inputOption(APIstr.sFinish, EvolLang.sFinish)
+							); 
 							break;
 					}
 					h.push(EvoUI.inputOption(APIstr.sIsNull, EvolLang.sIsNull));
@@ -331,7 +335,7 @@ $.widget( 'evol.advancedSearch', {
 
 	_setFilterValue: function( fType, v) {
 		var editor=this._editSpan,
-			opVal=this.element.find('#operator').val();
+			opVal=editor.find('#operator').val();
 		if(opVal!=''){
 			if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
 				editor.append(EvoUI.inputHidden('value',''));
@@ -350,13 +354,11 @@ $.widget( 'evol.advancedSearch', {
 							h.push(EvoUI.inputRadio('value', '0', EvolLang.no, false, 'value0'));
 							h.push('</span>');
 							break;
-						case fieldTypes.integer:
-						case fieldTypes.dec:
-							h.push('<input id="value" class="" type="text">');
-							// h.push("\" OnKeyUp=\"EvoVal.checkNum(this,'", fType.Substring(0, 1), "')\">");
+						case fieldTypes.number:
+							h.push('<input id="value" type="number">');
 							break;
 						default:
-							h.push('<input id="value" class="" type="text">');
+							h.push('<input id="value" type="text">');
 							break;
 					}
 					editor.append(h.join(''));
@@ -393,9 +395,11 @@ $.widget( 'evol.advancedSearch', {
     },
 
 	val: function(value) {
-		if (typeof value=='undefined') {
+		var tags=this.element.find('div:first a');
+		if (typeof value=='undefined') { 
+		// --- get value
 			var v=[];
-			this.element.find('div:first a').each(function(){
+			tags.each(function(){
 				var $this=$(this),
 					vf={label:this.innerText},
 					w=$this.find('input:first');
@@ -407,8 +411,9 @@ $.widget( 'evol.advancedSearch', {
 				v.push(vf);			
 			})
 			return v;
-		}else{
-			this.element.find('div:first').empty();
+		}else{ 
+		// --- set value
+			tags.empty();
 			for(var i=0,iMax=value.length;i<iMax;i++){
 				this.addFilter(value[i]);
 			}
