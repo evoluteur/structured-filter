@@ -25,7 +25,11 @@
 <div id="evol"></div>
 	 
 <p>Tests: 
-<a href="#" id="addFilter">Add Filter</a> - <a href="#" id="delFilter">Remove First Filter</a>
+<a href="#" id="addFilter">Add Filter</a> - 
+<a href="#" id="delFilter">Remove First Filter</a> - 
+<a href="#" id="empty">Empty</a>
+
+
 <br/>Value: 
 <a href="#" id="bVal">Val</a> - 
 <a href="#" id="bValText">Text Val</a> - 
@@ -71,6 +75,9 @@
 	})
 	$('#delFilter').click(function(){
 		$('#evol').advancedSearch("removeFilter", 0);		
+	})
+	$('#empty').click(function(){
+		$('#evol').advancedSearch("empty");		
 	})
 	
 </script>
