@@ -142,9 +142,7 @@ $.widget( 'evol.advancedSearch', {
 		this._filters=e.find('.searchFilters').on('click', 'a', function(e){
 			var $this=$(this),
 				efs=$this.find('input[type="hidden"]');
-			if(that._cFilter){
-				that._enableFilterTag();
-			}
+			that._enableFilterTag();
 			that._removeEditor();
 			that._cFilter=$this;
 			that._showFilter(efs[0].value, efs[1].value, efs[2].value);
@@ -180,7 +178,6 @@ $.widget( 'evol.advancedSearch', {
 	},
 
 	addFilter: function(filterData) {
-		var that=this;
 		$(['<a href="javascript:void(0)">',this._htmlFilter(this._fMaxId++, filterData),'</a>'].join(''))
 			.prependTo(this._filters)
 			.button({
@@ -479,9 +476,6 @@ $.widget( 'evol.advancedSearch', {
 
 var EvoUI={
 
-	inputText:function(fID,fV){
-		return ['<input type="text" name="',fID,'" id="',fID,'" value="',fV,'">'].join('');
-	},
 	inputRadio:function(fN,fV,fLbl,sel,fID){
 		var fh=['<label for="',fID,'"><input ID="',fID,'" name="',fN,'" type="radio" value="',fV,'"'];
 		if(sel){
@@ -497,13 +491,13 @@ var EvoUI={
 		return ['<option value="',fID,'">',fV,'</option>'].join('');
 	},
 	inputCheckboxLOV:function(fLOV){
-		var fh=[]; 
+		var h=[]; 
 		for(var i in fLOV){
 			var lv=fLOV[i];
-			fh.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'">');
-			fh.push('<label for="',lv.id,'">',lv.label,'</label> ');
+			h.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'">');
+			h.push('<label for="',lv.id,'">',lv.label,'</label> ');
 		}
-		return fh.join('');
+		return h.join('');
 	}
 
 }
