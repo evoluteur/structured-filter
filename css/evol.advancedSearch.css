@@ -17,7 +17,6 @@
 
 .editFilter select, .editFilter input{
 	margin:1px 6px 6px 1px;
-	font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
 	font-size: 1.1em; 
 }
 #value input[type="checkbox"] {
