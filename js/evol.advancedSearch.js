@@ -31,7 +31,10 @@
 		opAnd:' and ',
 		//opOr:' or ', 
 		yes:'Yes',
-		no:'No'
+		no:'No',
+		bNewFilter:'New filter',
+		bAddFilter:'Add filter',
+		bCancel:'Cancel'
 	},
 	APIstr={
 		sEqual:'eq',
@@ -68,22 +71,22 @@ $.widget( 'evol.advancedSearch', {
 		this._fMaxId=0;
 		e.addClass('advSearch ui-widget-content ui-corner-all')
 		    .html(['<div class="searchFilters"></div>',
-				'<a class="bPlus" href="javascript:void(0)">New filter</a>',
+				'<a class="bPlus" href="javascript:void(0)">',EvolLang.bNewFilter,'</a>',
 				'<span class="editFilter"></span>',
-				'<a class="bAdd" style="display:none;" href="javascript:void(0)">Add condition</a>',
-				'<a class="bDel" style="display:none;" href="javascript:void(0)">Cancel</a>'].join('')
+				'<a class="bAdd" style="display:none;" href="javascript:void(0)">',EvolLang.bAddFilter,'</a>',
+				'<a class="bDel" style="display:none;" href="javascript:void(0)">',EvolLang.bCancel,'</a>'].join('')
 			);
-		this._editSpan=e.find('.editFilter');
-		e.find('.bPlus').button({
+		this._editor=e.find('.editFilter');
+		this._bPlus=e.find('.bPlus').button({
 				text: false,
 				icons: {secondary:'ui-icon-plusthick'}
 			}).on('click', function(e){ 
 				if(that._step<1){
-					that._setFilterField();
+					that._setEditorField();
 					that._step=1;
 				}
 			});
-		e.find('.bAdd').button({
+		this._bAdd=e.find('.bAdd').button({
 				text: false,
 				icons: {secondary:'ui-icon-check'}
 			}).on('click', function(evt){
@@ -92,13 +95,13 @@ $.widget( 'evol.advancedSearch', {
 				}else{
 					that.addFilter( that._jsonFilter());
 				}
-				that._removeFilterEditor();
+				that._removeEditor();
 			});
-		e.find('.bDel').button({
+		this._bDel=e.find('.bDel').button({
 				text: false,
 				icons: {secondary:'ui-icon-close'}
 			}).on('click', function(evt){ 
-				that._removeFilterEditor();
+				that._removeEditor();
 			});
 		e.on('change', '#field', function(evt){
 			if(that._step>2){
@@ -106,15 +109,16 @@ $.widget( 'evol.advancedSearch', {
 			}
 			if(that._step>1){
 				e.find('#operator').remove();
+				that._bAdd.hide();
 			}
 			that._step=1;
 			var fieldID=$(evt.currentTarget).val();
 			if(fieldID!=''){
 				that._field=that._getFieldById(fieldID)
 				var fType=that._fType=that._field.type;
-				that._setFilterOperator(fType);
+				that._setEditorOperator(fType);
 				if(fType==fieldTypes.lov || fType==fieldTypes.bool){
-					that._setFilterValue(fType);
+					that._setEditorValue(fType);
 				}
 			}else{
 				that._field=null;
@@ -122,27 +126,10 @@ $.widget( 'evol.advancedSearch', {
 		}).on('change', '#operator', function(evt){
 			if(that._step>2){
 				e.find('#value').remove();
+				that._bAdd.hide();
 				that._step=2;
 			}
-			that._setFilterValue(that._fType);
-		}).on('click', '.searchFilters a', function(e){
-			var $this=$(this),
-				efs=$this.find('input[type="hidden"]');
-			if(that._cFilter){
-				that._enableFilterTag();
-			}
-			that._removeFilterEditor();
-			that._cFilter=$this;
-			that._showFilter(efs[0].value, efs[1].value, efs[2].value);
-			$this.button('disable');
-		}).on('click', '.searchFilters a .ui-button-icon-secondary', function(e){
-			e.stopPropagation();
-			var filter=$(this).parent();
-			if(!filter.hasClass('ui-state-disabled')){
-				filter.fadeOut('slow',function() {
-					filter.remove();
-				});
-			}
+			that._setEditorValue(that._fType);
 		}).on('click', '#checkAll', function(e){
 			var vc=$(this).attr('checked'),
 				allChecks=$(this).parent().children();
@@ -151,6 +138,25 @@ $.widget( 'evol.advancedSearch', {
 			}else{
 				allChecks.removeAttr('checked');
 			}			
+		});
+		this._filters=e.find('.searchFilters').on('click', 'a', function(e){
+			var $this=$(this),
+				efs=$this.find('input[type="hidden"]');
+			if(that._cFilter){
+				that._enableFilterTag();
+			}
+			that._removeEditor();
+			that._cFilter=$this;
+			that._showFilter(efs[0].value, efs[1].value, efs[2].value);
+			$this.button('disable');
+		}).on('click', 'a .ui-button-icon-secondary', function(e){
+			e.stopPropagation();
+			var filter=$(this).parent();
+			if(!filter.hasClass('ui-state-disabled')){
+				filter.fadeOut('slow',function() {
+					filter.remove();
+				});
+			}
 		});
     },
 
@@ -164,10 +170,11 @@ $.widget( 'evol.advancedSearch', {
 		return null;
 	},
 
-	_removeFilterEditor: function() {
-		var p=this._editSpan.empty().parent();
-		p.find('.bAdd,.bDel').hide();
-		p.find('.bPlus').removeClass('ui-state-active').show().focus();
+	_removeEditor: function() {
+		this._editor.empty();
+		this._bAdd.hide();
+		this._bDel.hide();
+		this._bPlus.removeClass('ui-state-active').show().focus();
 		this._step=0;
 		this._enableFilterTag();
 	},
@@ -175,7 +182,7 @@ $.widget( 'evol.advancedSearch', {
 	addFilter: function(filterData) {
 		var that=this;
 		$(['<a href="javascript:void(0)">',this._htmlFilter(this._fMaxId++, filterData),'</a>'].join(''))
-			.prependTo(this.element.find('div:first'))
+			.prependTo(this._filters)
 			.button({
 				icons: {secondary:"ui-icon-close"}
 			})
@@ -184,12 +191,12 @@ $.widget( 'evol.advancedSearch', {
     },
 
 	removeFilter: function(index){
-		this.element.find('div:first').children().eq(index).remove();
+		this._filters.children().eq(index).remove();
 		return this;
 	},
 
 	_jsonFilter: function() {
-		var e=this._editSpan,
+		var e=this._editor,
 			f=e.find('#field'),
 			o=e.find('#operator'),
 			v=e.find('#value'),
@@ -258,13 +265,13 @@ $.widget( 'evol.advancedSearch', {
 
 	_showFilter: function( f, o, v) {
 		var fType=this._getFieldById(f).type;
-	    this._setFilterField(f);
-        this._setFilterOperator(fType, o);
-        this._setFilterValue(fType, v);
+	    this._setEditorField(f);
+        this._setEditorOperator(fType, o);
+        this._setEditorValue(fType, v);
         this._step=3;
 	},
 
-	_setFilterField: function(fid) {
+	_setEditorField: function(fid) {
 		if(this._step<1){
 			var fields=this.options.fields,
 				h=[];
@@ -274,10 +281,10 @@ $.widget( 'evol.advancedSearch', {
 				h.push('<option value="',f.id,'">',f.label,'</option>');
 			}
 			h.push('</select>');
-			var p=this._editSpan.append(h.join('')).parent();
-			p.find('.bPlus').stop().hide();
-			p.find('.bDel').fadeIn();
-			p.find('#field').focus();
+			this._bPlus.stop().hide();
+			this._bDel.fadeIn();
+			this._editor.append(h.join(''))
+				.find('#field').focus();
 		}
 		if(fid){
 			this._field=this._getFieldById(fid);
@@ -287,7 +294,7 @@ $.widget( 'evol.advancedSearch', {
 		this._step=1;
     },
 
-	_setFilterOperator: function(fType, cond) {
+	_setEditorOperator: function(fType, cond) {
 		if(this._step<2){
 			var h=[]; 
 			switch (fType) {
@@ -333,7 +340,7 @@ $.widget( 'evol.advancedSearch', {
 					h.push("</select>");
 					break;
 			} 
-			this._editSpan.append(h.join(''));
+			this._editor.append(h.join(''));
 		}
 		if(cond){
 		    this.element.find('#operator').val(cond); 
@@ -341,8 +348,8 @@ $.widget( 'evol.advancedSearch', {
 		this._step=2;
     },
 
-	_setFilterValue: function( fType, v) {
-		var editor=this._editSpan,
+	_setEditorValue: function( fType, v) {
+		var editor=this._editor,
 			opVal=editor.find('#operator').val();
 		if(opVal!=''){
 			if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
@@ -361,10 +368,10 @@ $.widget( 'evol.advancedSearch', {
 							h.push('</span>');
 							break;
 						case fieldTypes.bool:
-							h.push('<span id="value">');
-							h.push(EvoUI.inputRadio('value', '1', EvolLang.yes, false, 'value1'));
-							h.push(EvoUI.inputRadio('value', '0', EvolLang.no, false, 'value0'));
-							h.push('</span>');
+							h.push('<span id="value">',
+								EvoUI.inputRadio('value', '1', EvolLang.yes, false, 'value1'),
+								EvoUI.inputRadio('value', '0', EvolLang.no, false, 'value0'),
+								'</span>');
 							break;
 						case fieldTypes.number:
 							h.push('<input id="value" type="number">');
@@ -387,34 +394,32 @@ $.widget( 'evol.advancedSearch', {
 					}
 				}
 				if(v){
-					var p=editor.find('#value');
+					var $value=editor.find('#value');
 					switch (fType) {
 						case fieldTypes.lov:
-							p.find('#'+v.split(',').join(',#')).attr("checked", "checked");
+							$value.find('#'+v.split(',').join(',#')).attr("checked", "checked");
 							break;
 						case fieldTypes.bool:
-							p.find('#value'+v).attr("checked", "checked");
+							$value.find('#value'+v).attr("checked", "checked");
 							break;
 						default:
-							p.val(v);
+							$value.val(v);
 							break;
 					}
 				}
 			}
-			this.element.find('.bAdd').fadeIn(); 
+			this._bAdd.fadeIn(); 
 			this._step=3;
 		}
     },
 
 	val: function(value) {
-		var tags=this.element.find('div:first a');
 		if (typeof value=='undefined') { 
 		// --- get value
 			var v=[];
-			tags.each(function(){
-				var $this=$(this),
-					vf={label:this.innerText},
-					w=$this.find('input:first');
+			this._filters.find('a').each(function(){
+				var vf={label:this.innerText},
+					w=$(this).find('input:first');
 				vf.field=w.val();
 				w=w.next();
 				vf.operator=w.val();
@@ -425,7 +430,7 @@ $.widget( 'evol.advancedSearch', {
 			return v;
 		}else{ 
 		// --- set value
-			tags.empty();
+			this._filters.empty();
 			for(var i=0,iMax=value.length;i<iMax;i++){
 				this.addFilter(value[i]);
 			}
@@ -435,7 +440,7 @@ $.widget( 'evol.advancedSearch', {
 
 	valText: function() {
 		var v=[];
-		this.element.find('div:first a').each(function(){ 
+		this._filters.find('a').each(function(){ 
 			v.push(this.innerText);
 		})
 		return v.join(EvolLang.opAnd);
@@ -458,37 +463,24 @@ $.widget( 'evol.advancedSearch', {
 
 	empty: function() {
 		this._cFilter=null;
-		this._removeFilterEditor();
-		this.element.find('div:first a');
+		this._removeEditor();
+		this._filters.empty();
 		return this;
     },
 
     destroy: function() {
-		var e=this.element.off('change click');
-		e.find('.bPlus,.bAdd,.bDel').off('click');
-		e.empty().removeClass('structuredSearch ui-widget-content ui-corner-all');
+		var e=this.element.off();
+		e.find('.bPlus,.bAdd,.bDel,.searchFilters').off();
+		e.empty().removeClass('advSearch ui-widget-content ui-corner-all');
         $.Widget.prototype.destroy.call(this);
     }
 
 });
 
-
 var EvoUI={
 
 	inputText:function(fID,fV){
 		return ['<input type="text" name="',fID,'" id="',fID,'" value="',fV,'">'].join('');
-	},
-	inputTextInt:function(fID,fV,fT,max,min){
-		return ['<input type="text" name="',fID,'" id="',fID,'" value="',fV,
-			'" onKeyUp="EvoVal.checkNum(this,\'',fT,'\')" class="Field" maxlength="12">'].join('');
-	},
-	inputCheckbox:function(fID,fV){
-		var fh=['<input type="checkbox" id="',fID,'"'];
-		if(fV!=null&&fV!=''&&fV!='0'){
-			fh.push(' checked');
-		}
-		fh.push(' value="1">');
-		return fh.join("");
 	},
 	inputRadio:function(fN,fV,fLbl,sel,fID){
 		var fh=['<label for="',fID,'"><input ID="',fID,'" name="',fN,'" type="radio" value="',fV,'"'];
