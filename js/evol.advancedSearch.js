@@ -76,7 +76,6 @@ $.widget( 'evol.advancedSearch', {
 				'<a class="bAdd" style="display:none;" href="javascript:void(0)">',EvolLang.bAddFilter,'</a>',
 				'<a class="bDel" style="display:none;" href="javascript:void(0)">',EvolLang.bCancel,'</a>'].join('')
 			);
-		this._editor=e.find('.editFilter');
 		this._bPlus=e.find('.bPlus').button({
 				text: false,
 				icons: {secondary:'ui-icon-plusthick'}
@@ -102,30 +101,29 @@ $.widget( 'evol.advancedSearch', {
 				icons: {secondary:'ui-icon-close'}
 			}).on('click', function(evt){ 
 				that._removeEditor();
-			});
-		e.on('change', '#field', function(evt){
+			});		
+		this._editor=e.find('.editFilter')
+		.on('change', '#field', function(evt){
 			if(that._step>2){
-				e.find('#value').remove();
+				that._editor.find('#value').remove();
 			}
 			if(that._step>1){
-				e.find('#operator').remove();
+				that._editor.find('#operator').remove();
 				that._bAdd.hide();
 			}
 			that._step=1;
 			var fieldID=$(evt.currentTarget).val();
+			that._field=that._getFieldById(fieldID);
 			if(fieldID!=''){
-				that._field=that._getFieldById(fieldID)
 				var fType=that._fType=that._field.type;
 				that._setEditorOperator(fType);
 				if(fType==fieldTypes.lov || fType==fieldTypes.bool){
 					that._setEditorValue(fType);
 				}
-			}else{
-				that._field=null;
 			}
 		}).on('change', '#operator', function(evt){
 			if(that._step>2){
-				e.find('#value').remove();
+				that._editor.find('#value').remove();
 				that._bAdd.hide();
 				that._step=2;
 			}
@@ -172,13 +170,14 @@ $.widget( 'evol.advancedSearch', {
 		this._editor.empty();
 		this._bAdd.hide();
 		this._bDel.hide();
+		this._enableFilterTag();
 		this._bPlus.removeClass('ui-state-active').show().focus();
 		this._step=0;
-		this._enableFilterTag();
+		this._fType=null;
 	},
 
-	addFilter: function(filterData) {
-		$(['<a href="javascript:void(0)">',this._htmlFilter(this._fMaxId++, filterData),'</a>'].join(''))
+	addFilter: function(filter) {
+		$(['<a href="javascript:void(0)">',this._htmlFilter(this._fMaxId++, filter),'</a>'].join(''))
 			.prependTo(this._filters)
 			.button({
 				icons: {secondary:"ui-icon-close"}
@@ -197,7 +196,7 @@ $.widget( 'evol.advancedSearch', {
 			f=e.find('#field'),
 			o=e.find('#operator'),
 			v=e.find('#value'),
-			filterData = {
+			filter = {
 				field:{
 					label: f.find('option:selected').text(),
 					value: f.val()
@@ -211,42 +210,42 @@ $.widget( 'evol.advancedSearch', {
 				vs.push(this.value);
 				ls.push(this.nextSibling.innerHTML);
 			});
-			filterData.operator.label=EvolLang.sInList;
-			filterData.operator.value=APIstr.sInList;
-			filterData.value.label='(' + ls.join(', ') + ')';
-			filterData.value.value=vs.join(',')
+			filter.operator.label=EvolLang.sInList;
+			filter.operator.value=APIstr.sInList;
+			filter.value.label='(' + ls.join(', ') + ')';
+			filter.value.value=vs.join(',')
 		}else if(this._fType==fieldTypes.bool){
-			filterData.operator.label=EvolLang.sEquals;
-			filterData.operator.value=APIstr.sEqual;
+			filter.operator.label=EvolLang.sEquals;
+			filter.operator.value=APIstr.sEqual;
 			var val=(v.find('#value1').attr('checked')=='checked')?1:0;
-			filterData.value.label=(val==1)?EvolLang.yes:EvolLang.no;
-			filterData.value.value=val;
+			filter.value.label=(val==1)?EvolLang.yes:EvolLang.no;
+			filter.value.value=val;
 		}else{
-			filterData.operator.label=o.find('option:selected').text();
+			filter.operator.label=o.find('option:selected').text();
 			var opVal=o.val();
-			filterData.operator.value=opVal;
+			filter.operator.value=opVal;
 			if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
-				filterData.value.label=filterData.value.value='';
+				filter.value.label=filter.value.value='';
 			}else{
 				if(this._fType==fieldTypes.number){
-					filterData.value.label=v.val();
+					filter.value.label=v.val();
 				}else{
-					filterData.value.label='"'+v.val()+'"';
+					filter.value.label='"'+v.val()+'"';
 				}
-				filterData.value.value=v.val();
+				filter.value.value=v.val();
 			}
 		} 
-		return filterData;
+		return filter;
     },
 
-	_htmlFilter: function( idx, filterData) {
+	_htmlFilter: function( idx, filter) {
 		return [
-			'<span class="lBold">', filterData.field.label,'</span> ',
-			'<span class="lLight">', filterData.operator.label.toLowerCase(),'</span> ',
-			' <span class="lBold">', filterData.value.label, '</span>',
-			EvoUI.inputHidden('f-'+idx, filterData.field.value),
-			EvoUI.inputHidden('o-'+idx, filterData.operator.value),
-			EvoUI.inputHidden('v-'+idx, filterData.value.value)
+			'<span class="lBold">', filter.field.label,'</span> ',
+			'<span class="lLight">', filter.operator.label.toLowerCase(),'</span> ',
+			' <span class="lBold">', filter.value.label, '</span>',
+			EvoUI.inputHidden('f-'+idx, filter.field.value),
+			EvoUI.inputHidden('o-'+idx, filter.operator.value),
+			EvoUI.inputHidden('v-'+idx, filter.value.value)
 		].join('');
     },	
 
