@@ -27,7 +27,8 @@
 <p>Tests: 
 <a href="#" id="addFilter">Add Filter</a> - 
 <a href="#" id="delFilter">Remove First Filter</a> - 
-<a href="#" id="empty">Empty</a>
+<a href="#" id="empty">Empty</a> - 
+<a href="#" id="length">Number of Filters</a>
 
 
 <br/>Value: 
@@ -45,16 +46,16 @@
     $('#evol').advancedSearch({fields:contacts }); 
 	
 	$('#bVal').click(function(){
-		var v=$('#evol').advancedSearch("val")
-		alert(JSON.stringify(v))
+		var v=$('#evol').advancedSearch("val");
+		alert(JSON.stringify(v));
 	})
 	$('#bValText').click(function(){
-		var v=$('#evol').advancedSearch("valText")
-		alert(v)
+		var v=$('#evol').advancedSearch("valText");
+		alert(v);
 	})
 	$('#bValUrl').click(function(){
-		var v=$('#evol').advancedSearch("valUrl")
-		alert(v)
+		var v=$('#evol').advancedSearch("valUrl");
+		alert(v);
 	})
 	$('#addFilter').click(function(){
 		var filterDef = {
@@ -78,6 +79,10 @@
 	})
 	$('#empty').click(function(){
 		$('#evol').advancedSearch("empty");		
+	})
+	$('#length').click(function(){
+		var v=$('#evol').advancedSearch("length");
+		alert(v);
 	})
 	
 </script>

@@ -66,10 +66,17 @@ Add a new filter.
 ### removeFilter(index)
 Remove the filter of the specified index.
 
-    $("#advSearch").advancedSearch(0);
+    $("#advSearch").advancedSearch("removeFilter", 0);
 
 ### empty()
 Remove all search filters.
+
+    $("#advSearch").advancedSearch("empty");
+
+### length()
+Returns the number of filters.
+
+    $("#advSearch").advancedSearch("length");
 
 ### val([data])
 Get or set the search definition (as an array of filters).

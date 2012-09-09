@@ -90,10 +90,11 @@ $.widget( 'evol.advancedSearch', {
 				text: false,
 				icons: {secondary:'ui-icon-check'}
 			}).on('click', function(evt){
+				var data=that._getEditorData();
 				if(that._cFilter){
-					that._enableFilterTag(that._htmlFilter(that._fMaxId++, that._jsonFilter()));
+					that._enableFilter(data);
 				}else{
-					that.addFilter( that._jsonFilter());
+					that.addFilter(data);
 				}
 				that._removeEditor();
 			});
@@ -114,13 +115,15 @@ $.widget( 'evol.advancedSearch', {
 			}
 			that._step=1;
 			var fieldID=$(evt.currentTarget).val();
-			that._field=that._getFieldById(fieldID);
 			if(fieldID!=''){
+				that._field=that._getFieldById(fieldID);
 				var fType=that._fType=that._field.type;
 				that._setEditorOperator(fType);
 				if(fType==fieldTypes.lov || fType==fieldTypes.bool){
 					that._setEditorValue(fType);
 				}
+			}else{
+				that._field=null;
 			}
 		}).on('change', '#operator', function(evt){
 			if(that._step>2){
@@ -139,13 +142,7 @@ $.widget( 'evol.advancedSearch', {
 			}			
 		});
 		this._filters=e.find('.searchFilters').on('click', 'a', function(e){
-			var $this=$(this),
-				efs=$this.find('input[type="hidden"]');
-			that._enableFilterTag();
-			that._removeEditor();
-			that._cFilter=$this;
-			that._showFilter(efs[0].value, efs[1].value, efs[2].value);
-			$this.button('disable');
+			that._editFilter($(this));
 		}).on('click', 'a .ui-button-icon-secondary', function(e){
 			e.stopPropagation();
 			var filter=$(this).parent();
@@ -171,7 +168,7 @@ $.widget( 'evol.advancedSearch', {
 		this._editor.empty();
 		this._bAdd.hide();
 		this._bDel.hide();
-		this._enableFilterTag();
+		this._enableFilter();
 		this._bPlus.removeClass('ui-state-active').show().focus();
 		this._step=0;
 		this._fType=null;
@@ -194,53 +191,6 @@ $.widget( 'evol.advancedSearch', {
 		return this;
 	},
 
-	_jsonFilter: function() {
-		var e=this._editor,
-			f=e.find('#field'),
-			o=e.find('#operator'),
-			v=e.find('#value'),
-			filter = {
-				field:{
-					label: f.find('option:selected').text(),
-					value: f.val()
-				},
-				operator:{},
-				value:{}
-			};
-		if(this._fType==fieldTypes.lov){
-			var vs=[], ls=[]; 
-			v.find('input:checked').not('#checkAll').each(function(){
-				vs.push(this.value);
-				ls.push(this.nextSibling.innerHTML);
-			});
-			filter.operator.label=EvolLang.sInList;
-			filter.operator.value=APIstr.sInList;
-			filter.value.label='(' + ls.join(', ') + ')';
-			filter.value.value=vs.join(',')
-		}else if(this._fType==fieldTypes.bool){
-			filter.operator.label=EvolLang.sEquals;
-			filter.operator.value=APIstr.sEqual;
-			var val=(v.find('#value1').attr('checked')=='checked')?1:0;
-			filter.value.label=(val==1)?EvolLang.yes:EvolLang.no;
-			filter.value.value=val;
-		}else{
-			filter.operator.label=o.find('option:selected').text();
-			var opVal=o.val();
-			filter.operator.value=opVal;
-			if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
-				filter.value.label=filter.value.value='';
-			}else{
-				if(this._fType==fieldTypes.number){
-					filter.value.label=v.val();
-				}else{
-					filter.value.label='"'+v.val()+'"';
-				}
-				filter.value.value=v.val();
-			}
-		} 
-		return filter;
-    },
-
 	_htmlFilter: function( idx, filter) {
 		return [
 			'<span class="lBold">', filter.field.label,'</span> ',
@@ -252,11 +202,11 @@ $.widget( 'evol.advancedSearch', {
 		].join('');
     },	
 
-	_enableFilterTag: function(html) {
+	_enableFilter: function(filter) {
 		if(this._cFilter){
 			this._cFilter.button('enable').removeClass('ui-state-hover ui-state-active');
-			if(html){
-				this._cFilter.find(':first-child').html(html);
+			if(filter){
+				this._cFilter.find(':first-child').html(this._htmlFilter(this._fMaxId++, filter));
 				this._cFilter=null;
 				this.element.trigger('search.change');
 			}else{
@@ -265,11 +215,16 @@ $.widget( 'evol.advancedSearch', {
 		}
     },
 
-	_showFilter: function( f, o, v) {
-		var fType=this._getFieldById(f).type;
-	    this._setEditorField(f);
-        this._setEditorOperator(fType, o);
-        this._setEditorValue(fType, v);
+	_editFilter: function( $filter) {
+		var efs=$filter.find('input[type="hidden"]');
+		this._enableFilter();
+		this._removeEditor();
+		this._cFilter=$filter;
+		var fType=this._getFieldById(efs[0].value).type;
+	    this._setEditorField(efs[0].value);
+        this._setEditorOperator(fType, efs[1].value);
+        this._setEditorValue(fType, efs[2].value);
+		$filter.button('disable');
         this._step=3;
 	},
 
@@ -415,6 +370,53 @@ $.widget( 'evol.advancedSearch', {
 		}
     },
 
+	_getEditorData: function() {
+		var e=this._editor,
+			f=e.find('#field'),
+			o=e.find('#operator'),
+			v=e.find('#value'),
+			filter = {
+				field:{
+					label: f.find('option:selected').text(),
+					value: f.val()
+				},
+				operator:{},
+				value:{}
+			};
+		if(this._fType==fieldTypes.lov){
+			var vs=[], ls=[]; 
+			v.find('input:checked').not('#checkAll').each(function(){
+				vs.push(this.value);
+				ls.push(this.nextSibling.innerHTML);
+			});
+			filter.operator.label=EvolLang.sInList;
+			filter.operator.value=APIstr.sInList;
+			filter.value.label='(' + ls.join(', ') + ')';
+			filter.value.value=vs.join(',')
+		}else if(this._fType==fieldTypes.bool){
+			filter.operator.label=EvolLang.sEquals;
+			filter.operator.value=APIstr.sEqual;
+			var val=(v.find('#value1').attr('checked')=='checked')?1:0;
+			filter.value.label=(val==1)?EvolLang.yes:EvolLang.no;
+			filter.value.value=val;
+		}else{
+			var opVal=o.val();
+			filter.operator.label=o.find('option:selected').text();
+			filter.operator.value=opVal;
+			if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
+				filter.value.label=filter.value.value='';
+			}else{
+				if(this._fType==fieldTypes.number){
+					filter.value.label=v.val();
+				}else{
+					filter.value.label='"'+v.val()+'"';
+				}
+				filter.value.value=v.val();
+			}
+		} 
+		return filter;
+    },
+
 	val: function(value) {
 		if (typeof value=='undefined') { 
 		// --- get value
@@ -472,6 +474,10 @@ $.widget( 'evol.advancedSearch', {
 		this.element.trigger('search.change');
 		return this;
     },
+
+	length: function() {
+		return this._filters.children().length;
+	},
 
     destroy: function() {
 		var e=this.element.off();
