@@ -460,6 +460,7 @@ $.widget( 'evol.advancedSearch', {
 				'&value-',i,'=',encodeURIComponent(v.value)
 			);
 		}
+		url.push('&label=',encodeURIComponent(this.valText()));
 		return url.join('');
     },
 
