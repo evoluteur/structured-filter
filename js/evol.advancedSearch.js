@@ -183,11 +183,13 @@ $.widget( 'evol.advancedSearch', {
 				icons: {secondary:"ui-icon-close"}
 			})
 			.fadeIn();
+		this.element.trigger('search.change');
 		return this;
     },
 
 	removeFilter: function(index){
 		this._filters.children().eq(index).remove();
+		this.element.trigger('search.change');
 		return this;
 	},
 
@@ -251,11 +253,14 @@ $.widget( 'evol.advancedSearch', {
 
 	_enableFilterTag: function(html) {
 		if(this._cFilter){
+			this._cFilter.button('enable').removeClass('ui-state-hover ui-state-active');
 			if(html){
 				this._cFilter.find(':first-child').html(html);
+				this._cFilter=null;
+				this.element.trigger('search.change');
+			}else{
+				this._cFilter=null;
 			}
-			this._cFilter.button('enable').removeClass('ui-state-hover ui-state-active');
-			this._cFilter=null;
 		}
     },
 
@@ -430,6 +435,7 @@ $.widget( 'evol.advancedSearch', {
 			for(var i=0,iMax=value.length;i<iMax;i++){
 				this.addFilter(value[i]);
 			}
+			this.element.trigger('search.change');
 			return this;
 		}
     },
@@ -461,6 +467,7 @@ $.widget( 'evol.advancedSearch', {
 		this._cFilter=null;
 		this._removeEditor();
 		this._filters.empty();
+		this.element.trigger('search.change');
 		return this;
     },
 
