@@ -363,7 +363,7 @@ $.widget( 'evol.advancedSearch', {
 						case fieldTypes.lov:
 							h.push('<span id="value">');
 							if(this._field.list.length>7){
-								h.push('(<input type="checkbox" id="checkAll" value="1">');
+								h.push('(<input type="checkbox" id="checkAll" value="1"/>');
 								h.push('<label for="checkAll">All</label>) ');
 							}
 							h.push(EvoUI.inputCheckboxLOV(this._field.list));
@@ -376,10 +376,10 @@ $.widget( 'evol.advancedSearch', {
 								'</span>');
 							break;
 						case fieldTypes.number:
-							h.push('<input id="value" type="number">');
+							h.push('<input id="value" type="number"/>');
 							break;
 						default:
-							h.push('<input id="value" type="text">');
+							h.push('<input id="value" type="text"/>');
 							break;
 					}
 					editor.append(h.join(''));
@@ -502,7 +502,7 @@ var EvoUI={
 		var h=[]; 
 		for(var i in fLOV){
 			var lv=fLOV[i];
-			h.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'">');
+			h.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'"/>');
 			h.push('<label for="',lv.id,'">',lv.label,'</label> ');
 		}
 		return h.join('');
