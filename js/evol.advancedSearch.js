@@ -61,7 +61,8 @@
 $.widget( 'evol.advancedSearch', {
 
     options: {
-        fields: []
+		fields: [],
+		dateFormat: 'mm/dd/yy'
     },
 
     _create: function() {
@@ -385,7 +386,7 @@ $.widget( 'evol.advancedSearch', {
 					if(fType!=fieldTypes.bool){
 						var $value=editor.find('#value');
 						if(fType==fieldTypes.date){
-							$value.datepicker();
+							$value.datepicker({dateFormat:this.options.dateFormat});
 						}
 						$value.on('keyup', function(evt){
 							if (evt.which == 13) {
