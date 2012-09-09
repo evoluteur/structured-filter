@@ -283,7 +283,7 @@ $.widget( 'evol.advancedSearch', {
 			}
 			h.push('</select>');
 			this._bPlus.stop().hide();
-			this._bDel.fadeIn();
+			this._bDel.show();
 			this._editor.append(h.join(''))
 				.find('#field').focus();
 		}
@@ -409,7 +409,7 @@ $.widget( 'evol.advancedSearch', {
 					}
 				}
 			}
-			this._bAdd.fadeIn(); 
+			this._bAdd.show(); 
 			this._step=3;
 		}
     },
