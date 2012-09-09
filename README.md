@@ -21,7 +21,7 @@ advancedSearch provides several options to customize its behaviour:
 
 ### fields (array)
 
-Set the list of fields (with id, label and type) to participate in the advanced search.
+The list of fields (with id, label and type) to participate in the advanced search.
 
     $("#advSearch").advancedSearch({
         fields: [
@@ -45,6 +45,16 @@ Common formats are: Default - "mm/dd/yy", ISO 8601 - "yy-mm-dd", Short - "d M, y
     });
 
 Defaults to *"mm/dd/yy"*.
+
+### highlight (Boolean)
+
+A highlight animation performed on the last added or modified filter.
+
+    $("#advSearch").advancedSearch({
+        highlight: false
+    });
+
+Defaults to *true*.
 
 ## Events
 

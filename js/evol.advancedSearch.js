@@ -62,7 +62,8 @@ $.widget( 'evol.advancedSearch', {
 
     options: {
 		fields: [],
-		dateFormat: 'mm/dd/yy'
+		dateFormat: 'mm/dd/yy',
+		highlight: true
     },
 
     _create: function() {
@@ -92,7 +93,7 @@ $.widget( 'evol.advancedSearch', {
 			}).on('click', function(evt){
 				var data=that._getEditorData();
 				if(that._cFilter){
-					that._enableFilter(data);
+					that._enableFilter(data, that.options.highlight);
 				}else{
 					that.addFilter(data);
 				}
@@ -168,19 +169,22 @@ $.widget( 'evol.advancedSearch', {
 		this._editor.empty();
 		this._bAdd.hide();
 		this._bDel.hide();
-		this._enableFilter();
+		this._enableFilter(null, false);
 		this._bPlus.removeClass('ui-state-active').show().focus();
 		this._step=0;
 		this._fType=null;
 	},
 
 	addFilter: function(filter) {
-		$(['<a href="javascript:void(0)">',this._htmlFilter(this._fMaxId++, filter),'</a>'].join(''))
+		var f=$(['<a href="javascript:void(0)">',this._htmlFilter(this._fMaxId++, filter),'</a>'].join(''))
 			.prependTo(this._filters)
 			.button({
 				icons: {secondary:"ui-icon-close"}
 			})
-			.fadeIn();
+			.fadeIn()
+		if(this.options.highlight){
+			f.effect('highlight');
+		}
 		this.element.trigger('search.change');
 		return this;
     },
@@ -202,9 +206,12 @@ $.widget( 'evol.advancedSearch', {
 		].join('');
     },	
 
-	_enableFilter: function(filter) {
+	_enableFilter: function(filter, anim) {
 		if(this._cFilter){
-			this._cFilter.button('enable').removeClass('ui-state-hover ui-state-active');
+			this._cFilter.button('enable').removeClass('ui-state-hover ui-state-active')
+			if(anim){
+				this._cFilter.effect('highlight');
+			}
 			if(filter){
 				this._cFilter.find(':first-child').html(this._htmlFilter(this._fMaxId++, filter));
 				this._cFilter=null;
@@ -217,7 +224,7 @@ $.widget( 'evol.advancedSearch', {
 
 	_editFilter: function( $filter) {
 		var efs=$filter.find('input[type="hidden"]');
-		this._enableFilter();
+		this._enableFilter(null, false);
 		this._removeEditor();
 		this._cFilter=$filter;
 		var fType=this._getFieldById(efs[0].value).type;
