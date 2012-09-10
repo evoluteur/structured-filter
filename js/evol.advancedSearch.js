@@ -133,6 +133,16 @@ $.widget( 'evol.advancedSearch', {
 				that._step=2;
 			}
 			that._setEditorValue(that._fType);
+		}).on('keyup', '#value', function(evt){
+			var $v=$(this), v=$v.val(), ve=v!='';
+			if(ve){
+				that._bAdd.button('enable');
+				if(evt.which==13) {
+					$v.parent().next().trigger('click');
+				}
+			}else{
+				that._bAdd.button('disable');			
+			}
 		}).on('click', '#checkAll', function(e){
 			var vc=$(this).attr('checked'),
 				allChecks=$(this).parent().children();
@@ -306,17 +316,18 @@ $.widget( 'evol.advancedSearch', {
 			} 
 			this._editor.append(h.join(''));
 		}
-		if(cond){
-		    this.element.find('#operator').val(cond); 
+		if(cond && fType!=fieldTypes.lov){
+		    this._editor.find('#operator').val(cond); 
 		}
 		this._step=2;
     },
 
 	_setEditorValue: function( fType, v) {
 		var editor=this._editor,
-			opVal=editor.find('#operator').val();
+			opVal=editor.find('#operator').val(),
+			canAdd=true;
 		if(opVal!=''){
-			if(opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull){
+			if(fType!=fieldTypes.lov && (opVal==APIstr.sIsNull || opVal==APIstr.sIsNotNull)){
 				editor.append(EvoUI.inputHidden('value',''));
 			}else{
 				if(this._step<3){
@@ -333,15 +344,17 @@ $.widget( 'evol.advancedSearch', {
 							break;
 						case fieldTypes.bool:
 							h.push('<span id="value">',
-								EvoUI.inputRadio('value', '1', EvolLang.yes, false, 'value1'),
+								EvoUI.inputRadio('value', '1', EvolLang.yes, true, 'value1'),
 								EvoUI.inputRadio('value', '0', EvolLang.no, false, 'value0'),
 								'</span>');
 							break;
 						case fieldTypes.number:
 							h.push('<input id="value" type="number"/>');
+							canAdd=false;
 							break;
 						default:
 							h.push('<input id="value" type="text"/>');
+							canAdd=false;
 							break;
 					}
 					editor.append(h.join(''));
@@ -350,11 +363,6 @@ $.widget( 'evol.advancedSearch', {
 						if(fType==fieldTypes.date){
 							$value.datepicker({dateFormat:this.options.dateFormat});
 						}
-						$value.on('keyup', function(evt){
-							if (evt.which == 13) {
-								$(this).parent().next().trigger('click');
-							}
-						})
 					}
 				}
 				if(v){
@@ -368,11 +376,18 @@ $.widget( 'evol.advancedSearch', {
 							break;
 						default:
 							$value.val(v);
+							canAdd=v!='';
 							break;
 					}
+				}else{
+					canAdd=(fType==fieldTypes.lov || fType==fieldTypes.bool);
 				}
 			}
-			this._bAdd.show(); 
+			if(canAdd){
+				this._bAdd.button('enable').show(); 
+			}else{
+				this._bAdd.button('disable').show(); 
+			}
 			this._step=3;
 		}
     },
@@ -396,10 +411,21 @@ $.widget( 'evol.advancedSearch', {
 				vs.push(this.value);
 				ls.push(this.nextSibling.innerHTML);
 			});
-			filter.operator.label=EvolLang.sInList;
-			filter.operator.value=APIstr.sInList;
-			filter.value.label='(' + ls.join(', ') + ')';
-			filter.value.value=vs.join(',')
+			if(vs.length==0){
+				filter.operator.label=EvolLang.sIsNull;
+				filter.operator.value=APIstr.sIsNull;
+				filter.value.label=filter.value.value='';
+			}else if(vs.length==1){
+				filter.operator.label=EvolLang.sEquals;
+				filter.operator.value=APIstr.sEquals;
+				filter.value.label='"'+ls[0]+'"';
+				filter.value.value=vs[0];
+			}else{
+				filter.operator.label=EvolLang.sInList;
+				filter.operator.value=APIstr.sInList;
+				filter.value.label='('+ls.join(', ')+')';
+				filter.value.value=vs.join(',');
+			}
 		}else if(this._fType==fieldTypes.bool){
 			filter.operator.label=EvolLang.sEquals;
 			filter.operator.value=APIstr.sEqual;
