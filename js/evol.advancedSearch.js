@@ -71,14 +71,14 @@ $.widget( 'evol.advancedSearch', {
 			e=this.element;
 		this._step=0;
 		this._fMaxId=0;
-		e.addClass('advSearch ui-widget-content ui-corner-all')
-		    .html(['<div class="searchFilters"></div>',
-				'<a class="bPlus" href="javascript:void(0)">',EvolLang.bNewFilter,'</a>',
-				'<span class="editFilter"></span>',
-				'<a class="bAdd" style="display:none;" href="javascript:void(0)">',EvolLang.bAddFilter,'</a>',
-				'<a class="bDel" style="display:none;" href="javascript:void(0)">',EvolLang.bCancel,'</a>'].join('')
+		e.addClass('evo-advSearch ui-widget-content ui-corner-all')
+		    .html(['<div class="evo-searchFilters"></div>',
+				'<a class="evo-bPlus" href="javascript:void(0)">',EvolLang.bNewFilter,'</a>',
+				'<span class="evo-editFilter"></span>',
+				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',EvolLang.bAddFilter,'</a>',
+				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',EvolLang.bCancel,'</a>'].join('')
 			);
-		this._bPlus=e.find('.bPlus').button({
+		this._bPlus=e.find('.evo-bPlus').button({
 				text: false,
 				icons: {secondary:'ui-icon-plusthick'}
 			}).on('click', function(e){ 
@@ -87,7 +87,7 @@ $.widget( 'evol.advancedSearch', {
 					that._step=1;
 				}
 			});
-		this._bAdd=e.find('.bAdd').button({
+		this._bAdd=e.find('.evo-bAdd').button({
 				text: false,
 				icons: {secondary:'ui-icon-check'}
 			}).on('click', function(evt){
@@ -99,13 +99,13 @@ $.widget( 'evol.advancedSearch', {
 				}
 				that._removeEditor();
 			});
-		this._bDel=e.find('.bDel').button({
+		this._bDel=e.find('.evo-bDel').button({
 				text: false,
 				icons: {secondary:'ui-icon-close'}
 			}).on('click', function(evt){ 
 				that._removeEditor();
 			});		
-		this._editor=e.find('.editFilter')
+		this._editor=e.find('.evo-editFilter')
 		.on('change', '#field', function(evt){
 			if(that._step>2){
 				that._editor.find('#value').remove();
@@ -152,7 +152,7 @@ $.widget( 'evol.advancedSearch', {
 				allChecks.removeAttr('checked');
 			}			
 		});
-		this._filters=e.find('.searchFilters').on('click', 'a', function(e){
+		this._filters=e.find('.evo-searchFilters').on('click', 'a', function(e){
 			that._editFilter($(this));
 		}).on('click', 'a .ui-button-icon-secondary', function(e){
 			e.stopPropagation();
@@ -207,9 +207,9 @@ $.widget( 'evol.advancedSearch', {
 
 	_htmlFilter: function( idx, filter) {
 		return [
-			'<span class="lBold">', filter.field.label,'</span> ',
-			'<span class="lLight">', filter.operator.label.toLowerCase(),'</span> ',
-			' <span class="lBold">', filter.value.label, '</span>',
+			'<span class="evo-lBold">', filter.field.label,'</span> ',
+			'<span class="evo-lLight">', filter.operator.label.toLowerCase(),'</span> ',
+			' <span class="evo-lBold">', filter.value.label, '</span>',
 			EvoUI.inputHidden('f-'+idx, filter.field.value),
 			EvoUI.inputHidden('o-'+idx, filter.operator.value),
 			EvoUI.inputHidden('v-'+idx, filter.value.value)
@@ -514,8 +514,8 @@ $.widget( 'evol.advancedSearch', {
 
     destroy: function() {
 		var e=this.element.off();
-		e.find('.bPlus,.bAdd,.bDel,.searchFilters').off();
-		e.empty().removeClass('advSearch ui-widget-content ui-corner-all');
+		e.find('.evo-bPlus,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();
+		e.empty().removeClass('evo-advSearch ui-widget-content ui-corner-all');
         $.Widget.prototype.destroy.call(this);
     }
 

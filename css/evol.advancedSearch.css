@@ -1,32 +1,33 @@
 /*  (c) 2012 Olivier Giulieri  */
 /*  Advanced Search for jQuery UI  */
 
-.advSearch{
+.evo-advSearch{
 	min-height:20px;
 	padding:6px 1px 1px 6px;
 }
-.bPlus, .bAdd, .bDel, .searchFilters a{
+.evo-bPlus, .evo-bAdd, .evo-bDel, .evo-searchFilters a{
 	margin:1px 6px 6px 1px;	
 }
-.lBold{
+.evo-lBold{
 	font-weight: bold;
 }
-.lLight{
+.evo-lLight{
 	font-weight: normal;
 }
 
-.editFilter select, .editFilter input{
+.evo-editFilter select, .evo-editFilter input{
 	margin:1px 6px 6px 1px;
 	font-size: 1.1em; 
 }
-#value input[type="checkbox"] {
+.evo-editFilter #value input[type="checkbox"] {
 	margin-left:5px;
 }
 
-input[type="number"]#value {
+.evo-editFilter input[type="number"]#value {
 	width:7em;
 }
 
-.hasDatepicker{
+.evo-editFilter .hasDatepicker{
 	width:7em;
 }
+
