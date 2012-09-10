@@ -134,8 +134,8 @@ $.widget( 'evol.advancedSearch', {
 			}
 			that._setEditorValue(that._fType);
 		}).on('keyup', '#value', function(evt){
-			var $v=$(this), v=$v.val(), ve=v!='';
-			if(ve){
+			var $v=$(this);
+			if($v.val()!=''){
 				that._bAdd.button('enable');
 				if(evt.which==13) {
 					$v.parent().next().trigger('click');
@@ -144,8 +144,9 @@ $.widget( 'evol.advancedSearch', {
 				that._bAdd.button('disable');			
 			}
 		}).on('click', '#checkAll', function(e){
-			var vc=$(this).attr('checked'),
-				allChecks=$(this).parent().children();
+			var $this=$(this),
+				vc=$this.attr('checked'),
+				allChecks=$this.parent().children();
 			if(vc=='checked'){
 				allChecks.attr('checked',vc);
 			}else{
@@ -357,12 +358,15 @@ $.widget( 'evol.advancedSearch', {
 							canAdd=false;
 							break;
 					}
-					editor.append(h.join(''));
-					if(fType!=fieldTypes.bool){
+					editor.append(h.join('')); 
+					if(fType==fieldTypes.date){
 						var $value=editor.find('#value');
-						if(fType==fieldTypes.date){
-							$value.datepicker({dateFormat:this.options.dateFormat});
-						}
+						$value.datepicker({
+							dateFormat:this.options.dateFormat,
+							onSelect: function(){
+								$(this).trigger('keyup');
+							}
+						});
 					}
 				}
 				if(v){
