@@ -15,6 +15,16 @@
 	font-weight: normal;
 }
 
+.evo-searchFilters a{
+	-moz-border-radius: 14px;
+	-webkit-border-radius: 14px;
+	-khtml-border-radius: 14px;
+	border-radius: 14px;
+}
+.evo-searchFilters a span.ui-button-text{
+	padding: 4px 33px 4px 12px;
+}
+
 .evo-editFilter select, .evo-editFilter input{
 	margin:1px 6px 6px 1px;
 	font-size: 1.1em; 
@@ -22,7 +32,6 @@
 .evo-editFilter #value input[type="checkbox"] {
 	margin-left:5px;
 }
-
 .evo-editFilter input[type="number"]#value {
 	width:7em;
 }
