@@ -140,7 +140,7 @@ $.widget( 'evol.advancedSearch', {
 				if(evt.which==13) {
 					$v.parent().next().trigger('click');
 				}
-			}else if (that._fType!=fieldTypes.bool){
+			}else if (that._fType!=fieldTypes.lov && that._fType!=fieldTypes.bool){
 				that._bAdd.button('disable');			
 			}
 		}).on('click', '#checkAll', function(e){
