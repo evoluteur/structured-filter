@@ -37,6 +37,7 @@
 		no:'No',
 		bNewFilter:'New filter',
 		bAddFilter:'Add filter',
+		bUpdateFilter:'Update filter',
 		bCancel:'Cancel'
 	},
 	evoAPI={
@@ -93,6 +94,7 @@ $.widget( 'evol.advancedSearch', {
 					that._setEditorField();
 					that._step=1;
 				}
+				that._bAdd.find('.ui-button-text').html(evoLang.bAddFilter);
 			});
 		this._bAdd=e.find('.evo-bAdd').button({
 				text: bLabels,
@@ -266,7 +268,8 @@ $.widget( 'evol.advancedSearch', {
         }else{
 			this._setEditorValue(fType, efs[2].value);
         }        
-		$filter.button('disable');
+		$filter.button('disable');		
+		this._bAdd.find('.ui-button-text').html(evoLang.bUpdateFilter);
         this._step=3;
 	},
 
