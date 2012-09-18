@@ -59,6 +59,16 @@ A highlight animation performed on the last added or modified filter.
 
 Defaults to *true*.
 
+### buttonLabels (Boolean)
+
+The labels of buttons used to manipulate filters.
+
+    $("#advSearch").advancedSearch({
+        buttonLabels: true
+    });
+
+Defaults to *false*.
+
 ## Events
 
 ### search.change

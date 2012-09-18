@@ -6,6 +6,7 @@
  * Depends:
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
+ *	jquery.ui.button.js
  *	jquery.ui.datepicker.js
  */
 
@@ -67,23 +68,25 @@ $.widget( 'evol.advancedSearch', {
     options: {
 		fields: [],
 		dateFormat: 'mm/dd/yy',
-		highlight: true
+		highlight: true,
+		buttonLabels: false
     },
 
     _create: function() {
-		var that=this,
+		var bLabels=this.options.buttonLabels,
+			that=this,
 			e=this.element;
 		this._step=0;
 		this._fMaxId=0;
 		e.addClass('evo-advSearch ui-widget-content ui-corner-all')
 		    .html(['<div class="evo-searchFilters"></div>',
-				'<a class="evo-bPlus" href="javascript:void(0)">',evoLang.bNewFilter,'</a>',
+				'<a class="evo-bNew" href="javascript:void(0)">',evoLang.bNewFilter,'</a>',
 				'<span class="evo-editFilter"></span>',
 				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddFilter,'</a>',
 				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>'].join('')
 			);
-		this._bPlus=e.find('.evo-bPlus').button({
-				text: false,
+		this._bNew=e.find('.evo-bNew').button({
+				text: bLabels,
 				icons: {secondary:'ui-icon-plusthick'}
 			}).on('click', function(e){ 
 				if(that._step<1){
@@ -92,7 +95,7 @@ $.widget( 'evol.advancedSearch', {
 				}
 			});
 		this._bAdd=e.find('.evo-bAdd').button({
-				text: false,
+				text: bLabels,
 				icons: {secondary:'ui-icon-check'}
 			}).on('click', function(evt){
 				var data=that._getEditorData();
@@ -104,7 +107,7 @@ $.widget( 'evol.advancedSearch', {
 				that._removeEditor();
 			});
 		this._bDel=e.find('.evo-bDel').button({
-				text: false,
+				text: bLabels,
 				icons: {secondary:'ui-icon-close'}
 			}).on('click', function(evt){ 
 				that._removeEditor();
@@ -192,7 +195,7 @@ $.widget( 'evol.advancedSearch', {
 		this._bAdd.hide();
 		this._bDel.hide();
 		this._enableFilter(null, false);
-		this._bPlus.removeClass('ui-state-active').show().focus();
+		this._bNew.removeClass('ui-state-active').show().focus();
 		this._step=0;
 		this._field=this._type=this._operator=null;
 	},
@@ -269,7 +272,7 @@ $.widget( 'evol.advancedSearch', {
 
 	_setEditorField: function(fid) {
 		if(this._step<1){
-			this._bPlus.stop().hide();
+			this._bNew.stop().hide();
 			this._bDel.show();
 			if(!this._fList){
 				var fields=this.options.fields,
@@ -560,7 +563,7 @@ $.widget( 'evol.advancedSearch', {
 
     destroy: function() {
 		var e=this.element.off();
-		e.find('.evo-bPlus,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();		
+		e.find('.evo-bNew,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();		
 		this._editor.off();
 		e.empty().removeClass('evo-advSearch ui-widget-content ui-corner-all');
         $.Widget.prototype.destroy.call(this);
