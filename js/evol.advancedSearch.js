@@ -381,8 +381,8 @@ $.widget( 'evol.advancedSearch', {
 							break;
 						case evoTypes.bool:
 							h.push('<span id="value">',
-								EvoUI.inputRadio('value', '1', evoLang.yes, true, 'value1'),
-								EvoUI.inputRadio('value', '0', evoLang.no, false, 'value0'),
+								EvoUI.inputRadio('value', '1', evoLang.yes, v!='0', 'value1'),
+								EvoUI.inputRadio('value', '0', evoLang.no, v=='0', 'value0'),
 								'</span>');
 							break;
 						case evoTypes.date:
@@ -398,7 +398,6 @@ $.widget( 'evol.advancedSearch', {
 						default:
 							h.push('<input id="value" type="text"/>');
 							addOK=false;
-							break;
 					}
 					editor.append(h.join(''));
 					if(fType==evoTypes.date){
