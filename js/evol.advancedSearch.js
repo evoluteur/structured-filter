@@ -18,15 +18,15 @@
 		sStart:'starts with',
 		sContain:'contains',
 		sFinish:'finishes with',
-		sInList:'in list',
+		sInList:'any of',
 		sIsNull:'is empty',
 		sIsNotNull:'is not empty',
 		sBefore:'before',
 		sAfter:'after',
 		sNumEqual:'&#61;',
 		sNumNotEqual:'!&#61;',
-		sNumGreater:'&#62;',
-		sNumSmaller:'&#60;',
+		sGreater:'&#62;',
+		sSmaller:'&#60;',
 		sOn:'on',
 		sNotOn:'not on',
 		//sAt:'at',
@@ -53,7 +53,7 @@
 		sSmaller:'st',
 		sBetween:'bw'
 	},
-	evoTypes={ 
+	evoTypes={
 		text:'text',
 		bool:'boolean',
 		number:'number',
@@ -61,26 +61,25 @@
 		//time:'time',
 		//datetime:'datetime',
 		lov:'lov'
-	} 
-	 
-	
+	}
+
+
 $.widget( 'evol.advancedSearch', {
 
-    options: {
+	options: {
 		fields: [],
 		dateFormat: 'mm/dd/yy',
 		highlight: true,
 		buttonLabels: false
-    },
+	},
 
-    _create: function() {
+	_create: function() {
 		var bLabels=this.options.buttonLabels,
 			that=this,
 			e=this.element;
 		this._step=0;
-		this._fMaxId=0;
 		e.addClass('evo-advSearch ui-widget-content ui-corner-all')
-		    .html(['<div class="evo-searchFilters"></div>',
+			.html(['<div class="evo-searchFilters"></div>',
 				'<a class="evo-bNew" href="javascript:void(0)">',evoLang.bNewFilter,'</a>',
 				'<span class="evo-editFilter"></span>',
 				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddFilter,'</a>',
@@ -113,7 +112,7 @@ $.widget( 'evol.advancedSearch', {
 				icons: {secondary:'ui-icon-close'}
 			}).on('click', function(evt){ 
 				that._removeEditor();
-			});		
+			});
 		this._editor=e.find('.evo-editFilter')
 		.on('change', '#field', function(evt){
 			if(that._step>2){
@@ -156,7 +155,7 @@ $.widget( 'evol.advancedSearch', {
 					this._bAdd.trigger('click');
 				}
 			}else{
-				that._bAdd.button('disable');			
+				that._bAdd.button('disable');
 			}
 		}).on('click', '#checkAll', function(e){
 			var $this=$(this),
@@ -166,7 +165,7 @@ $.widget( 'evol.advancedSearch', {
 				allChecks.attr('checked',vc);
 			}else{
 				allChecks.removeAttr('checked');
-			}			
+			}
 		});
 		this._filters=e.find('.evo-searchFilters').on('click', 'a', function(e){
 			that._editFilter($(this));
@@ -179,7 +178,7 @@ $.widget( 'evol.advancedSearch', {
 				});
 			}
 		});
-    },
+	},
 
 	_getFieldById: function(fId) {
 		if(!this._hash){
@@ -203,18 +202,19 @@ $.widget( 'evol.advancedSearch', {
 	},
 
 	addFilter: function(filter) {
-		var f=$(['<a href="javascript:void(0)">',this._htmlFilter(this._fMaxId++, filter),'</a>'].join(''))
+		var f=$(['<a href="javascript:void(0)">',this._htmlFilter(filter),'</a>'].join(''))
 			.prependTo(this._filters)
 			.button({
 				icons: {secondary:"ui-icon-close"}
 			})
-			.fadeIn()
+			.data('filter', filter)
+			.fadeIn();
 		if(this.options.highlight){
 			f.effect('highlight');
 		}
 		this.element.trigger('search.change');
 		return this;
-    },
+	},
 
 	removeFilter: function(index){
 		this._filters.children().eq(index).remove();
@@ -222,22 +222,18 @@ $.widget( 'evol.advancedSearch', {
 		return this;
 	},
 
-	_htmlFilter: function( idx, filter) {
+	_htmlFilter: function(filter) {
 		var h=[
 			'<span class="evo-lBold">', filter.field.label,'</span> ',
 			'<span class="evo-lLight">', filter.operator.label,'</span> ',
-			'<span class="evo-lBold">', filter.value.label, '</span>',
-			EvoUI.inputHidden('f-'+idx, filter.field.value),
-			EvoUI.inputHidden('o-'+idx, filter.operator.value),
-			EvoUI.inputHidden('v-'+idx, filter.value.value)
+			'<span class="evo-lBold">', filter.value.label, '</span>'
 		];
 		if(filter.operator.value==evoAPI.sBetween){
 			h.push('<span class="evo-lLight"> ', evoLang.opAnd, ' </span>');
 			h.push('<span class="evo-lBold">', filter.value.label2, '</span>');
-			h.push(EvoUI.inputHidden('v2-'+idx, filter.value.value2));
 		}
 		return h.join('');
-    },	
+	},
 
 	_enableFilter: function(filter, anim) {
 		if(this._cFilter){
@@ -246,31 +242,34 @@ $.widget( 'evol.advancedSearch', {
 				this._cFilter.effect('highlight');
 			}
 			if(filter){
-				this._cFilter.find(':first-child').html(this._htmlFilter(this._fMaxId++, filter));
+				this._cFilter.data('filter', filter)
+					.find(':first-child').html(this._htmlFilter(filter));					
 				this._cFilter=null;
 				this.element.trigger('search.change');
 			}else{
 				this._cFilter=null;
 			}
 		}
-    },
+	},
 
 	_editFilter: function( $filter) {
-		var efs=$filter.find('input[type="hidden"]');
+		var filter=$filter.data('filter'),
+			fid=filter.field.value,
+			op=filter.operator.value,
+			fv=filter.value;
 		this._enableFilter(null, false);
 		this._removeEditor();
-		this._cFilter=$filter;
-		var fType=this._getFieldById(efs[0].value).type;
-	    this._setEditorField(efs[0].value);
-        this._setEditorOperator(fType, efs[1].value);
-        if(efs[1].value==evoAPI.sBetween){
-			this._setEditorValue(fType, efs[2].value, efs[3].value);
-        }else{
-			this._setEditorValue(fType, efs[2].value);
-        }        
-		$filter.button('disable');		
+		this._cFilter=$filter.button('disable');
+		var fType=this._getFieldById(fid).type;
+		this._setEditorField(fid);
+		this._setEditorOperator(fType, op);
+		if(op==evoAPI.sBetween){
+			this._setEditorValue(fType, fv.value, fv.value2);
+		}else{
+			this._setEditorValue(fType, fv.value);
+		}
 		this._bAdd.find('.ui-button-text').html(evoLang.bUpdateFilter);
-        this._step=3;
+		this._step=3;
 	},
 
 	_setEditorField: function(fid) {
@@ -293,10 +292,10 @@ $.widget( 'evol.advancedSearch', {
 		if(fid){
 			this._field=this._getFieldById(fid);
 			this._type=this._field.type;
-		    this._editor.find('#field').val(fid); 
+			this._editor.find('#field').val(fid); 
 		}
 		this._step=1;
-    },
+	},
 
 	_setEditorOperator: function(fType, cond) {
 		if(this._step<2){
@@ -312,7 +311,7 @@ $.widget( 'evol.advancedSearch', {
 					h.push(EvoUI.inputHidden('operator',evoAPI.sEqual));
 					this._operator=evoAPI.sEqual;
 					break;
-				default: 
+				default:
 					h.push('<select id="operator">');
 					h.push('<option value=""></option>');
 					switch (fType) {
@@ -333,8 +332,8 @@ $.widget( 'evol.advancedSearch', {
 						case evoTypes.number:
 							h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sNumEqual),
 								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNumNotEqual),
-								EvoUI.inputOption(evoAPI.sGreater, evoLang.sNumGreater),
-								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sNumSmaller)
+								EvoUI.inputOption(evoAPI.sGreater, evoLang.sGreater),
+								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sSmaller)
 							);
 							break;
 						default:
@@ -343,22 +342,20 @@ $.widget( 'evol.advancedSearch', {
 								EvoUI.inputOption(evoAPI.sStart, evoLang.sStart),
 								EvoUI.inputOption(evoAPI.sContain, evoLang.sContain),
 								EvoUI.inputOption(evoAPI.sFinish, evoLang.sFinish)
-							); 
-							break;
+							);
 					}
 					h.push(EvoUI.inputOption(evoAPI.sIsNull, evoLang.sIsNull));
 					h.push(EvoUI.inputOption(evoAPI.sIsNotNull, evoLang.sIsNotNull));
 					h.push("</select>");
-					break;
-			} 
+			}
 			this._editor.append(h.join(''));
 		}
 		if(cond && fType!=evoTypes.lov){
-		    this._editor.find('#operator').val(cond); 
-		    this._operator=cond;
+			this._editor.find('#operator').val(cond); 
+			this._operator=cond;
 		}
 		this._step=2;
-    },
+	},
 
 	_setEditorValue: function( fType, v, v2) {
 		var editor=this._editor,
@@ -427,27 +424,25 @@ $.widget( 'evol.advancedSearch', {
 					addOK=(fType==evoTypes.lov || fType==evoTypes.bool);
 				}
 			}
-			if(addOK){
-				this._bAdd.button('enable').show(); 
-			}else{
-				this._bAdd.button('disable').show(); 
-			}
+			this._bAdd.button(addOK?'enable':'disable').show(); 
 			this._step=3;
 		}
-    },
+	},
 
 	_getEditorData: function() {
 		var e=this._editor,
 			f=e.find('#field'),
 			v=e.find('#value'),
-			filter = {
+			filter={
 				field:{
 					label: f.find('option:selected').text(),
 					value: f.val()
 				},
 				operator:{},
 				value:{}
-			};
+			},
+			op=filter.operator,
+			fv=filter.value;
 		if(this._type==evoTypes.lov){
 			var vs=[], ls=[]; 
 			v.find('input:checked').not('#checkAll').each(function(){
@@ -455,62 +450,54 @@ $.widget( 'evol.advancedSearch', {
 				ls.push(this.nextSibling.innerHTML);
 			});
 			if(vs.length==0){
-				filter.operator.label=evoLang.sIsNull;
-				filter.operator.value=evoAPI.sIsNull;
-				filter.value.label=filter.value.value='';
+				op.label=evoLang.sIsNull;
+				op.value=evoAPI.sIsNull;
+				fv.label=fv.value='';
 			}else if(vs.length==1){
-				filter.operator.label=evoLang.sEqual;
-				filter.operator.value=evoAPI.sEqual;
-				filter.value.label='"'+ls[0]+'"';
-				filter.value.value=vs[0];
+				op.label=evoLang.sEqual;
+				op.value=evoAPI.sEqual;
+				fv.label='"'+ls[0]+'"';
+				fv.value=vs[0];
 			}else{
-				filter.operator.label=evoLang.sInList;
-				filter.operator.value=evoAPI.sInList;
-				filter.value.label='('+ls.join(', ')+')';
-				filter.value.value=vs.join(',');
+				op.label=evoLang.sInList;
+				op.value=evoAPI.sInList;
+				fv.label='('+ls.join(', ')+')';
+				fv.value=vs.join(',');
 			}
 		}else if(this._type==evoTypes.bool){
-			filter.operator.label=evoLang.sEqual;
-			filter.operator.value=evoAPI.sEqual;
+			op.label=evoLang.sEqual;
+			op.value=evoAPI.sEqual;
 			var val=(v.find('#value1').attr('checked')=='checked')?1:0;
-			filter.value.label=(val==1)?evoLang.yes:evoLang.no;
-			filter.value.value=val;
+			fv.label=(val==1)?evoLang.yes:evoLang.no;
+			fv.value=val;
 		}else{
 			var o=e.find('#operator'),
 				opVal=o.val();
-			filter.operator.label=o.find('option:selected').text();
-			filter.operator.value=opVal;
+			op.label=o.find('option:selected').text();
+			op.value=opVal;
 			if(opVal==evoAPI.sIsNull || opVal==evoAPI.sIsNotNull){
-				filter.value.label=filter.value.value='';
+				fv.label=fv.value='';
 			}else{
 				if(this._type==evoTypes.number || this._type==evoTypes.date){
-					filter.value.label=v.val();
+					fv.label=v.val();
 				}else{
-					filter.value.label='"'+v.val()+'"';
+					fv.label='"'+v.val()+'"';
 				}
-				filter.value.value=v.val();
+				fv.value=v.val();
 				if(opVal==evoAPI.sBetween){
-					filter.value.label2=filter.value.value2=v.next().next().val();
+					fv.label2=fv.value2=v.next().next().val();
 				}
 			}
-		} 
+		}
 		return filter;
-    },
+	},
 
 	val: function(value) {
 		if (typeof value=='undefined') { 
 		// --- get value
 			var v=[];
 			this._filters.find('a').each(function(){
-				var vf={label:this.innerText},
-					w=$(this).find('input');
-				vf.field=w.eq(0).val();
-				vf.operator=w.eq(1).val();
-				vf.value=w.eq(2).val();
-				if(vf.operator==evoAPI.sBetween){
-					vf.value2=w.eq(3).val();
-				}
-				v.push(vf);			
+				v.push($(this).data('filter'));			
 			})
 			return v;
 		}else{ 
@@ -522,7 +509,7 @@ $.widget( 'evol.advancedSearch', {
 			this.element.trigger('search.change');
 			return this;
 		}
-    },
+	},
 
 	valText: function() {
 		var v=[];
@@ -530,7 +517,7 @@ $.widget( 'evol.advancedSearch', {
 			v.push(this.innerText);
 		})
 		return v.join(' '+evoLang.opAnd+' ');
-    },
+	},
 
 	valUrl: function() {
 		var vs=this.val(),
@@ -550,7 +537,7 @@ $.widget( 'evol.advancedSearch', {
 		}
 		url.push('&label=',encodeURIComponent(this.valText()));
 		return url.join('');
-    },
+	},
 
 	empty: function() {
 		this._cFilter=null;
@@ -558,19 +545,19 @@ $.widget( 'evol.advancedSearch', {
 		this._filters.empty();
 		this.element.trigger('search.change');
 		return this;
-    },
+	},
 
 	length: function() {
 		return this._filters.children().length;
 	},
 
-    destroy: function() {
+	destroy: function() {
 		var e=this.element.off();
 		e.find('.evo-bNew,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();		
 		this._editor.off();
 		e.empty().removeClass('evo-advSearch ui-widget-content ui-corner-all');
-        $.Widget.prototype.destroy.call(this);
-    }
+		$.Widget.prototype.destroy.call(this);
+	}
 
 });
 
