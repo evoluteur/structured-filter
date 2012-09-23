@@ -127,12 +127,12 @@ $.widget( 'evol.advancedSearch', {
 			if(fieldID!=''){
 				that._field=that._getFieldById(fieldID);
 				var fType=that._type=that._field.type;
-				that._setEditorOperator(fType);
+				that._setEditorOperator();
 				if(fType==evoTypes.lov || fType==evoTypes.bool){
-					that._setEditorValue(fType);
+					that._setEditorValue();
 				}
 			}else{
-				that._field=null;
+				that._field=that._type=null;
 			}
 		}).on('change', '#operator', function(evt){
 			that._operator=$(this).val();
@@ -141,7 +141,7 @@ $.widget( 'evol.advancedSearch', {
 				that._bAdd.hide();
 				that._step=2;
 			}
-			that._setEditorValue(that._type);
+			that._setEditorValue();
 		}).on('change keyup', '#value,#value2', function(evt){
 			var type=that._type,
 				value=$(this).val(),
@@ -262,11 +262,11 @@ $.widget( 'evol.advancedSearch', {
 		this._cFilter=$filter.button('disable');
 		var fType=this._getFieldById(fid).type;
 		this._setEditorField(fid);
-		this._setEditorOperator(fType, op);
+		this._setEditorOperator(op);
 		if(op==evoAPI.sBetween){
-			this._setEditorValue(fType, fv.value, fv.value2);
+			this._setEditorValue(fv.value, fv.value2);
 		}else{
-			this._setEditorValue(fType, fv.value);
+			this._setEditorValue(fv.value);
 		}
 		this._bAdd.find('.ui-button-text').html(evoLang.bUpdateFilter);
 		this._step=3;
@@ -297,7 +297,8 @@ $.widget( 'evol.advancedSearch', {
 		this._step=1;
 	},
 
-	_setEditorOperator: function(fType, cond) {
+	_setEditorOperator: function(cond) {
+		var fType=this._type;
 		if(this._step<2){
 			var h=[]; 
 			switch (fType) {
@@ -357,8 +358,9 @@ $.widget( 'evol.advancedSearch', {
 		this._step=2;
 	},
 
-	_setEditorValue: function( fType, v, v2) {
+	_setEditorValue: function( v, v2) {
 		var editor=this._editor,
+			fType=this._type,
 			opVal=editor.find('#operator').val(),
 			addOK=true;
 		if(opVal!=''){
