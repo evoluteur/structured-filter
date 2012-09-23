@@ -152,7 +152,7 @@ $.widget( 'evol.advancedSearch', {
 			if(valid){
 				that._bAdd.button('enable');
 				if(evt.which==13) {
-					this._bAdd.trigger('click');
+					that._bAdd.trigger('click');
 				}
 			}else{
 				that._bAdd.button('disable');
