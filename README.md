@@ -71,11 +71,11 @@ Defaults to *false*.
 
 ## Events
 
-### search.change
+### change.search
 
 This event is triggered when the list of search conditions is modified.
 
-    $("#advSearch").on("search.change", function(event){
+    $("#advSearch").on("change.search", function(event){
         // do something
     })
 
