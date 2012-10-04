@@ -10,7 +10,7 @@
  *	jquery.ui.datepicker.js
  */
 
-(function( $, undefined ) {
+(function( $, undefined){
 
 	var evoLang={
 		sEqual:'equals',
@@ -70,10 +70,11 @@ $.widget( 'evol.advancedSearch', {
 		fields: [],
 		dateFormat: 'mm/dd/yy',
 		highlight: true,
-		buttonLabels: false
+		buttonLabels: false,
+		submitReady: false
 	},
 
-	_create: function() {
+	_create: function(){
 		var bLabels=this.options.buttonLabels,
 			that=this,
 			e=this.element;
@@ -85,6 +86,9 @@ $.widget( 'evol.advancedSearch', {
 				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddFilter,'</a>',
 				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>'].join('')
 			);
+		if(this.options.submitReady){
+			this._hValues=$('<span></span>').appendTo(e);
+		}
 		this._bNew=e.find('.evo-bNew').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-plusthick'}
@@ -147,17 +151,17 @@ $.widget( 'evol.advancedSearch', {
 				value=$(this).val(),
 				valid=(value!='') || type==evoTypes.lov || type==evoTypes.bool; 
 			if(that._operator==evoAPI.sBetween){
-				valid=that._editor.find('#value').val()!='' && that._editor.find('#value2').val()!=''
+				valid=that._editor.find('#value').val()!='' && that._editor.find('#value2').val()!='';
 			}
 			if(valid){
 				that._bAdd.button('enable');
-				if(evt.which==13) {
+				if(evt.which==13){
 					that._bAdd.trigger('click');
 				}
 			}else{
 				that._bAdd.button('disable');
 			}
-		}).on('click', '#checkAll', function(e){
+		}).on('click', '#checkAll', function(){
 			var $this=$(this),
 				vc=$this.attr('checked'),
 				allChecks=$this.siblings();
@@ -167,20 +171,20 @@ $.widget( 'evol.advancedSearch', {
 				allChecks.removeAttr('checked');
 			}
 		});
-		this._filters=e.find('.evo-searchFilters').on('click', 'a', function(e){
+		this._filters=e.find('.evo-searchFilters').on('click', 'a', function(){
 			that._editFilter($(this));
-		}).on('click', 'a .ui-button-icon-secondary', function(e){
-			e.stopPropagation();
+		}).on('click', 'a .ui-button-icon-secondary', function(evt){
+			evt.stopPropagation();
 			var filter=$(this).parent();
 			if(!filter.hasClass('ui-state-disabled')){
-				filter.fadeOut('slow',function() {
+				filter.fadeOut('slow',function(){
 					filter.remove();
 				});
 			}
 		});
 	},
 
-	_getFieldById: function(fId) {
+	_getFieldById: function(fId){
 		if(!this._hash){
 			this._hash={};
 			var fields=this.options.fields;
@@ -191,7 +195,7 @@ $.widget( 'evol.advancedSearch', {
 		return this._hash[fId];
 	},
 
-	_removeEditor: function() {
+	_removeEditor: function(){
 		this._editor.empty();
 		this._bAdd.hide();
 		this._bDel.hide();
@@ -201,28 +205,28 @@ $.widget( 'evol.advancedSearch', {
 		this._field=this._type=this._operator=null;
 	},
 
-	addFilter: function(filter) {
+	addFilter: function(filter){
 		var f=$(['<a href="javascript:void(0)">',this._htmlFilter(filter),'</a>'].join(''))
 			.prependTo(this._filters)
 			.button({
-				icons: {secondary:"ui-icon-close"}
+				icons: {secondary:'ui-icon-close'}
 			})
 			.data('filter', filter)
 			.fadeIn();
 		if(this.options.highlight){
 			f.effect('highlight');
 		}
-		this.element.trigger('change.search');
+		this._triggerChange();
 		return this;
 	},
 
 	removeFilter: function(index){
 		this._filters.children().eq(index).remove();
-		this.element.trigger('change.search');
+		this._triggerChange();
 		return this;
 	},
 
-	_htmlFilter: function(filter) {
+	_htmlFilter: function(filter){
 		var h=[
 			'<span class="evo-lBold">', filter.field.label,'</span> ',
 			'<span class="evo-lLight">', filter.operator.label,'</span> ',
@@ -235,9 +239,9 @@ $.widget( 'evol.advancedSearch', {
 		return h.join('');
 	},
 
-	_enableFilter: function(filter, anim) {
+	_enableFilter: function(filter, anim){
 		if(this._cFilter){
-			this._cFilter.button('enable').removeClass('ui-state-hover ui-state-active')
+			this._cFilter.button('enable').removeClass('ui-state-hover ui-state-active');
 			if(anim){
 				this._cFilter.effect('highlight');
 			}
@@ -245,14 +249,14 @@ $.widget( 'evol.advancedSearch', {
 				this._cFilter.data('filter', filter)
 					.find(':first-child').html(this._htmlFilter(filter));					
 				this._cFilter=null;
-				this.element.trigger('change.search');
+				this._triggerChange();
 			}else{
 				this._cFilter=null;
 			}
 		}
 	},
 
-	_editFilter: function( $filter) {
+	_editFilter: function($filter){
 		var filter=$filter.data('filter'),
 			fid=filter.field.value,
 			op=filter.operator.value,
@@ -272,7 +276,7 @@ $.widget( 'evol.advancedSearch', {
 		this._step=3;
 	},
 
-	_setEditorField: function(fid) {
+	_setEditorField: function(fid){
 		if(this._step<1){
 			this._bNew.stop().hide();
 			this._bDel.show();
@@ -297,11 +301,11 @@ $.widget( 'evol.advancedSearch', {
 		this._step=1;
 	},
 
-	_setEditorOperator: function(cond) {
+	_setEditorOperator: function(cond){
 		var fType=this._type;
 		if(this._step<2){
 			var h=[]; 
-			switch (fType) {
+			switch (fType){
 				case evoTypes.lov:
 					//h.push(evoLang.sInList);
 					h.push(EvoUI.inputHidden('operator',evoAPI.sInList));
@@ -315,7 +319,7 @@ $.widget( 'evol.advancedSearch', {
 				default:
 					h.push('<select id="operator">');
 					h.push('<option value=""></option>');
-					switch (fType) {
+					switch (fType){
 						case evoTypes.date:
 						//case evoTypes.datetime:
 						//case evoTypes.time:
@@ -347,7 +351,7 @@ $.widget( 'evol.advancedSearch', {
 					}
 					h.push(EvoUI.inputOption(evoAPI.sIsNull, evoLang.sIsNull));
 					h.push(EvoUI.inputOption(evoAPI.sIsNotNull, evoLang.sIsNotNull));
-					h.push("</select>");
+					h.push('</select>');
 			}
 			this._editor.append(h.join(''));
 		}
@@ -358,7 +362,7 @@ $.widget( 'evol.advancedSearch', {
 		this._step=2;
 	},
 
-	_setEditorValue: function( v, v2) {
+	_setEditorValue: function( v, v2){
 		var editor=this._editor,
 			fType=this._type,
 			opVal=editor.find('#operator').val(),
@@ -370,7 +374,7 @@ $.widget( 'evol.advancedSearch', {
 				if(this._step<3){
 					var h=[],
 						opBetween=opVal==evoAPI.sBetween;
-					switch (fType) {
+					switch (fType){
 						case evoTypes.lov:
 							h.push('<span id="value">');
 							if(this._field.list.length>7){
@@ -406,12 +410,12 @@ $.widget( 'evol.advancedSearch', {
 				}
 				if(v){
 					var $value=editor.find('#value');
-					switch (fType) {
+					switch (fType){
 						case evoTypes.lov:
-							$value.find('#'+v.split(',').join(',#')).attr("checked", "checked");
+							$value.find('#'+v.split(',').join(',#')).attr('checked', 'checked');
 							break;
 						case evoTypes.bool:
-							$value.find('#value'+v).attr("checked", "checked");
+							$value.find('#value'+v).attr('checked', 'checked');
 							break;
 						default:
 							$value.val(v);
@@ -430,7 +434,7 @@ $.widget( 'evol.advancedSearch', {
 		}
 	},
 
-	_getEditorData: function() {
+	_getEditorData: function(){
 		var e=this._editor,
 			f=e.find('#field'),
 			v=e.find('#value'),
@@ -493,8 +497,37 @@ $.widget( 'evol.advancedSearch', {
 		return filter;
 	},
 
-	val: function(value) {
-		if (typeof value=='undefined') { 
+	_hiddenValue: function(h, filter, idx){		
+		h.push(	EvoUI.inputHidden('fld-'+idx, filter.field.value),
+				EvoUI.inputHidden('op-'+idx, filter.operator.value),
+				EvoUI.inputHidden('val-'+idx, filter.value.value)
+			);
+		var v2=filter.value.value2;
+		if(v2){
+			h.push(EvoUI.inputHidden('val2-'+idx, filter.value.value2));
+		}
+	},
+
+	_setHiddenValues: function(){
+		var vs=this.val(),
+			iMax=vs.length,
+			h=[EvoUI.inputHidden('elem', iMax)];
+		for(var i=0;i<iMax;i++){
+			this._hiddenValue(h, vs[i], i+1);
+		}
+		//h.push('&label=',encodeURIComponent(this.valText()));
+		this._hValues.html(h.join(''));
+	},
+
+	_triggerChange: function(){
+		if(this.options.submitReady){
+			this._setHiddenValues();
+		}
+		this.element.trigger('change.search');
+	},
+
+	val: function(value){
+		if (typeof value=='undefined'){ 
 		// --- get value
 			var v=[];
 			this._filters.find('a').each(function(){
@@ -507,12 +540,12 @@ $.widget( 'evol.advancedSearch', {
 			for(var i=0,iMax=value.length;i<iMax;i++){
 				this.addFilter(value[i]);
 			}
-			this.element.trigger('change.search');
+			this._triggerChange();
 			return this;
 		}
 	},
 
-	valText: function() {
+	valText: function(){
 		var v=[];
 		this._filters.find('a').each(function(){ 
 			v.push(this.innerText);
@@ -520,10 +553,10 @@ $.widget( 'evol.advancedSearch', {
 		return v.join(' '+evoLang.opAnd+' ');
 	},
 
-	valUrl: function() {
+	valUrl: function(){
 		var vs=this.val(),
 			iMax=vs.length,
-			url=['elem=',iMax];
+			url=['filters=',iMax];
 		for(var i=0;i<iMax;i++){
 			var v=vs[i];
 			url.push(
@@ -534,25 +567,24 @@ $.widget( 'evol.advancedSearch', {
 			if(v.operator==evoAPI.sBetween){
 				url.push('&value2-',i,'=',encodeURIComponent(v.value));
 			}
-
 		}
 		url.push('&label=',encodeURIComponent(this.valText()));
 		return url.join('');
 	},
 
-	empty: function() {
+	empty: function(){
 		this._cFilter=null;
 		this._removeEditor();
 		this._filters.empty();
-		this.element.trigger('change.search');
+		this._triggerChange();
 		return this;
 	},
 
-	length: function() {
+	length: function(){
 		return this._filters.children().length;
 	},
 
-	destroy: function() {
+	destroy: function(){
 		var e=this.element.off();
 		e.find('.evo-bNew,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();		
 		this._editor.off();
@@ -573,7 +605,7 @@ var EvoUI={
 		return fh.join('');
 	},
 	inputHidden:function(id,val){
-		return ['<input type="hidden" name="',id,'" id="',id,'" value="',val,'"/>'].join('');
+		return ['<input type="hidden" name="',id,'" value="',val,'"/>'].join('');
 	},
 	inputOption:function(fID,fV){
 		return ['<option value="',fID,'">',fV,'</option>'].join('');

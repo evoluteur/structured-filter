@@ -22,6 +22,16 @@ Check the [demo](http://evoluteur.github.com/advancedSearch/index.html) for a li
 
 advancedSearch provides several options to customize its behaviour:
 
+### buttonLabels (Boolean)
+
+The labels of buttons used to manipulate filters. This options applies to the 3 buttons "New filter", "Add filter"/"Update filter", and "Cancel" which use icons if the option is set to false.
+
+    $("#advSearch").advancedSearch({
+        buttonLabels: true
+    });
+
+Defaults to *false*.
+
 ### dateFormat (String)
 
 The format for parsed and displayed dates. This attribute is one of the regionalisation attributes. 
@@ -59,12 +69,12 @@ A highlight animation performed on the last added or modified filter.
 
 Defaults to *true*.
 
-### buttonLabels (Boolean)
+### submitReady (Boolean)
 
-The labels of buttons used to manipulate filters. This options applies to the 3 buttons "New filter", "Add filter"/"Update filter", and "Cancel" which use icons if the option is set to false.
+Provides hidden fields with the filters values to be submitted with the form (as an alternative to an AJAX call).
 
     $("#advSearch").advancedSearch({
-        buttonLabels: true
+        submitReady: true
     });
 
 Defaults to *false*.
