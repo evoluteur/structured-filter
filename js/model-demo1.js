@@ -1,17 +1,18 @@
 var contacts=[
-	{ type:"text", id:"Lastname", label:"Lastname", required:"1"},
+	{ type:"text", id:"Lastname", label:"Lastname"},
 	{ type:"text", id:"Firstname", label:"Firstname"},
 	{ type:"boolean", id:"active", label:"Is active"},	
 	{ type:"number", id:"age", label:"Age"},		   
 	{type:"lov", id:"CategoryID", label:"Category",
 		list:[
 			{id:'1',label:"Friends"},
-			{id:'3',label:"Family"},
-			{id:'2',label:"Co-workers"},
-			{id:'4',label:"Acquaintance"}
+			{id:'2',label:"Family"},
+			{id:'3',label:"Co-workers"},
+			{id:'4',label:"Acquaintance"},
+			{id:'5',label:"Other"}
 		]
 	},
-	{type:"date", id:"lastSeen", label:"Last seen"},
+	{type:"date", id:"bday", label:"Birthday"},
 	{type:"text", id:"phone", label:"Phone"},
 	{type:"text", id:"cell", label:"Mobile"},
 	{type:"text", id:"Address1", label:"Address"},
