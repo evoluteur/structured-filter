@@ -35,7 +35,7 @@ Defaults to *"mm/dd/yy"*.
 
 ### fields (array)
 
-The list of fields (with id, label and type) to participate in the advanced search.
+The list of fields (as an array of objects with id, label and type) to participate in the advanced search.
 
     $("#advSearch").advancedSearch({
         fields: [
@@ -61,7 +61,7 @@ Defaults to *true*.
 
 ### buttonLabels (Boolean)
 
-The labels of buttons used to manipulate filters.
+The labels of buttons used to manipulate filters. This options applies to the 3 buttons "New filter", "Add filter"/"Update filter", and "Cancel" which use icons if the option is set to false.
 
     $("#advSearch").advancedSearch({
         buttonLabels: true
@@ -84,7 +84,20 @@ This event is triggered when the list of search conditions is modified.
 ### addFilter(data)
 Add a new filter.
 
-    $("#advSearch").advancedSearch(data);
+    $("#advSearch").advancedSearch("addFilter", {
+        field:{
+            label: 'Lastname',
+            value: 'lastname'
+        },
+        operator:{
+            label: 'starts with',
+            value: 'sw'
+        }, 
+        value:{
+            label: '"a"',
+            value: 'a'
+        }
+    });
 
 ### empty()
 Remove all search filters.
@@ -95,7 +108,7 @@ Remove all search filters.
 Get the number of filters.
 
     $("#advSearch").advancedSearch("length");
-	
+
 ### removeFilter(index)
 Remove the filter of the specified index.
 
@@ -112,7 +125,7 @@ Get or set the search definition (as an array of filters).
 Get the search definition (as a readable text string).
 
     $("#advSearch").advancedSearch("valText");
-	
+
 ### valUrl()
 Get the search definition (as a URL string).
 
