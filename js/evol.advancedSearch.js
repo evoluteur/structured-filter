@@ -550,7 +550,7 @@ $.widget( 'evol.advancedSearch', {
 	valText: function(){
 		var v=[];
 		this._filters.find('a').each(function(){ 
-			v.push(this.innerText);
+			v.push(this.text);
 		})
 		return v.join(' '+evoLang.opAnd+' ');
 	},
