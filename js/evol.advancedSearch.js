@@ -149,8 +149,10 @@ $.widget( 'evol.advancedSearch', {
 		}).on('change keyup', '#value,#value2', function(evt){
 			var type=that._type,
 				value=$(this).val(),
-				valid=(value!='') || type==evoTypes.lov || type==evoTypes.bool; 
-			if(that._operator==evoAPI.sBetween){
+				valid=(value!='') || type==evoTypes.lov || type==evoTypes.bool;
+			if(type==evoTypes.number){
+				valid=valid && !isNaN(value);
+			}else if(that._operator==evoAPI.sBetween){
 				valid=that._editor.find('#value').val()!='' && that._editor.find('#value2').val()!='';
 			}
 			if(valid){
