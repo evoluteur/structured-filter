@@ -42,7 +42,7 @@
 	},
 	evoAPI={
 		sEqual:'eq',
-		sNotEqual:'neq',
+		sNotEqual:'ne',
 		sStart:'sw',
 		sContain:'ct',
 		sFinish:'fw',
@@ -50,7 +50,7 @@
 		sIsNull:'null',
 		sIsNotNull:'nn',
 		sGreater:'gt',
-		sSmaller:'st',
+		sSmaller:'lt',
 		sBetween:'bw'
 	},
 	evoTypes={
