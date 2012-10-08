@@ -25,9 +25,15 @@
 	padding: 4px 33px 4px 12px;
 }
 
+.evo-editFilter{
+	vertical-align: top;
+}
 .evo-editFilter select, .evo-editFilter input{
 	margin:1px 6px 6px 1px;
 	font-size: 1.1em; 
+}
+.evo-editFilter span#value {
+	margin-right:5px;
 }
 .evo-editFilter #value input[type="checkbox"] {
 	margin-left:5px;
