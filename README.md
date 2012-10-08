@@ -90,7 +90,7 @@ The list of fields (as an array of objects with id, label and type) to participa
 			        {id:'1',label:"Friends"},
 			        {id:'2',label:"Family"},
 			        {id:'3',label:"Co-workers"},
-			        {id:'4',label:"Acquaintance"},
+			        {id:'4',label:"Acquaintances"},
 			        {id:'5',label:"Other"}
 			    ]
 			}			
