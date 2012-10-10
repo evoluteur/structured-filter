@@ -49,6 +49,10 @@ This will change the `<div>` into the widget.
 ## Data Format
 -to do-
 
+## Theming
+
+advancedSearch is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
+
 ## Options
 
 advancedSearch provides several options to customize its behaviour:
