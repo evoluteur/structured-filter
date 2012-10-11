@@ -120,7 +120,7 @@ $.widget( 'evol.advancedSearch', {
 		this._editor=e.find('.evo-editFilter')
 		.on('change', '#field', function(evt){
 			if(that._step>2){
-				that._editor.find('#value').remove();
+				that._editor.find('#value,#value2,.as-Txt').remove();
 			}
 			if(that._step>1){
 				that._editor.find('#operator').remove();
