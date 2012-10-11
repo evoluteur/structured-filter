@@ -29,7 +29,8 @@
 		sSmaller:'&#60;',
 		sOn:'on',
 		sNotOn:'not on',
-		//sAt:'at',
+		sAt:'at',
+		sNotAt:'not at',
 		sBetween:'between',
 		opAnd:'and',
 		//opOr:'or', 
@@ -58,8 +59,7 @@
 		bool:'boolean',
 		number:'number',
 		date:'date',
-		//time:'time',
-		//datetime:'datetime',
+		time:'time',
 		lov:'lov'
 	}
 
@@ -323,14 +323,16 @@ $.widget( 'evol.advancedSearch', {
 					h.push('<option value=""></option>');
 					switch (fType){
 						case evoTypes.date:
-						//case evoTypes.datetime:
-						//case evoTypes.time:
-							//if (fType==evoTypes.time){
-							//	h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sAt));
-							//}else{
-								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sOn));
-								h.push(EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotOn));
-							//}
+						case evoTypes.time:
+							if (fType==evoTypes.time){
+								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sAt),
+									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotAt)
+								);								
+							}else{
+								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sOn),
+									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotOn)
+								);
+							}
 							h.push(EvoUI.inputOption(evoAPI.sGreater, evoLang.sAfter),
 								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sBefore),
 								EvoUI.inputOption(evoAPI.sBetween, evoLang.sBetween)
@@ -392,8 +394,9 @@ $.widget( 'evol.advancedSearch', {
 								'</span>');
 							break;
 						case evoTypes.date:
+						case evoTypes.time:
 						case evoTypes.number:	
-							var iType=(fType==evoTypes.date)?'text':'number';
+							var iType=(fType==evoTypes.date)?'text':fType;
 							h.push('<input id="value" type="',iType,'"/>');
 							if(opBetween){
 								h.push('<span class="as-Txt">',evoLang.opAnd,' </span>');
@@ -485,7 +488,7 @@ $.widget( 'evol.advancedSearch', {
 			if(opVal==evoAPI.sIsNull || opVal==evoAPI.sIsNotNull){
 				fv.label=fv.value='';
 			}else{
-				if(this._type==evoTypes.number || this._type==evoTypes.date){
+				if(this._type==evoTypes.number || this._type==evoTypes.date || this._type==evoTypes.time){
 					fv.label=v.val();
 				}else{
 					fv.label='"'+v.val()+'"';
