@@ -249,7 +249,7 @@ $.widget( 'evol.advancedSearch', {
 			}
 			if(filter){
 				this._cFilter.data('filter', filter)
-					.find(':first-child').html(this._htmlFilter(filter));					
+					.find(':first-child').html(this._htmlFilter(filter));
 				this._cFilter=null;
 				this._triggerChange();
 			}else{
@@ -284,11 +284,10 @@ $.widget( 'evol.advancedSearch', {
 			this._bDel.show();
 			if(!this._fList){
 				var fields=this.options.fields,
-					h=[];
-				h.push('<select id="field"><option value=""></option>'); 
+					h=['<select id="field"><option value=""></option>'];
 				for (var i=0,iMax=fields.length;i<iMax;i++){
 					var f=fields[i];
-					h.push('<option value="',f.id,'">',f.label,'</option>');
+					h.push(EvoUI.inputOption(f.id,f.label));
 				}
 				h.push('</select>');
 				this._fList=h.join('');
@@ -298,7 +297,7 @@ $.widget( 'evol.advancedSearch', {
 		if(fid){
 			this._field=this._getFieldById(fid);
 			this._type=this._field.type;
-			this._editor.find('#field').val(fid); 
+			this._editor.find('#field').val(fid);
 		}
 		this._step=1;
 	},
@@ -319,15 +318,14 @@ $.widget( 'evol.advancedSearch', {
 					this._operator=evoAPI.sEqual;
 					break;
 				default:
-					h.push('<select id="operator">');
-					h.push('<option value=""></option>');
+					h.push('<select id="operator"><option value=""></option>');
 					switch (fType){
 						case evoTypes.date:
 						case evoTypes.time:
 							if (fType==evoTypes.time){
 								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sAt),
 									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotAt)
-								);								
+								);
 							}else{
 								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sOn),
 									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotOn)
@@ -509,7 +507,7 @@ $.widget( 'evol.advancedSearch', {
 			);
 		var v2=filter.value.value2;
 		if(v2){
-			h.push(EvoUI.inputHidden('val2-'+idx, filter.value.value2));
+			h.push(EvoUI.inputHidden('val2-'+idx, v2));
 		}
 	},
 
@@ -602,11 +600,11 @@ $.widget( 'evol.advancedSearch', {
 var EvoUI={
 
 	inputRadio:function(fN,fV,fLbl,sel,fID){
-		var fh=['<label for="',fID,'"><input ID="',fID,'" name="',fN,'" type="radio" value="',fV,'"'];
+		var fh=['<label for="',fID,'"><input id="',fID,'" name="',fN,'" type="radio" value="',fV];
 		if(sel){
-			fh.push(' checked="checked"');
+			fh.push('" checked="checked');
 		}
-		fh.push('">',fLbl,"</label>&nbsp;");
+		fh.push('">',fLbl,'</label>&nbsp;');
 		return fh.join('');
 	},
 	inputHidden:function(id,val){
@@ -619,8 +617,8 @@ var EvoUI={
 		var h=[]; 
 		for(var i in fLOV){
 			var lv=fLOV[i];
-			h.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'"/>');
-			h.push('<label for="',lv.id,'">',lv.label,'</label> ');
+			h.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'"/>',
+				'<label for="',lv.id,'">',lv.label,'</label> ');
 		}
 		return h.join('');
 	}
