@@ -89,6 +89,7 @@ $.widget( 'evol.advancedSearch', {
 		if(this.options.submitReady){
 			this._hValues=$('<span></span>').appendTo(e);
 		}
+		// - editor new
 		this._bNew=e.find('.evo-bNew').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-plusthick'}
@@ -99,6 +100,7 @@ $.widget( 'evol.advancedSearch', {
 				}
 				that._bAdd.find('.ui-button-text').html(evoLang.bAddFilter);
 			});
+		// - editor add
 		this._bAdd=e.find('.evo-bAdd').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-check'}
@@ -111,6 +113,7 @@ $.widget( 'evol.advancedSearch', {
 				}
 				that._removeEditor();
 			});
+		// - editor cancel
 		this._bDel=e.find('.evo-bDel').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-close'}
@@ -119,6 +122,7 @@ $.widget( 'evol.advancedSearch', {
 			});
 		this._editor=e.find('.evo-editFilter')
 		.on('change', '#field', function(evt){
+			evt.stopPropagation();
 			if(that._step>2){
 				that._editor.find('#value,#value2,.as-Txt').remove();
 			}
@@ -139,6 +143,7 @@ $.widget( 'evol.advancedSearch', {
 				that._field=that._type=null;
 			}
 		}).on('change', '#operator', function(evt){
+			evt.stopPropagation();
 			that._operator=$(this).val();
 			if(that._step>2){
 				that._editor.find('#value,#value2,.as-Txt').remove();
@@ -147,6 +152,7 @@ $.widget( 'evol.advancedSearch', {
 			}
 			that._setEditorValue();
 		}).on('change keyup', '#value,#value2', function(evt){
+			evt.stopPropagation();
 			var type=that._type,
 				value=$(this).val(),
 				valid=(value!='') || type==evoTypes.lov || type==evoTypes.bool;
@@ -181,6 +187,7 @@ $.widget( 'evol.advancedSearch', {
 			if(!filter.hasClass('ui-state-disabled')){
 				filter.fadeOut('slow',function(){
 					filter.remove();
+					that._triggerChange();
 				});
 			}
 		});
