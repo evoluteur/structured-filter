@@ -1,9 +1,7 @@
-# advancedSearch
+# evol.advancedSearch
 
-This project is a UI widget for building structured search queries. 
+evol.advancedSearch is a Web UI for building structured search queries. 
 It is a full jQuery UI widget, supporting various configurations and themes.
-
-THIS PROJECT IS STILL UNDER CONSTRUCTION
 
 ## Demo
 

@@ -1,7 +1,7 @@
 ﻿/*!
- * evol.advancedSearch 0.1
+ * evol.advancedSearch 1.0
  *
- * Copyright (c) 2012, Olivier Giulieri 
+ * Copyright (c) 2013, Olivier Giulieri 
  *
  * Depends:
  *	jquery.ui.core.js
@@ -65,6 +65,8 @@
 
 
 $.widget( 'evol.advancedSearch', {
+
+	version: '1.0',
 
 	options: {
 		fields: [],
