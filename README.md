@@ -191,17 +191,33 @@ Get or set the search definition (as an array of filters).
 
     $("#advSearch").advancedSearch("val", data);
 
+Sample value:
+
+    [
+        {
+            "field":{"label":"Lastname","value":"Lastname"},
+            "operator":{"label":"starts with","value":"sw"},
+            "value":{"label":"\"abc\"","value":"abc"}
+        }
+    ]
+
 ### valText()
 Get the search definition (as a readable text string).
 
     $("#advSearch").advancedSearch("valText");
+
+Sample value:
+
+    Lastname starts with "abc"
 
 ### valUrl()
 Get the search definition (as a URL string).
 
     $("#advSearch").advancedSearch("valUrl");
 
+Sample value:
 
+    filters=1&field-0=Lastname&operator-0=sw&value-0=abc&label=Lastname%20starts%20with%20%22abc%22%0A
 
 ## License
 
