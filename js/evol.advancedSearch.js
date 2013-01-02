@@ -242,8 +242,8 @@ $.widget( 'evol.advancedSearch', {
 			'<span class="evo-lBold">', filter.value.label, '</span>'
 		];
 		if(filter.operator.value==evoAPI.sBetween){
-			h.push('<span class="evo-lLight"> ', evoLang.opAnd, ' </span>');
-			h.push('<span class="evo-lBold">', filter.value.label2, '</span>');
+			h.push('<span class="evo-lLight"> ', evoLang.opAnd, ' </span>',
+				'<span class="evo-lBold">', filter.value.label2, '</span>');
 		}
 		return h.join('');
 	},
@@ -331,35 +331,30 @@ $.widget( 'evol.advancedSearch', {
 						case evoTypes.time:
 							if (fType==evoTypes.time){
 								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sAt),
-									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotAt)
-								);
+									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotAt));
 							}else{
 								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sOn),
-									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotOn)
-								);
+									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotOn));
 							}
 							h.push(EvoUI.inputOption(evoAPI.sGreater, evoLang.sAfter),
 								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sBefore),
-								EvoUI.inputOption(evoAPI.sBetween, evoLang.sBetween)
-							)
+								EvoUI.inputOption(evoAPI.sBetween, evoLang.sBetween));
 							break;
 						case evoTypes.number:
 							h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sNumEqual),
 								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNumNotEqual),
 								EvoUI.inputOption(evoAPI.sGreater, evoLang.sGreater),
-								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sSmaller)
-							);
+								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sSmaller));
 							break;
 						default:
 							h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sEqual),
 								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotEqual),
 								EvoUI.inputOption(evoAPI.sStart, evoLang.sStart),
 								EvoUI.inputOption(evoAPI.sContain, evoLang.sContain),
-								EvoUI.inputOption(evoAPI.sFinish, evoLang.sFinish)
-							);
+								EvoUI.inputOption(evoAPI.sFinish, evoLang.sFinish));
 					}
-					h.push(EvoUI.inputOption(evoAPI.sIsNull, evoLang.sIsNull));
-					h.push(EvoUI.inputOption(evoAPI.sIsNotNull, evoLang.sIsNotNull));
+					h.push(EvoUI.inputOption(evoAPI.sIsNull, evoLang.sIsNull),
+						EvoUI.inputOption(evoAPI.sIsNotNull, evoLang.sIsNotNull));
 					h.push('</select>');
 			}
 			this._editor.append(h.join(''));
@@ -404,8 +399,8 @@ $.widget( 'evol.advancedSearch', {
 							var iType=(fType==evoTypes.date)?'text':fType;
 							h.push('<input id="value" type="',iType,'"/>');
 							if(opBetween){
-								h.push('<span class="as-Txt">',evoLang.opAnd,' </span>');
-								h.push('<input id="value2" type="',iType,'"/>');
+								h.push('<span class="as-Txt">',evoLang.opAnd,' </span>',
+									'<input id="value2" type="',iType,'"/>');
 							}
 							addOK=false;
 							break;
@@ -508,10 +503,9 @@ $.widget( 'evol.advancedSearch', {
 	},
 
 	_hiddenValue: function(h, filter, idx){		
-		h.push(	EvoUI.inputHidden('fld-'+idx, filter.field.value),
-				EvoUI.inputHidden('op-'+idx, filter.operator.value),
-				EvoUI.inputHidden('val-'+idx, filter.value.value)
-			);
+		h.push(EvoUI.inputHidden('fld-'+idx, filter.field.value),
+			EvoUI.inputHidden('op-'+idx, filter.operator.value),
+			EvoUI.inputHidden('val-'+idx, filter.value.value));
 		var v2=filter.value.value2;
 		if(v2){
 			h.push(EvoUI.inputHidden('val2-'+idx, v2));
