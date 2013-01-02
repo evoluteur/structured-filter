@@ -32,33 +32,45 @@
 <a href="#" id="delFilter">Remove First Filter</a> - 
 <a href="#" id="empty">Empty</a> - 
 <a href="#" id="length">Number of Filters</a>
+</p>
 
-
-<br/>Value: 
+<p>Value: 
 <a href="#" id="bValText">Text Value</a> - 
 <a href="#" id="bVal">JSON Value</a> - 
 <a href="#" id="bValUrl">URL Value</a>
 </p>
 
+<p><textarea id="advSearchWidget" class="demoValue">
+
+</textarea>
+
 <script> 
+
+$(document).ready(function(){
 
     $('.css').click(function(){
         $('#jquiCSS').attr('href','http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/'+this.innerHTML+'/jquery-ui.css');
     });
 
-    $('#evol').advancedSearch({fields:contacts }); 
+    $('#evol').advancedSearch({fields:contacts })
+    	.on('submit.search change.search', function(evt){
+    		$('#advSearchWidget').html($('#evol').advancedSearch('valText'));
+    	})
 	
 	$('#bVal').click(function(){
 		var v=$('#evol').advancedSearch("val");
-		alert(JSON.stringify(v));
+		$('#advSearchWidget').html(JSON.stringify(v));
+		//alert(JSON.stringify(v));
 	})
 	$('#bValText').click(function(){
 		var v=$('#evol').advancedSearch("valText");
-		alert(v);
+		$('#advSearchWidget').html(v);
+		//alert(v);
 	})
 	$('#bValUrl').click(function(){
 		var v=$('#evol').advancedSearch("valUrl");
-		alert(v);
+		$('#advSearchWidget').html(v);
+		//alert(v);
 	})
 	$('#addFilter').click(function(){
 		var filterDef = {
@@ -88,6 +100,8 @@
 		alert(v);
 	})
 	
+});
+
 </script>
  
 <p><br/>evol.advancedSearch is released under the <a href="http://github.com/evoluteur/advancedSearch/raw/master/LICENSE.md">MIT license</a>.</p>

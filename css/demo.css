@@ -10,6 +10,10 @@ a {
 	color: #39C;
 	font-weight: 400;
 }
+.demoValue{
+	width:100%;
+	min-height:60px;
+}
 .footer{
 	text-align: center;
 	font-size:smaller;
