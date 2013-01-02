@@ -111,6 +111,16 @@ A highlight animation performed on the last added or modified filter.
 
 Defaults to *true*.
 
+### submitButton (Boolean)
+
+Shows or hide the "Submit" button.
+
+    $("#advSearch").advancedSearch({
+        submitReady: true
+    });
+
+Defaults to *false*.
+
 ### submitReady (Boolean)
 
 Provides hidden fields with the filters values to be submitted with the form (as an alternative to an AJAX call).
@@ -128,6 +138,14 @@ Defaults to *false*.
 This event is triggered when the list of search conditions is modified.
 
     $("#advSearch").on("change.search", function(event){
+        // do something
+    })
+
+### submit.search
+
+This event is triggered when the submit button is clicked.
+
+    $("#advSearch").on("submit.search", function(event){
         // do something
     })
 

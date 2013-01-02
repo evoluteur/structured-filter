@@ -39,6 +39,7 @@
 		bNewFilter:'New filter',
 		bAddFilter:'Add filter',
 		bUpdateFilter:'Update filter',
+		bSubmit:'Submit',
 		bCancel:'Cancel'
 	},
 	evoAPI={
@@ -73,25 +74,38 @@ $.widget( 'evol.advancedSearch', {
 		dateFormat: 'mm/dd/yy',
 		highlight: true,
 		buttonLabels: false,
+		submitButton: false,
 		submitReady: false
 	},
 
 	_create: function(){
 		var bLabels=this.options.buttonLabels,
 			that=this,
-			e=this.element;
+			e=this.element,
+			h=['<div class="evo-searchFilters"></div>',
+				'<a class="evo-bNew" href="javascript:void(0)">',evoLang.bNewFilter,'</a>'];
+		if(this.options.submitButton){
+			h.push('<a class="evo-bSubmit" href="javascript:void(0)">',evoLang.bSubmit,'</a>');
+		}
+		h.push('<span class="evo-editFilter"></span>',
+				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddFilter,'</a>',
+				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>');
 		this._step=0;
 		e.addClass('evo-advSearch ui-widget-content ui-corner-all')
-			.html(['<div class="evo-searchFilters"></div>',
-				'<a class="evo-bNew" href="javascript:void(0)">',evoLang.bNewFilter,'</a>',
-				'<span class="evo-editFilter"></span>',
-				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddFilter,'</a>',
-				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>'].join('')
+			.html(h.join('')
 			);
 		if(this.options.submitReady){
 			this._hValues=$('<span></span>').appendTo(e);
 		}
-		// - editor new
+		// - button submit
+		if(this.options.submitButton){
+			this._bSubmit=e.find('.evo-bSubmit').button({
+					text: bLabels 
+				}).on('click', function(e){ 
+					that.element.trigger('submit.search');
+				});
+		}
+		// - editor button new
 		this._bNew=e.find('.evo-bNew').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-plusthick'}
@@ -102,7 +116,7 @@ $.widget( 'evol.advancedSearch', {
 				}
 				that._bAdd.find('.ui-button-text').html(evoLang.bAddFilter);
 			});
-		// - editor add
+		// - editor button add
 		this._bAdd=e.find('.evo-bAdd').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-check'}
@@ -115,7 +129,7 @@ $.widget( 'evol.advancedSearch', {
 				}
 				that._removeEditor();
 			});
-		// - editor cancel
+		// - editor button cancel
 		this._bDel=e.find('.evo-bDel').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-close'}
@@ -212,6 +226,7 @@ $.widget( 'evol.advancedSearch', {
 		this._bDel.hide();
 		this._enableFilter(null, false);
 		this._bNew.removeClass('ui-state-active').show().focus();
+		this._bSubmit.removeClass('ui-state-active').show();
 		this._step=0;
 		this._field=this._type=this._operator=null;
 	},
@@ -290,6 +305,7 @@ $.widget( 'evol.advancedSearch', {
 	_setEditorField: function(fid){
 		if(this._step<1){
 			this._bNew.stop().hide();
+			this._bSubmit.stop().hide();
 			this._bDel.show();
 			if(!this._fList){
 				var fields=this.options.fields,
