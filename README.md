@@ -189,7 +189,7 @@ Get the search definition (as a URL string).
 
 ## License
 
-Copyright (c) 2012 Olivier Giulieri.
+Copyright (c) 2013 Olivier Giulieri.
 
 evol.advancedSearch is released under the [MIT license](http://github.com/evoluteur/advancedSearch/raw/master/LICENSE.md).
 
