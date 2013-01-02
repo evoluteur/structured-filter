@@ -1,14 +1,126 @@
 # evol.advancedSearch
 
-evol.advancedSearch is a Web UI for building structured search queries. 
+evol.advancedSearch is a generic Web UI for advanced search (in a structured way). 
 It is a full jQuery UI widget, supporting various configurations and themes.
 
 ## Demo
 
 Check the [demo](http://evoluteur.github.com/advancedSearch/index.html) for a live example.
 
-## Overview
--to do-
+![screenshot 1](https://raw.github.com/evoluteur/advancedSearch/master/screenshot-advsrc-1.png) 
+
+## Model
+
+The widget is configured with a list of fields to use in the search conditions.
+
+### Fields
+
+Each field is defined by:
+
+    * id - unique field id.
+    * label - displayed field name.
+    * type - field type: text, number, boolean, date, time, or lov.
+
+### Conditions
+
+For each field the possible operators are determined it's type.
+
+boolean:
+
+    * Yes - 1
+    * No - 0
+
+date:
+
+    * on - eq
+    * not on - ne
+    * after - gt
+    * before - lt
+    * between - bw
+    * is empty - null
+    * is not empty - nn
+
+lov:
+
+    * any of - in
+    * equal - eq
+
+number:
+
+    * = - eq
+    * != - ne 
+    * > - gt 
+    * < - lt 
+    * is empty - null 
+    * is not empty - nn 
+
+text:
+
+    * equals - eq
+    * not equal - ne
+    * starts with - sw
+    * contains - ct
+    * finishes with - fw
+    * is empty - null
+    * is not empty - nn
+
+time:
+
+    * at - eq
+    * not at - ne
+    * after - gt
+    * before - lt
+    * between - bw
+    * is empty - null
+    * is not empty - nn
+
+A condition is defined by a field, an operator, and 1 or several values.
+
+### Search values
+
+A search value is a set of search conditions. Here is an example of search value (with 2 conditions), displayed as a javascript object, a readable string, or a URL.
+
+Using the method .val()
+
+    [
+        {
+            "field": {
+                "label":"Age",
+                "value":"age"
+            },
+            "operator": {
+                "label":">",
+                "value":"gt"
+            },
+            "value": {
+                "label":"20",
+                "value":"20"
+            }
+        },
+        {
+            "field": {
+                "label":"Lastname",
+                "value":"Lastname"
+            },
+            "operator": {
+                "label":"starts with",
+                "value":"sw"
+            },
+            "value": {
+                "label":"\"jo\"",
+                "value":"jo"
+            }
+        }
+    ]
+
+Using the method .valText()
+
+    Age > 20 and Lastname starts with "jo"
+
+Using the method .valUrl()
+
+    filters=2&field-0=age&operator-0=gt&value-0=20&field-1=Lastname&operator-1=sw&value-1=jo&label=Age%20%3E%2020%0A%20and%20Lastname%20starts%20with%20%22jo%22%0A
+
 
 ## Usage
 
@@ -43,9 +155,6 @@ Now, let's attach it to an existing `<div>` tag:
 
 This will change the `<div>` into the widget.
 
-
-## Data Format
--to do-
 
 ## Theming
 
@@ -195,9 +304,18 @@ Sample value:
 
     [
         {
-            "field":{"label":"Lastname","value":"Lastname"},
-            "operator":{"label":"starts with","value":"sw"},
-            "value":{"label":"\"jo\"","value":"jo"}
+            "field":{
+                "label":"Lastname",
+                "value":"Lastname"
+            },
+            "operator":{
+                "label":"starts with",
+                "value":"sw"
+            },
+            "value":{
+                "label":"\"jo\"",
+                "value":"jo"
+            }
         }
     ]
 
