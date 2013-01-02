@@ -563,15 +563,17 @@ $.widget( 'evol.advancedSearch', {
 		var vs=this.val(),
 			iMax=vs.length,
 			url=['filters=',iMax];
+		if(iMax<1)
+			return '';
 		for(var i=0;i<iMax;i++){
 			var v=vs[i];
 			url.push(
-				'&field-',i,'=',v.field,
-				'&operator-',i,'=',v.operator,
-				'&value-',i,'=',encodeURIComponent(v.value)
+				'&field-',i,'=',v.field.value,
+				'&operator-',i,'=',v.operator.value,
+				'&value-',i,'=',encodeURIComponent(v.value.value)
 			);
 			if(v.operator==evoAPI.sBetween){
-				url.push('&value2-',i,'=',encodeURIComponent(v.value));
+				url.push('&value2-',i,'=',encodeURIComponent(v.value.value2));
 			}
 		}
 		url.push('&label=',encodeURIComponent(this.valText()));
