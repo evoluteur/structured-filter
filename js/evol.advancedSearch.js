@@ -226,7 +226,9 @@ $.widget( 'evol.advancedSearch', {
 		this._bDel.hide();
 		this._enableFilter(null, false);
 		this._bNew.removeClass('ui-state-active').show().focus();
-		this._bSubmit.removeClass('ui-state-active').show();
+		if(this._bSubmit){
+			this._bSubmit.removeClass('ui-state-active').show();
+		}		
 		this._step=0;
 		this._field=this._type=this._operator=null;
 	},
@@ -305,7 +307,9 @@ $.widget( 'evol.advancedSearch', {
 	_setEditorField: function(fid){
 		if(this._step<1){
 			this._bNew.stop().hide();
-			this._bSubmit.stop().hide();
+			if(this._bSubmit){
+				this._bSubmit.stop().hide();
+			}
 			this._bDel.show();
 			if(!this._fList){
 				var fields=this.options.fields,
