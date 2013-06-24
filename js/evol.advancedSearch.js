@@ -67,7 +67,7 @@
 
 $.widget( 'evol.advancedSearch', {
 
-	version: '1.0',
+	version: '1.0.1',
 
 	options: {
 		fields: [],
