@@ -62,7 +62,7 @@
 		date:'date',
 		time:'time',
 		lov:'lov'
-	}
+	};
 
 
 $.widget( 'evol.advancedSearch', {
@@ -148,7 +148,7 @@ $.widget( 'evol.advancedSearch', {
 			}
 			that._step=1;
 			var fieldID=$(evt.currentTarget).val();
-			if(fieldID!=''){
+			if(fieldID!==''){
 				that._field=that._getFieldById(fieldID);
 				var fType=that._type=that._field.type;
 				that._setEditorOperator();
@@ -171,11 +171,11 @@ $.widget( 'evol.advancedSearch', {
 			evt.stopPropagation();
 			var type=that._type,
 				value=$(this).val(),
-				valid=(value!='') || type==evoTypes.lov || type==evoTypes.bool;
+				valid=(value!=='') || type==evoTypes.lov || type==evoTypes.bool;
 			if(type==evoTypes.number){
 				valid=valid && !isNaN(value);
 			}else if(that._operator==evoAPI.sBetween){
-				valid=that._editor.find('#value').val()!='' && that._editor.find('#value2').val()!='';
+				valid=that._editor.find('#value').val()!=='' && that._editor.find('#value2').val()!=='';
 			}
 			if(valid){
 				that._bAdd.button('enable');
@@ -392,14 +392,15 @@ $.widget( 'evol.advancedSearch', {
 		var editor=this._editor,
 			fType=this._type,
 			opVal=editor.find('#operator').val(),
+			opBetween=false,
 			addOK=true;
-		if(opVal!=''){
+		if(opVal!==''){
 			if(fType!=evoTypes.lov && (opVal==evoAPI.sIsNull || opVal==evoAPI.sIsNotNull)){
 				editor.append(EvoUI.inputHidden('value',''));
 			}else{
 				if(this._step<3){
-					var h=[],
-						opBetween=opVal==evoAPI.sBetween;
+					var h=[];
+					opBetween=opVal==evoAPI.sBetween;
 					switch (fType){
 						case evoTypes.lov:
 							h.push('<span id="value">');
@@ -446,10 +447,10 @@ $.widget( 'evol.advancedSearch', {
 							break;
 						default:
 							$value.val(v);
-							addOK=v!='';
+							addOK=v!=='';
 							if(opBetween){
 								$value.next().next().val(v2);
-								addOK=v!='' && v2!='';
+								addOK=v!=='' && v2!=='';
 							}
 					}
 				}else{
@@ -481,7 +482,7 @@ $.widget( 'evol.advancedSearch', {
 				vs.push(this.value);
 				ls.push(this.nextSibling.innerHTML);
 			});
-			if(vs.length==0){
+			if(vs.length===0){
 				op.label=evoLang.sIsNull;
 				op.value=evoAPI.sIsNull;
 				fv.label=fv.value='';
@@ -558,7 +559,7 @@ $.widget( 'evol.advancedSearch', {
 			var v=[];
 			this._filters.find('a').each(function(){
 				v.push($(this).data('filter'));			
-			})
+			});
 			return v;
 		}else{ 
 		// --- set value
@@ -575,7 +576,7 @@ $.widget( 'evol.advancedSearch', {
 		var v=[];
 		this._filters.find('a').each(function(){ 
 			v.push(this.text);
-		})
+		});
 		return v.join(' '+evoLang.opAnd+' ');
 	},
 
@@ -648,6 +649,6 @@ var EvoUI={
 		return h.join('');
 	}
 
-}
+};
 
 })(jQuery);
