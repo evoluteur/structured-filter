@@ -48,30 +48,30 @@
 
 $(document).ready(function(){
 
+	// *****   setup theme links   *****
     $('.css').click(function(){
         $('#jquiCSS').attr('href','http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/'+this.innerHTML+'/jquery-ui.css');
     });
 
+    // *****   setup advanced search widget   *****
     $('#evol').advancedSearch({fields:contacts })
     	.on('submit.search change.search', function(evt){
     		$('#advSearchWidget').html($('#evol').advancedSearch('valText'));
-    	})
+    	});
 	
+	// *****   setup values and tests links   *****
 	$('#bVal').click(function(){
 		var v=$('#evol').advancedSearch("val");
 		$('#advSearchWidget').html(JSON.stringify(v));
-		//alert(JSON.stringify(v));
-	})
+	});
 	$('#bValText').click(function(){
 		var v=$('#evol').advancedSearch("valText");
 		$('#advSearchWidget').html(v);
-		//alert(v);
-	})
+	});
 	$('#bValUrl').click(function(){
 		var v=$('#evol').advancedSearch("valUrl");
 		$('#advSearchWidget').html(v);
-		//alert(v);
-	})
+	});
 	$('#addFilter').click(function(){
 		var filterDef = {
 			field:{
@@ -88,17 +88,17 @@ $(document).ready(function(){
 			}
 		}
 		var v=$('#evol').advancedSearch("addFilter", filterDef);		
-	})
+	});
 	$('#delFilter').click(function(){
 		$('#evol').advancedSearch("removeFilter", 0);		
-	})
+	});
 	$('#empty').click(function(){
 		$('#evol').advancedSearch("empty");		
-	})
+	});
 	$('#length').click(function(){
 		var v=$('#evol').advancedSearch("length");
 		alert(v);
-	})
+	});
 	
 });
 
