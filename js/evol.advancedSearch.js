@@ -1,5 +1,5 @@
 ﻿/*!
- * evol.advancedSearch 1.0
+ * evol.advancedSearch 1.0.1
  *
  * Copyright (c) 2013, Olivier Giulieri 
  *
