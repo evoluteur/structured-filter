@@ -17,7 +17,7 @@
 <p>evol.advancedSearch is a Web UI for building structured search queries. It is a full jQuery UI widget, supporting various configurations and themes.
 </p>
 
-<p>Theme: 
+<p class="demo-links">Theme: 
 <a href="#" class="css">le-frog</a> - 
 <a href="#" class="css">redmond</a> - 
 <a href="#" class="css">start</a> - 
@@ -27,14 +27,14 @@
 
 <div id="evol"></div>
 	 
-<p>Tests: 
+<p class="demo-links">Tests: 
 <a href="#" id="addFilter">Add Filter</a> - 
 <a href="#" id="delFilter">Remove First Filter</a> - 
 <a href="#" id="empty">Empty</a> - 
 <a href="#" id="length">Number of Filters</a>
 </p>
 
-<p>Value: 
+<p class="demo-links">Value: 
 <a href="#" id="bValText">Text Value</a> - 
 <a href="#" id="bVal">JSON Value</a> - 
 <a href="#" id="bValUrl">URL Value</a>
@@ -100,6 +100,9 @@ $(document).ready(function(){
 		alert(v);
 	});
 	
+	// *****   Prevent links from scrolling   *****
+	$('.demo-links > a[href="#"]').attr('href', 'javascript:void(0)');
+
 });
 
 </script>
