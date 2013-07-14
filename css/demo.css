@@ -10,6 +10,10 @@ a {
 	color: #39C;
 	font-weight: 400;
 }
+a.sel{
+	color: #000;
+	text-decoration: none;
+}
 .demoValue{
 	width:100%;
 	min-height:60px;
