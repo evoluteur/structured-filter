@@ -19,7 +19,7 @@ Each field is defined by:
 
     * id - unique field id.
     * label - displayed field name.
-    * type - field type: text, number, boolean, date, time, or lov.
+    * type - field type: text, number, boolean, date, time, or lov (list of values or enum).
 
 ### Conditions
 
