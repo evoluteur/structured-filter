@@ -87,7 +87,7 @@ $.widget( 'evol.advancedSearch', {
 		if(this.options.submitButton){
 			h.push('<a class="evo-bSubmit" href="javascript:void(0)">',evoLang.bSubmit,'</a>');
 		}
-		h.push('<span class="evo-editFilter"></span>',
+		h.push('<div class="evo-editFilter"></div>',
 				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddFilter,'</a>',
 				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>');
 		this._step=0;

@@ -26,7 +26,11 @@
 }
 
 .evo-editFilter{
-	vertical-align: top;
+	vertical-align: middle;
+    float: left;
+}
+.evo-editFilter:after{
+    clear: left;
 }
 .evo-editFilter select, .evo-editFilter input{
 	margin:1px 6px 6px 1px;
