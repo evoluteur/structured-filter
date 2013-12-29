@@ -1,11 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" > 
 <head>
 <title>Advanced Search Demo</title>
-	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
+	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/demo.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/evol.advancedSearch.css" type="text/css" media="all">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" type="text/javascript"></script>
 
 	<script src="js/evol.advancedSearch.js" type="text/javascript"></script>
 	<script src="js/model-demo1.js" type="text/javascript"></script> 
@@ -30,7 +30,7 @@
 <p class="demo-links">API Test: 
 <a href="#" id="addFilter">Add Filter</a> - 
 <a href="#" id="delFilter">Remove First Filter</a> - 
-<a href="#" id="empty">Empty</a> - 
+<a href="#" id="clear">Clear</a> - 
 <a href="#" id="length">Number of Filters</a>
 </p>
 
@@ -107,12 +107,12 @@ $(document).ready(function(){
 	$('#delFilter').click(function(){
 		$('#evol').advancedSearch("removeFilter", 0);		
 	});
-	$('#empty').click(function(){
-		$('#evol').advancedSearch("empty");		
+	$('#clear').click(function(){
+		$('#evol').advancedSearch("clear");		
 	});
 	$('#length').click(function(){
 		var v=$('#evol').advancedSearch("length");
-		alert(v);
+		alert(v + ' filters.');
 	});
 	
 	// *****   Prevent links from scrolling   *****

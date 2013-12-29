@@ -278,10 +278,10 @@ Add a new filter.
         }
     });
 
-### empty()
+### clear()
 Remove all search filters.
 
-    $("#advSearch").advancedSearch("empty");
+    $("#advSearch").advancedSearch("clear");
 
 ### length()
 Get the number of filters.

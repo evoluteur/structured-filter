@@ -601,7 +601,7 @@ $.widget( 'evol.advancedSearch', {
 		return url.join('');
 	},
 
-	empty: function(){
+	clear: function(){
 		this._cFilter=null;
 		this._removeEditor();
 		this._filters.empty();
@@ -617,7 +617,7 @@ $.widget( 'evol.advancedSearch', {
 		var e=this.element.off();
 		e.find('.evo-bNew,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();		
 		this._editor.off();
-		e.empty().removeClass('evo-advSearch ui-widget-content ui-corner-all');
+		e.clear().removeClass('evo-advSearch ui-widget-content ui-corner-all');
 		$.Widget.prototype.destroy.call(this);
 	}
 
