@@ -1,66 +1,67 @@
-/*  (c) 2012 Olivier Giulieri  */
 /*  Advanced Search for jQuery UI  */
-
-.evo-advSearch{
-	min-height:20px;
-	padding:6px 1px 1px 6px;
+/*  (c) 2014 Olivier Giulieri  */
+/*  https://github.com/evoluteur/advancedSearch */
+.evo-advSearch {
+  min-height: 20px;
+  padding: 6px 1px 1px 6px;
 }
-.evo-bNew, .evo-bAdd, .evo-bDel, .evo-bSubmit, .evo-searchFilters a{
-	margin:1px 6px 6px 1px;	
+.evo-bNew,
+.evo-bAdd,
+.evo-bDel,
+.evo-bSubmit,
+.evo-searchFilters a {
+  margin: 1px 6px 6px 1px;
 }
-.evo-lBold{
-	font-weight: bold;
+.evo-lBold {
+  font-weight: bold;
 }
-.evo-lLight{
-	font-weight: normal;
+.evo-lLight {
+  font-weight: normal;
 }
-
-.evo-searchFilters a{
-	-moz-border-radius: 14px;
-	-webkit-border-radius: 14px;
-	-khtml-border-radius: 14px;
-	border-radius: 14px;
+.evo-searchFilters a {
+  -moz-border-radius: 14px;
+  -webkit-border-radius: 14px;
+  -khtml-border-radius: 14px;
+  border-radius: 14px;
 }
-.evo-searchFilters a span.ui-button-text{
-	padding: 4px 33px 4px 12px;
+.evo-searchFilters a span.ui-button-text {
+  padding: 4px 33px 4px 12px;
 }
-
-.evo-editFilter{
-	vertical-align: middle;
-    float: left;
+.evo-editFilter {
+  vertical-align: middle;
+  float: left;
 }
-.evo-editFilter:after{
-    clear: left;
+.evo-editFilter:after {
+  clear: left;
 }
-.evo-editFilter select, .evo-editFilter input{
-	margin:1px 6px 6px 1px;
-	font-size: 1.1em; 
+.evo-editFilter select,
+.evo-editFilter input {
+  margin: 1px 6px 6px 1px;
+  font-size: 1.1em;
 }
 .evo-editFilter span#value {
-	margin-right:5px;
+  margin-right: 5px;
 }
 .evo-editFilter #value input[type="checkbox"] {
-	margin-left:5px;
+  margin-left: 5px;
 }
 .evo-editFilter input[type="number"]#value,
 .evo-editFilter input[type="time"]#value,
 .evo-editFilter input[type="time"]#value2 {
-	width:6em;
+  width: 6em;
 }
-
-.evo-editFilter input.hasDatepicker{
-	width:8em;
+.evo-editFilter input.hasDatepicker {
+  width: 8em;
 }
-
 .evo-editFilter > input,
 .evo-editFilter > select {
-    height: 34px;
-    padding: 6px 12px;
-    font-size: 14px;
-    line-height: 1.42857143;
-    color: #555;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }

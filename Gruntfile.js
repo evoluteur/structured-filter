@@ -33,6 +33,17 @@ module.exports = function (grunt) {
                 'js/evol.advancedSearch.min.js': ['js/evol.advancedSearch.js']
                 }
             }
+        },
+
+        // *************************************************************************************
+        //      LESS
+        // *************************************************************************************
+        less: {
+            dev: {
+                files: {
+                    "css/evol.advancedSearch.css": "less/evol.advancedSearch.less"
+                }
+            }
         }
 
     });
@@ -40,6 +51,7 @@ module.exports = function (grunt) {
 // Load the plugin that provides the tasks.
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
 // Custom tasks
 
@@ -50,10 +62,10 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['dev']);
 
     // Dev only task(s).
-    grunt.registerTask('dev', ['jshint']);
+    grunt.registerTask('dev', ['less:dev', 'jshint']);
 
     // Prod only task(s).
-    grunt.registerTask('prod', ['jshint', 'uglify']);
+    grunt.registerTask('prod', ['less', 'jshint', 'uglify']);
 
 };
 
