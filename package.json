@@ -2,6 +2,7 @@
   "name": "evol.advancedSearch",
   "version": "1.0.1",
   "copyright": "(c) 2014 Olivier Giulieri",
+  "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.4.3",
@@ -10,5 +11,9 @@
     "dependencies": {
         "jquery": "2.1.1",
         "jquery-ui": "1.10.4"
+    },
+    "repository": {
+        "type" : "git",
+        "url" : "http://github.com/evoluteur/advancedSearch.git"
     }
 }
