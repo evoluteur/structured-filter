@@ -339,7 +339,7 @@ Sample value:
 
 ## License
 
-Copyright (c) 2013 Olivier Giulieri.
+Copyright (c) 2014 Olivier Giulieri.
 
 evol.advancedSearch is released under the [MIT license](http://github.com/evoluteur/advancedSearch/raw/master/LICENSE.md).
 

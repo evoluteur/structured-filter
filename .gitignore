@@ -7,3 +7,6 @@ Desktop.ini
 
 # Mac stuff
 .DS_Store
+
+# WebStorm stuff
+.idea

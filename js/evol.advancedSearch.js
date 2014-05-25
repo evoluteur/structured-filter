@@ -1,7 +1,7 @@
 ﻿/*!
  * evol.advancedSearch 1.0.1
  *
- * Copyright (c) 2013, Olivier Giulieri 
+ * Copyright (c) 2014, Olivier Giulieri
  *
  * Depends:
  *	jquery.ui.core.js
