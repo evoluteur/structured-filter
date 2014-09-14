@@ -1,6 +1,9 @@
 # evol.advancedSearch
 
-evol.advancedSearch is a generic Web UI for advanced search. With it you can build structured search queries like "Contacts where Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)"...
+evol.advancedSearch is a generic Web UI for advanced search.
+With it you can build structured search queries like
+"Contacts where Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)"...
+
 It is a full jQuery UI widget, supporting various configurations and themes.
 
 ## Demo
@@ -20,6 +23,25 @@ Each field is defined by:
 - id - unique field id.
 - label - displayed field name.
 - type - field type: text, number, boolean, date, time, or lov (list of values or enum).
+
+```javascript
+[
+    { type:"text", id:"lastname", label:"Lastname"},
+    { type:"text", id:"firstname", label:"Firstname"},
+    { type:"boolean", id:"active", label:"Is active"},
+    { type:"number", id:"age", label:"Age"},
+    { type:"date", id:"bday", label:"Birthday"},
+	{type:"lov", id:"category", label:"Category",
+		list:[
+			{id:'1', label:"Family"},
+			{id:'2', label:"Friends"},
+			{id:'3', label:"Business"},
+			{id:'4', label:"Acquaintances"},
+			{id:'5', label:"Other"}
+		]
+	}
+];
+```
 
 ### Conditions
 
@@ -76,9 +98,9 @@ time:
 
 A condition is defined by a field, an operator, and 1 or several values.
 
-### Search values
+### Search query definition
 
-A search value is a set of search conditions. Here is an example of search value (with 2 conditions), displayed as a javascript object, a readable string, or a URL.
+A search query is a set of search conditions. Here is an example of search query (with 2 conditions), displayed as a javascript object, a readable string, or a URL.
 
 Using the method .val()
 
@@ -86,30 +108,30 @@ Using the method .val()
     [
         {
             "field": {
-                "label":"Age",
-                "value":"age"
+                "label": "Age",
+                "value": "age"
             },
             "operator": {
-                "label":">",
-                "value":"gt"
+                "label": ">",
+                "value": "gt"
             },
             "value": {
-                "label":"20",
-                "value":"20"
+                "label": "20",
+                "value": "20"
             }
         },
         {
             "field": {
-                "label":"Lastname",
-                "value":"Lastname"
+                "label": "Lastname",
+                "value": "Lastname"
             },
             "operator": {
-                "label":"starts with",
-                "value":"sw"
+                "label": "starts with",
+                "value": "sw"
             },
             "value": {
-                "label":"\"jo\"",
-                "value":"jo"
+                "label": "\"jo\"",
+                "value": "jo"
             }
         }
     ]
@@ -148,11 +170,20 @@ Now, let's attach it to an existing `<div>` tag:
     $(document).ready(function() {
         $("#search").advancedSearch({
             fields: [
-                { type:"text", id:"lastname", label:"Lastname"},
-                { type:"text", id:"firstname", label:"Firstname"},
-                { type:"boolean", id:"active", label:"Is active"},
-                { type:"number", id:"age", label:"Age"},
-                { type:"date", id:"bday", label:"Birthday"}
+                {type:"text", id:"lastname", label:"Lastname"},
+                {type:"text", id:"firstname", label:"Firstname"},
+                {type:"boolean", id:"active", label:"Is active"},
+                {type:"number", id:"age", label:"Age"},
+                {type:"date", id:"bday", label:"Birthday"},
+                {type:"lov", id:"category", label:"Category",
+                    list:[
+                        {id:'1', label:"Family"},
+                        {id:'2', label:"Friends"},
+                        {id:'3', label:"Business"},
+                        {id:'4', label:"Acquaintances"},
+                        {id:'5', label:"Other"}
+                    ]
+                }
             ]
         });
     });
@@ -204,18 +235,18 @@ The list of fields (as an array of objects with id, label and type) to participa
 ```javascript
 $("#advSearch").advancedSearch({
     fields: [
-        { type:"text", id:"lastname", label:"Lastname"},
-        { type:"text", id:"firstname", label:"Firstname"},
-        { type:"boolean", id:"active", label:"Is active"},
-        { type:"number", id:"age", label:"Age"},
-        { type:"date", id:"bday", label:"Birthday"},
-        { type:"lov", id:"CategoryID", label:"Category",
+        {type:"text", id:"lastname", label:"Lastname"},
+        {type:"text", id:"firstname", label:"Firstname"},
+        {type:"boolean", id:"active", label:"Is active"},
+        {type:"number", id:"age", label:"Age"},
+        {type:"date", id:"bday", label:"Birthday"},
+        {type:"lov", id:"category", label:"Category",
             list:[
-                {id:'1',label:"Friends"},
-                {id:'2',label:"Family"},
-                {id:'3',label:"Co-workers"},
-                {id:'4',label:"Acquaintances"},
-                {id:'5',label:"Other"}
+                {id:'1', label:"Family"},
+                {id:'2', label:"Friends"},
+                {id:'3', label:"Business"},
+                {id:'4', label:"Acquaintances"},
+                {id:'5', label:"Other"}
             ]
         }
     ]
@@ -340,16 +371,16 @@ Sample value:
 [
     {
         "field":{
-            "label":"Lastname",
-            "value":"Lastname"
+            "label": "Lastname",
+            "value": "Lastname"
         },
         "operator":{
-            "label":"starts with",
-            "value":"sw"
+            "label": "starts with",
+            "value": "sw"
         },
         "value":{
-            "label":"\"jo\"",
-            "value":"jo"
+            "label": "\"jo\"",
+            "value": "jo"
         }
     }
 ]

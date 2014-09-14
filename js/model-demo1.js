@@ -2,16 +2,16 @@ var contacts=[
 	{ type:"text", id:"Lastname", label:"Lastname"},
 	{ type:"text", id:"Firstname", label:"Firstname"},
 	{ type:"boolean", id:"active", label:"Is active"},	
-	{ type:"number", id:"age", label:"Age"},		   
-	{type:"lov", id:"CategoryID", label:"Category",
-		list:[
-			{id:'1',label:"Friends"},
-			{id:'2',label:"Family"},
-			{id:'3',label:"Co-workers"},
-			{id:'4',label:"Acquaintances"},
-			{id:'5',label:"Other"}
-		]
-	},
+	{ type:"number", id:"age", label:"Age"},
+    {type:"lov", id:"category", label:"Category",
+        list:[
+            {id:'1', label:"Family"},
+            {id:'2', label:"Friends"},
+            {id:'3', label:"Business"},
+            {id:'4', label:"Acquaintances"},
+            {id:'5', label:"Other"}
+        ]
+    },
 	{type:"date", id:"bday", label:"Birthday"},
 	{type:"text", id:"phone", label:"Phone"},
 	{type:"text", id:"cell", label:"Mobile"},
@@ -76,7 +76,7 @@ var contacts=[
 	{type:"lov", id:"Country", label:"Country",
 		list:[ 
 			{label: 'Afghanistan', id: 'AF'}, 
-			{label: 'Åland Islands', id: 'AX'}, 
+			{label: 'Ã…land Islands', id: 'AX'},
 			{label: 'Albania', id: 'AL'}, 
 			{label: 'Algeria', id: 'DZ'}, 
 			{label: 'American Samoa', id: 'AS'}, 
