@@ -1,11 +1,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" > 
 <head>
 <title>Advanced Search Demo</title>
-	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
+	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/demo.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/evol.advancedSearch.css" type="text/css" media="all">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript"></script>
 
 	<script src="js/evol.advancedSearch.js" type="text/javascript"></script>
 	<script src="js/model-demo1.js" type="text/javascript"></script> 
@@ -17,7 +17,7 @@
 <p>evol.advancedSearch is a Web UI for building structured search queries. It is a full jQuery UI widget, supporting various configurations and themes.
 </p>
 
-<p class="demo-links">Theme: 
+<p class="demo-links">Themes:
 <a href="#" class="css">le-frog</a> - 
 <a href="#" class="css">redmond</a> - 
 <a href="#" class="css">start</a> - 
@@ -25,22 +25,22 @@
 <a href="#" class="css sel">ui-lightness</a>
 </p>
 
-<div id="evol"></div>
-	 
-<p class="demo-links">API Test: 
-<a href="#" id="addFilter">Add Filter</a> - 
-<a href="#" id="delFilter">Remove First Filter</a> - 
-<a href="#" id="clear">Clear</a> - 
-<a href="#" id="length">Number of Filters</a>
+<p class="demo-links">API Tests:
+    <a href="#" id="addFilter">Add Filter</a> -
+    <a href="#" id="delFilter">Remove First Filter</a> -
+    <a href="#" id="clear">Clear</a> -
+    <a href="#" id="length">Number of Filters</a>
 </p>
 
-<p class="demo-links" id="linksValues">Value Format: 
+<div id="evol"></div>
+
+<p class="demo-links" id="linksValues">Value Formats:
 <a href="#" data-id="json" class="sel">JSON</a> - 
 <a href="#" data-id="text">Text</a> - 
 <a href="#" data-id="url">URL</a>
 </p>
 
-<p><textarea id="advSearchWidget" class="demoValue">
+<p><textarea id="advSearchWidget" class="demoValue" rows=12">
 
 </textarea>
 
@@ -52,7 +52,7 @@ $(document).ready(function(){
 	function updateValue(format){ 
 		switch(format){
 			case 'json':
-				v=JSON.stringify($('#evol').advancedSearch("val"));
+				v=JSON.stringify($('#evol').advancedSearch("val"), null, 2);
 				break;
 			case 'text':
 				v=$('#evol').advancedSearch("valText");
@@ -121,11 +121,10 @@ $(document).ready(function(){
 });
 
 </script>
- 
-<p><br/>evol.advancedSearch is released under the <a href="http://github.com/evoluteur/advancedSearch/raw/master/LICENSE.md">MIT license</a>.</p>
-<p> 
-Download and Source code available at GitHub <a href="https://github.com/evoluteur/advancedSearch" target="download">https://github.com/evoluteur/advancedSearch</a>.</p>
- 
+
+<p><br/>
+    Documentation and Source code available at <a href="https://github.com/evoluteur/advancedSearch" target="git">GitHub</a>
+    under the <a href="http://github.com/evoluteur/advancedSearch/raw/master/LICENSE.md">MIT license</a>.</p>
 
 <br/><br/>
 <div class="footer">&#169; 2014 Olivier Giulieri</div>

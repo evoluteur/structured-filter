@@ -102,7 +102,9 @@ A condition is defined by a field, an operator, and one or several values.
 
 ### Search query definition
 
-A search query is a set of search conditions. Here is an example of search query (with 2 conditions), displayed as a javascript object, a readable string, or a URL.
+A query is defined as a set of conditions.
+Here is an example of search query with 2 conditions.
+The widget provides 3 different methods to return the query definition as a javascript object, a readable string, or a URL.
 
 Using the method **.val()**
 
@@ -154,14 +156,14 @@ First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and
 
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/evol.advancedSearch.js" type="text/javascript" charset="utf-8"></script>
 ```
 
 The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([evol.advancedSearch.css](http://github.com/evoluteur/advancedSearch/raw/master/css/evol.advancedSearch.css)). Here we use the "ui-lightness" theme as an example:
 
 ```html
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">
 <link href="css/evol.advancedSearch.css" rel="stylesheet" type="text/css">
 ```
 
