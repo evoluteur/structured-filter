@@ -1,6 +1,6 @@
 # evol.advancedSearch
 
-evol.advancedSearch is a generic Web UI for advanced search (in a structured way). 
+evol.advancedSearch is a generic Web UI for advanced search. With it you can build structured search queries like "Contacts where Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)"...
 It is a full jQuery UI widget, supporting various configurations and themes.
 
 ## Demo
@@ -129,37 +129,37 @@ Using the method .valUrl()
 First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and the plugin:
 
 ```html
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/evol.advancedSearch.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/evol.advancedSearch.js" type="text/javascript" charset="utf-8"></script>
 ```
 
 The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([evol.advancedSearch.css](http://github.com/evoluteur/advancedSearch/raw/master/css/evol.advancedSearch.css)). Here we use the "ui-lightness" theme as an example:
 
 ```html
-    <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
-    <link href="css/evol.advancedSearch.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/ui-lightness/jquery-ui.css">
+<link href="css/evol.advancedSearch.css" rel="stylesheet" type="text/css">
 ```
 
 Now, let's attach it to an existing `<div>` tag:
 
 ```html
-    <script type="text/javascript">
-        $(document).ready(function() {
-			$("#search").advancedSearch({
-			    fields: [
-			        { type:"text", id:"lastname", label:"Lastname"},
-			        { type:"text", id:"firstname", label:"Firstname"},
-			        { type:"boolean", id:"active", label:"Is active"},
-			        { type:"number", id:"age", label:"Age"},
-			        { type:"date", id:"bday", label:"Birthday"}         
-			    ]
-			});
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#search").advancedSearch({
+            fields: [
+                { type:"text", id:"lastname", label:"Lastname"},
+                { type:"text", id:"firstname", label:"Firstname"},
+                { type:"boolean", id:"active", label:"Is active"},
+                { type:"number", id:"age", label:"Age"},
+                { type:"date", id:"bday", label:"Birthday"}
+            ]
         });
-    </script>
+    });
+</script>
 
-    <div style="width:100px;" id="search"></div>
-```html
+<div style="width:100px;" id="search"></div>
+```
 
 This will change the `<div>` into the widget.
 
