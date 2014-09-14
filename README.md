@@ -47,6 +47,13 @@ fields = [
 
 ### Conditions
 
+Search queries are a set of conditions.
+
+Each condition is defined by:
+- a field
+- an operator
+- one or several values
+
 For each field the possible operators are determined it's type.
 
 boolean:
@@ -98,58 +105,6 @@ time:
 - is empty - null
 - is not empty - nn
 
-A condition is defined by a field, an operator, and one or several values.
-
-### Search query definition
-
-A query is defined as a set of conditions.
-Here is an example of search query with 2 conditions.
-The widget provides 3 different methods to return the query definition as a javascript object, a readable string, or a URL.
-
-Using the method **.val()**
-
-```javascript
-    [
-        {
-            "field": {
-                "label": "Age",
-                "value": "age"
-            },
-            "operator": {
-                "label": ">",
-                "value": "gt"
-            },
-            "value": {
-                "label": "20",
-                "value": "20"
-            }
-        },
-        {
-            "field": {
-                "label": "Lastname",
-                "value": "Lastname"
-            },
-            "operator": {
-                "label": "starts with",
-                "value": "sw"
-            },
-            "value": {
-                "label": "\"jo\"",
-                "value": "jo"
-            }
-        }
-    ]
-```
-
-Using the method **.valText()**
-
-    Age > 20 and Lastname starts with "jo"
-
-Using the method **.valUrl()**
-
-    filters=2&field-0=age&operator-0=gt&value-0=20&field-1=Lastname&operator-1=sw&value-1=jo&label=Age%20%3E%2020%0A%20and%20Lastname%20starts%20with%20%22jo%22%0A
-
-
 ## Usage
 
 First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and the plugin:
@@ -197,11 +152,6 @@ Now, let's attach it to an existing `<div>` tag:
 ```
 
 This will change the `<div>` into the widget.
-
-
-## Theming
-
-advancedSearch is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
 
 ## Options
 
@@ -295,27 +245,6 @@ $("#advSearch").advancedSearch({
 
 Defaults to *false*.
 
-## Events
-
-### change.search
-
-This event is triggered when the list of search conditions is modified.
-
-```javascript
-$("#advSearch").on("change.search", function(event){
-    // do something
-});
-```
-
-### submit.search
-
-This event is triggered when the submit button is clicked.
-
-```javascript
-$("#advSearch").on("submit.search", function(event){
-    // do something
-});
-```
 
 ## Methods
 
@@ -411,6 +340,34 @@ $("#advSearch").advancedSearch("valUrl");
 Sample value:
 
     filters=1&field-0=Lastname&operator-0=sw&value-0=jo&label=Lastname%20starts%20with%20%22jo%22%0A
+
+
+## Events
+
+### change.search
+
+This event is triggered when the list of search conditions is modified.
+
+```javascript
+$("#advSearch").on("change.search", function(event){
+    // do something
+});
+```
+
+### submit.search
+
+This event is triggered when the submit button is clicked.
+
+```javascript
+$("#advSearch").on("submit.search", function(event){
+    // do something
+});
+```
+
+## Theming
+
+advancedSearch is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
+
 
 ## License
 
