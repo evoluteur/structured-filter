@@ -24,8 +24,10 @@ Each field is defined by:
 - label - displayed field name.
 - type - field type: text, number, boolean, date, time, or lov (list of values or enum).
 
+Example:
+
 ```javascript
-[
+fields = [
     { type:"text", id:"lastname", label:"Lastname"},
     { type:"text", id:"firstname", label:"Firstname"},
     { type:"boolean", id:"active", label:"Is active"},
@@ -96,13 +98,13 @@ time:
 - is empty - null
 - is not empty - nn
 
-A condition is defined by a field, an operator, and 1 or several values.
+A condition is defined by a field, an operator, and one or several values.
 
 ### Search query definition
 
 A search query is a set of search conditions. Here is an example of search query (with 2 conditions), displayed as a javascript object, a readable string, or a URL.
 
-Using the method .val()
+Using the method **.val()**
 
 ```javascript
     [
@@ -137,11 +139,11 @@ Using the method .val()
     ]
 ```
 
-Using the method .valText()
+Using the method **.valText()**
 
     Age > 20 and Lastname starts with "jo"
 
-Using the method .valUrl()
+Using the method **.valUrl()**
 
     filters=2&field-0=age&operator-0=gt&value-0=20&field-1=Lastname&operator-1=sw&value-1=jo&label=Age%20%3E%2020%0A%20and%20Lastname%20starts%20with%20%22jo%22%0A
 
