@@ -6,9 +6,15 @@ body{
 	color: #777;
 	font-weight: 300;
 }
+h1 {
+    color: #31859b;
+}
 a {
-	color: #39C;
-	font-weight: 400;
+    color: #366092;
+    font-weight: 400;
+}
+a:hover {
+    color: #39C;
 }
 a.sel{
 	color: #000;
