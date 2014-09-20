@@ -16,7 +16,7 @@ module.exports = function (grunt) {
             all: [
                 'Gruntfile.js',
                 'package.json',
-                'js/evol.advancedSearch.js'
+                'js/structured-filter.js'
             ]
         },
 
@@ -30,7 +30,7 @@ module.exports = function (grunt) {
             },
             js: {
                 files: { 
-                'js/evol.advancedSearch.min.js': ['js/evol.advancedSearch.js']
+                'js/structured-filter.min.js': ['js/structured-filter.js']
                 }
             }
         },
@@ -41,7 +41,7 @@ module.exports = function (grunt) {
         less: {
             dev: {
                 files: {
-                    "css/evol.advancedSearch.css": "less/evol.advancedSearch.less"
+                    "css/structured-filter.css": "less/structured-filter.less"
                 }
             }
         }
@@ -62,7 +62,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', ['dev']);
 
     // Dev only task(s).
-    grunt.registerTask('dev', ['less:dev', 'jshint']);
+    grunt.registerTask('dev', ['less:dev']);
 
     // Prod only task(s).
     grunt.registerTask('prod', ['less', 'jshint', 'uglify']);

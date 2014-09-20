@@ -1,23 +1,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" > 
 <head>
-    <title>Advanced Search Demo</title>
+    <title>structured-filter Demo</title>
     <meta name="keywords" content="jQuery UI widget metadata advanced structured filter search form">
     <meta name="description" content="Structured search widget for jQuery UI.">
 
 	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/demo.css" type="text/css" media="all">
-	<link rel="stylesheet" href="css/evol.advancedSearch.css" type="text/css" media="all">
+	<link rel="stylesheet" href="css/structured-filter.css" type="text/css" media="all">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="js/evol.advancedSearch.js" type="text/javascript"></script>
+	<script src="js/structured-filter.js" type="text/javascript"></script>
 	<script src="js/model-demo1.js" type="text/javascript"></script> 
 </head>
 <body>   
 
-<h1>Advanced Search Demo</h1> 
+<h1>Structured-Filter Demo</h1>
 
-<p>evol.advancedSearch is a Web UI for building structured search queries. It is a full jQuery UI widget, supporting various configurations and themes.
+<p>structured-filter is a Web UI for building structured search queries. It is a full jQuery UI widget, supporting various configurations and themes.
 </p>
 
 <p class="demo-links">Themes:
@@ -44,12 +44,12 @@
 </p>
 
 <p>
-    <textarea id="advSearchWidget" class="demoValue" rows=12"></textarea>
+    <textarea id="myFilter" class="demoValue" rows=12"></textarea>
 </p>
 
 <p><br/>
-    The documentation and source code are available at <a href="https://github.com/evoluteur/advancedSearch" target="git">GitHub</a>
-    under <a href="http://github.com/evoluteur/advancedSearch/raw/master/LICENSE.md">MIT license</a>.</p>
+    The documentation and source code are available at <a href="https://github.com/evoluteur/structured-filter" target="git">GitHub</a>
+    under <a href="http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md">MIT license</a>.</p>
 
 <br/><br/>
 <div class="footer">&#169; 2014 Olivier Giulieri</div>
@@ -64,15 +64,15 @@
         function updateValue(format){
             switch(format){
                 case 'json':
-                    v = JSON.stringify($('#evol').advancedSearch("val"), null, 2);
+                    v = JSON.stringify($('#evol').structFilter("val"), null, 2);
                     break;
                 case 'text':
-                    v = $('#evol').advancedSearch("valText");
+                    v = $('#evol').structFilter("valText");
                     break;
                 case 'url':
-                    v = $('#evol').advancedSearch("valUrl");
+                    v = $('#evol').structFilter("valUrl");
             }
-            $('#advSearchWidget').html(v);
+            $('#myFilter').html(v);
         }
 
         // *****   setup theme links   *****
@@ -82,8 +82,8 @@
             $(this).addClass('sel');
         });
 
-        // *****   setup advanced search widget   *****
-        $('#evol').advancedSearch({fields:contacts })
+        // *****   setup structured filter widget   *****
+        $('#evol').structFilter({fields:contacts })
             .on('submit.search change.search', function(evt){
                 updateValue(valueFormat);
             });
@@ -114,16 +114,16 @@
                     value: 'jo'
                 }
             };
-            $('#evol').advancedSearch("addFilter", filterDef);
+            $('#evol').structFilter("addFilter", filterDef);
         });
         $('#delFilter').click(function(){
-            $('#evol').advancedSearch("removeFilter", 0);
+            $('#evol').structFilter("removeFilter", 0);
         });
         $('#clear').click(function(){
-            $('#evol').advancedSearch("clear");
+            $('#evol').structFilter("clear");
         });
         $('#length').click(function(){
-            var v = $('#evol').advancedSearch("length"),
+            var v = $('#evol').structFilter("length"),
                     msg;
             if(v===0){
                 msg = 'No filter.';

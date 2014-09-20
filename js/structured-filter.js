@@ -1,5 +1,5 @@
 ﻿/*!
- * evol.advancedSearch 1.0.1
+ * structured-filter 1.0.1
  *
  * Copyright (c) 2014, Olivier Giulieri
  *
@@ -65,7 +65,7 @@
 	};
 
 
-$.widget( 'evol.advancedSearch', {
+$.widget( 'evol.structFilter', {
 
 	version: '1.0.1',
 
@@ -91,7 +91,7 @@ $.widget( 'evol.advancedSearch', {
 				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddFilter,'</a>',
 				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>');
 		this._step=0;
-		e.addClass('evo-advSearch ui-widget-content ui-corner-all')
+		e.addClass('structFilter ui-widget-content ui-corner-all')
 			.html(h.join('')
 			);
 		if(this.options.submitReady){
@@ -617,7 +617,7 @@ $.widget( 'evol.advancedSearch', {
 		var e=this.element.off();
 		e.find('.evo-bNew,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();		
 		this._editor.off();
-		e.clear().removeClass('evo-advSearch ui-widget-content ui-corner-all');
+		e.clear().removeClass('structFilter ui-widget-content ui-corner-all');
 		$.Widget.prototype.destroy.call(this);
 	}
 

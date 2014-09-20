@@ -1,5 +1,5 @@
 {
-  "name": "evol.advancedSearch",
+  "name": "structured-filter",
   "version": "1.0.1",
   "copyright": "(c) 2014 Olivier Giulieri",
   "license": "MIT",
@@ -14,6 +14,6 @@
     },
     "repository": {
         "type" : "git",
-        "url" : "http://github.com/evoluteur/advancedSearch.git"
+        "url" : "http://github.com/evoluteur/structured-filter.git"
     }
 }

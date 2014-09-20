@@ -1,6 +1,6 @@
-# evol.advancedSearch
+# structured-filter
 
-evol.advancedSearch is a generic Web UI for advanced search.
+structured-filter is a generic Web UI for building structured search or filter queries.
 With it you can build structured search queries like
 "Contacts where Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)"...
 
@@ -8,9 +8,9 @@ It is a full jQuery UI widget, supporting various configurations and themes.
 
 ## Demo
 
-Check the [demo](http://evoluteur.github.com/advancedSearch/index.html) for a live example.
+Check the [demo](http://evoluteur.github.com/structured-filter/index.html) for a live example.
 
-![screenshot 1](https://raw.github.com/evoluteur/advancedSearch/master/screenshot-advsrc-1.png) 
+![screenshot 1](https://raw.github.com/evoluteur/structured-filter/master/screenshot-advsrc-1.png)
 
 ## Model
 
@@ -112,14 +112,14 @@ First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/evol.advancedSearch.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/structured-filter.js" type="text/javascript" charset="utf-8"></script>
 ```
 
-The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([evol.advancedSearch.css](http://github.com/evoluteur/advancedSearch/raw/master/css/evol.advancedSearch.css)). Here we use the "ui-lightness" theme as an example:
+The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([structured-filter.css](http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css)). Here we use the "ui-lightness" theme as an example:
 
 ```html
 <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">
-<link href="css/evol.advancedSearch.css" rel="stylesheet" type="text/css">
+<link href="css/structured-filter.css" rel="stylesheet" type="text/css">
 ```
 
 Now, let's attach it to an existing `<div>` tag:
@@ -127,7 +127,7 @@ Now, let's attach it to an existing `<div>` tag:
 ```html
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#search").advancedSearch({
+        $("#search").structFilter({
             fields: [
                 {type:"text", id:"lastname", label:"Lastname"},
                 {type:"text", id:"firstname", label:"Firstname"},
@@ -155,14 +155,14 @@ This will change the `<div>` into the widget.
 
 ## Options
 
-advancedSearch provides several options to customize its behaviour:
+structured-filter provides several options to customize its behaviour:
 
 ### buttonLabels (Boolean)
 
 The labels of buttons used to manipulate filters. This options applies to the 3 buttons "New filter", "Add filter"/"Update filter", and "Cancel" which use icons if the option is set to false.
 
 ```javascript
-$("#advSearch").advancedSearch({
+$("#myFilter").structFilter({
     buttonLabels: true
 });
 ```
@@ -175,7 +175,7 @@ The format for parsed and displayed dates. This attribute is one of the regional
 Common formats are: Default - "mm/dd/yy", ISO 8601 - "yy-mm-dd", Short - "d M, y", Medium - "d MM, y", Full - "DD, d MM, yy". For a full list of the possible formats see the [jQuery formatDate function](http://docs.jquery.com/UI/Datepicker/formatDate).
 
 ```javascript
-$("#advSearch").advancedSearch({
+$("#myFilter").structFilter({
     dateFormat: "d M, y"
 });
 ```
@@ -187,7 +187,7 @@ Defaults to *"mm/dd/yy"*.
 The list of fields (as an array of objects with id, label and type) to participate in the advanced search. Possible types are: text, boolean, number, date, time, and lov (list of values).
 
 ```javascript
-$("#advSearch").advancedSearch({
+$("#myFilter").structFilter({
     fields: [
         {type:"text", id:"lastname", label:"Lastname"},
         {type:"text", id:"firstname", label:"Firstname"},
@@ -214,7 +214,7 @@ Defaults to *[ ]*.
 A highlight animation performed on the last added or modified filter.
 
 ```javascript
-$("#advSearch").advancedSearch({
+$("#myFilter").structFilter({
     highlight: false
 });
 ```
@@ -226,7 +226,7 @@ Defaults to *true*.
 Shows or hide the "Submit" button.
 
 ```javascript
-$("#advSearch").advancedSearch({
+$("#myFilter").structFilter({
     submitReady: true
 });
 ```
@@ -238,7 +238,7 @@ Defaults to *false*.
 Provides hidden fields with the filters values to be submitted with the form (as an alternative to an AJAX call).
 
 ```javascript
-$("#advSearch").advancedSearch({
+$("#myFilter").structFilter({
     submitReady: true
 });
 ```
@@ -252,7 +252,7 @@ Defaults to *false*.
 Add a new filter.
 
 ```javascript
-$("#advSearch").advancedSearch("addFilter", {
+$("#myFilter").structFilter("addFilter", {
     field:{
         label: 'Lastname',
         value: 'lastname'
@@ -272,30 +272,30 @@ $("#advSearch").advancedSearch("addFilter", {
 Remove all search filters.
 
 ```javascript
-$("#advSearch").advancedSearch("clear");
+$("#myFilter").structFilter("clear");
 ```
 
 ### length()
 Get the number of filters.
 
 ```javascript
-$("#advSearch").advancedSearch("length");
+$("#myFilter").structFilter("length");
 ```
 
 ### removeFilter(index)
 Remove the filter of the specified index.
 
 ```javascript
-$("#advSearch").advancedSearch("removeFilter", 0);
+$("#myFilter").structFilter("removeFilter", 0);
 ```
 
 ### val([data])
 Get or set the search definition (as an array of filters).
 
 ```javascript
-$("#advSearch").advancedSearch("val");
+$("#myFilter").structFilter("val");
 
-$("#advSearch").advancedSearch("val", data);
+$("#myFilter").structFilter("val", data);
 ```
 
 Sample value:
@@ -323,7 +323,7 @@ Sample value:
 Get the search definition (as a readable text string).
 
 ```javascript
-$("#advSearch").advancedSearch("valText");
+$("#myFilter").structFilter("valText");
 ```
 
 Sample value:
@@ -334,7 +334,7 @@ Sample value:
 Get the search definition (as a URL string).
 
 ```javascript
-$("#advSearch").advancedSearch("valUrl");
+$("#myFilter").structFilter("valUrl");
 ```
 
 Sample value:
@@ -349,7 +349,7 @@ Sample value:
 This event is triggered when the list of search conditions is modified.
 
 ```javascript
-$("#advSearch").on("change.search", function(event){
+$("#myFilter").on("change.search", function(event){
     // do something
 });
 ```
@@ -359,19 +359,19 @@ $("#advSearch").on("change.search", function(event){
 This event is triggered when the submit button is clicked.
 
 ```javascript
-$("#advSearch").on("submit.search", function(event){
+$("#myFilter").on("submit.search", function(event){
     // do something
 });
 ```
 
 ## Theming
 
-advancedSearch is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
+structured-filter is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
 
 
 ## License
 
 Copyright (c) 2014 Olivier Giulieri.
 
-evol.advancedSearch is released under the [MIT license](http://github.com/evoluteur/advancedSearch/raw/master/LICENSE.md).
+structured-filter is released under the [MIT license](http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md).
 
