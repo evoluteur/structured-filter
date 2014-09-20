@@ -1,3 +1,6 @@
+/*  demo page CSS for structured-filter  */
+/*  (c) 2014 Olivier Giulieri  */
+/*  https://github.com/evoluteur/structured-filter */
 
 body{
 	padding: 10px 20px;
@@ -10,16 +13,17 @@ h1 {
     color: #31859b;
 }
 a {
-    color: #366092;
+    color: #39C;
     font-weight: 400;
 }
 a:hover {
-    color: #39C;
+    color: #FF9900;
 }
-a.sel{
-	color: #000;
-	text-decoration: none;
+a.sel {
+    color: #000;
+    text-decoration: none;
 }
+
 .demoValue{
 	width:100%;
 	min-height:60px;
