@@ -184,7 +184,8 @@ Defaults to *"mm/dd/yy"*.
 
 ### fields (array)
 
-The list of fields (as an array of objects with id, label and type) to participate in the advanced search. Possible types are: text, boolean, number, date, time, and lov (list of values).
+The list of fields (as an array of objects with id, label and type) to participate in the query definition.
+Possible types are: text, boolean, number, date, time, and lov (list of values).
 
 ```javascript
 $("#myFilter").structFilter({
