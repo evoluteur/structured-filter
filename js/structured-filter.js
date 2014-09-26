@@ -3,6 +3,8 @@
  *
  * Copyright (c) 2014, Olivier Giulieri
  *
+ * https://github.com/evoluteur/structured-filter
+ *
  * Depends:
  *	jquery.ui.core.js
  *	jquery.ui.widget.js
