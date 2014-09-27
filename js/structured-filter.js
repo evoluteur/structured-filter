@@ -1,5 +1,5 @@
 ﻿/*!
- * structured-filter 1.0.1
+ * structured-filter 1.0.2
  *
  * Copyright (c) 2014, Olivier Giulieri
  *
@@ -69,7 +69,7 @@
 
 $.widget( 'evol.structFilter', {
 
-	version: '1.0.1',
+	version: '1.0.2',
 
 	options: {
 		fields: [],
