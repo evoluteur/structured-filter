@@ -18,11 +18,11 @@ The widget is configured with a list of fields to use in the search conditions.
 
 ### Fields
 
-Each field is defined by:
+Each field must have an ID, a type and a label.
 
-- id - unique field id.
+- id - unique identifier for the field.
 - label - displayed field name.
-- type - field type: text, number, boolean, date, time, or lov (list of values or enum).
+- type - data type. Possible types of field: text, number, boolean, date, time, list.
 
 Example:
 
@@ -33,7 +33,7 @@ fields = [
     { type:"boolean", id:"active", label:"Is active"},
     { type:"number", id:"age", label:"Age"},
     { type:"date", id:"bday", label:"Birthday"},
-	{type:"lov", id:"category", label:"Category",
+	{type:"list", id:"category", label:"Category",
 		list:[
 			{id:'1', label:"Family"},
 			{id:'2', label:"Friends"},
@@ -58,52 +58,52 @@ For each field the possible operators are determined it's type.
 
 boolean:
 
-- Yes - 1
-- No - 0
+- Yes (1)
+- No (0)
 
 date:
 
-- on - eq
-- not on - ne
-- after - gt
-- before - lt
-- between - bw
-- is empty - null
-- is not empty - nn
+- on (eq)
+- not on (ne)
+- after (gt)
+- before (lt)
+- between (bw)
+- is empty (null)
+- is not empty (nn)
 
-lov:
+list:
 
-- any of - in
-- equal - eq
+- any of (in)
+- equal (eq)
 
 number:
 
-- = - eq
-- != - ne
-- > - gt
-- < - lt
-- is empty - null
-- is not empty - nn
+- = (eq)
+- != (ne)
+- > (gt)
+- < (lt)
+- is empty (null)
+- is not empty (nn)
 
 text:
 
-- equals - eq
-- not equal - ne
-- starts with - sw
-- contains - ct
-- finishes with - fw
-- is empty - null
-- is not empty - nn
+- equals (eq)
+- not equal (ne)
+- starts with (sw)
+- contains (ct)
+- finishes with (fw)
+- is empty (null)
+- is not empty (nn)
 
 time:
 
-- at - eq
-- not at - ne
-- after - gt
-- before - lt
-- between - bw
-- is empty - null
-- is not empty - nn
+- at (eq)
+- not at (ne)
+- after (gt)
+- before (lt)
+- between (bw)
+- is empty (null)
+- is not empty (nn)
 
 ## Usage
 
@@ -134,7 +134,7 @@ Now, let's attach it to an existing `<div>` tag:
                 {type:"boolean", id:"active", label:"Is active"},
                 {type:"number", id:"age", label:"Age"},
                 {type:"date", id:"bday", label:"Birthday"},
-                {type:"lov", id:"category", label:"Category",
+                {type:"list", id:"category", label:"Category",
                     list:[
                         {id:'1', label:"Family"},
                         {id:'2', label:"Friends"},
@@ -185,7 +185,7 @@ Defaults to *"mm/dd/yy"*.
 ### fields (array)
 
 The list of fields (as an array of objects with id, label and type) to participate in the query definition.
-Possible types are: text, boolean, number, date, time, and lov (list of values).
+Possible types are: text, boolean, number, date, time, and list.
 
 ```javascript
 $("#myFilter").structFilter({
@@ -195,7 +195,7 @@ $("#myFilter").structFilter({
         {type:"boolean", id:"active", label:"Is active"},
         {type:"number", id:"age", label:"Age"},
         {type:"date", id:"bday", label:"Birthday"},
-        {type:"lov", id:"category", label:"Category",
+        {type:"list", id:"category", label:"Category",
             list:[
                 {id:'1', label:"Family"},
                 {id:'2', label:"Friends"},
@@ -369,6 +369,7 @@ $("#myFilter").on("submit.search", function(event){
 
 structured-filter is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
 
+There is another implementation of structured-filter using [Bootstrap](http://getbootstrap.com/) and [Backbone](http://backbonejs.org/) as part of [Evolutility](http://evoluteur.github.com/evolutility/index.html) set of metadata-driven Backbone views.
 
 ## License
 

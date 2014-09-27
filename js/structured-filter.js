@@ -57,13 +57,13 @@
 		sSmaller:'lt',
 		sBetween:'bw'
 	},
-	evoTypes={
+	fTypes={
 		text:'text',
 		bool:'boolean',
 		number:'number',
 		date:'date',
 		time:'time',
-		lov:'lov'
+		list:'list'
 	};
 
 
@@ -94,8 +94,7 @@ $.widget( 'evol.structFilter', {
 				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>');
 		this._step=0;
 		e.addClass('structFilter ui-widget-content ui-corner-all')
-			.html(h.join('')
-			);
+			.html(h.join(''));
 		if(this.options.submitReady){
 			this._hValues=$('<span></span>').appendTo(e);
 		}
@@ -154,7 +153,7 @@ $.widget( 'evol.structFilter', {
 				that._field=that._getFieldById(fieldID);
 				var fType=that._type=that._field.type;
 				that._setEditorOperator();
-				if(fType==evoTypes.lov || fType==evoTypes.bool){
+				if(fType==fTypes.list || fType==fTypes.bool){
 					that._setEditorValue();
 				}
 			}else{
@@ -173,8 +172,8 @@ $.widget( 'evol.structFilter', {
 			evt.stopPropagation();
 			var type=that._type,
 				value=$(this).val(),
-				valid=(value!=='') || type==evoTypes.lov || type==evoTypes.bool;
-			if(type==evoTypes.number){
+				valid=(value!=='') || type==fTypes.list || type==fTypes.bool;
+			if(type==fTypes.number){
 				valid=valid && !isNaN(value);
 			}else if(that._operator==evoAPI.sBetween){
 				valid=that._editor.find('#value').val()!=='' && that._editor.find('#value2').val()!=='';
@@ -338,12 +337,12 @@ $.widget( 'evol.structFilter', {
 		if(this._step<2){
 			var h=[]; 
 			switch (fType){
-				case evoTypes.lov:
+				case fTypes.list:
 					//h.push(evoLang.sInList);
 					h.push(EvoUI.inputHidden('operator',evoAPI.sInList));
 					this._operator=evoAPI.sInList;
 					break;
-				case evoTypes.bool:
+				case fTypes.bool:
 					//h.push(evoLang.sEqual);
 					h.push(EvoUI.inputHidden('operator',evoAPI.sEqual));
 					this._operator=evoAPI.sEqual;
@@ -351,9 +350,9 @@ $.widget( 'evol.structFilter', {
 				default:
 					h.push('<select id="operator"><option value=""></option>');
 					switch (fType){
-						case evoTypes.date:
-						case evoTypes.time:
-							if (fType==evoTypes.time){
+						case fTypes.date:
+						case fTypes.time:
+							if (fType==fTypes.time){
 								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sAt),
 									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotAt));
 							}else{
@@ -364,7 +363,7 @@ $.widget( 'evol.structFilter', {
 								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sBefore),
 								EvoUI.inputOption(evoAPI.sBetween, evoLang.sBetween));
 							break;
-						case evoTypes.number:
+						case fTypes.number:
 							h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sNumEqual),
 								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNumNotEqual),
 								EvoUI.inputOption(evoAPI.sGreater, evoLang.sGreater),
@@ -383,7 +382,7 @@ $.widget( 'evol.structFilter', {
 			}
 			this._editor.append(h.join(''));
 		}
-		if(cond && fType!=evoTypes.lov){
+		if(cond && fType!=fTypes.list){
 			this._editor.find('#operator').val(cond); 
 			this._operator=cond;
 		}
@@ -397,31 +396,29 @@ $.widget( 'evol.structFilter', {
 			opBetween=false,
 			addOK=true;
 		if(opVal!==''){
-			if(fType!=evoTypes.lov && (opVal==evoAPI.sIsNull || opVal==evoAPI.sIsNotNull)){
+			if(fType!=fTypes.list && (opVal==evoAPI.sIsNull || opVal==evoAPI.sIsNotNull)){
 				editor.append(EvoUI.inputHidden('value',''));
 			}else{
 				if(this._step<3){
 					var h=[];
 					opBetween=opVal==evoAPI.sBetween;
 					switch (fType){
-						case evoTypes.lov:
-							h.push('<span id="value">');
-							if(this._field.list.length>7){
-								h.push('(<input type="checkbox" id="checkAll" value="1"/><label for="checkAll">All</label>) ');
-							}
-							h.push(EvoUI.inputCheckboxLOV(this._field.list));
-							h.push('</span>');
+						case fTypes.list:
+							h.push('<span id="value">',
+                                (this._field.list.length>7)?'(<input type="checkbox" id="checkAll" value="1"/><label for="checkAll">All</label>) ':'',
+                                EvoUI.inputCheckboxes(this._field.list),
+                                '</span>');
 							break;
-						case evoTypes.bool:
+						case fTypes.bool:
 							h.push('<span id="value">',
 								EvoUI.inputRadio('value', '1', evoLang.yes, v!='0', 'value1'),
 								EvoUI.inputRadio('value', '0', evoLang.no, v=='0', 'value0'),
 								'</span>');
 							break;
-						case evoTypes.date:
-						case evoTypes.time:
-						case evoTypes.number:	
-							var iType=(fType==evoTypes.date)?'text':fType;
+						case fTypes.date:
+						case fTypes.time:
+						case fTypes.number:
+							var iType=(fType==fTypes.date)?'text':fType;
 							h.push('<input id="value" type="',iType,'"/>');
 							if(opBetween){
 								h.push('<span class="as-Txt">',evoLang.opAnd,' </span>',
@@ -434,17 +431,17 @@ $.widget( 'evol.structFilter', {
 							addOK=false;
 					}
 					editor.append(h.join(''));
-					if(fType==evoTypes.date){
+					if(fType==fTypes.date){
 						editor.find('#value,#value2').datepicker({dateFormat:this.options.dateFormat});
 					}
 				}
 				if(v){
 					var $value=editor.find('#value');
 					switch (fType){
-						case evoTypes.lov:
+						case fTypes.list:
 							$value.find('#'+v.split(',').join(',#')).attr('checked', 'checked');
 							break;
-						case evoTypes.bool:
+						case fTypes.bool:
 							$value.find('#value'+v).attr('checked', 'checked');
 							break;
 						default:
@@ -456,7 +453,7 @@ $.widget( 'evol.structFilter', {
 							}
 					}
 				}else{
-					addOK=(fType==evoTypes.lov || fType==evoTypes.bool);
+					addOK=(fType==fTypes.list || fType==fTypes.bool);
 				}
 			}
 			this._bAdd.button(addOK?'enable':'disable').show(); 
@@ -478,7 +475,7 @@ $.widget( 'evol.structFilter', {
 			},
 			op=filter.operator,
 			fv=filter.value;
-		if(this._type==evoTypes.lov){
+		if(this._type==fTypes.list){
 			var vs=[], ls=[]; 
 			v.find('input:checked').not('#checkAll').each(function(){
 				vs.push(this.value);
@@ -499,7 +496,7 @@ $.widget( 'evol.structFilter', {
 				fv.label='('+ls.join(', ')+')';
 				fv.value=vs.join(',');
 			}
-		}else if(this._type==evoTypes.bool){
+		}else if(this._type==fTypes.bool){
 			op.label=evoLang.sEqual;
 			op.value=evoAPI.sEqual;
 			var val=(v.find('#value1').attr('checked')=='checked')?1:0;
@@ -513,7 +510,7 @@ $.widget( 'evol.structFilter', {
 			if(opVal==evoAPI.sIsNull || opVal==evoAPI.sIsNotNull){
 				fv.label=fv.value='';
 			}else{
-				if(this._type==evoTypes.number || this._type==evoTypes.date || this._type==evoTypes.time){
+				if(this._type==fTypes.number || this._type==fTypes.date || this._type==fTypes.time){
 					fv.label=v.val();
 				}else{
 					fv.label='"'+v.val()+'"';
@@ -628,12 +625,10 @@ $.widget( 'evol.structFilter', {
 var EvoUI={
 
 	inputRadio:function(fN,fV,fLbl,sel,fID){
-		var fh=['<label for="',fID,'"><input id="',fID,'" name="',fN,'" type="radio" value="',fV];
-		if(sel){
-			fh.push('" checked="checked');
-		}
-		fh.push('">',fLbl,'</label>&nbsp;');
-		return fh.join('');
+        return ['<label for="',fID,'"><input id="',fID,'" name="',fN,
+            '" type="radio" value="',fV,
+            sel?'" checked="checked':'',
+            '">',fLbl,'</label>&nbsp;'].join('');
 	},
 	inputHidden:function(id,val){
 		return ['<input type="hidden" name="',id,'" value="',val,'"/>'].join('');
@@ -641,7 +636,7 @@ var EvoUI={
 	inputOption:function(fID,fV){
 		return ['<option value="',fID,'">',fV,'</option>'].join('');
 	},
-	inputCheckboxLOV:function(fLOV){
+	inputCheckboxes:function(fLOV){
 		var h=[]; 
 		for(var i in fLOV){
 			var lv=fLOV[i];

@@ -3,7 +3,7 @@ var contacts=[
 	{ type:"text", id:"Firstname", label:"Firstname"},
 	{ type:"boolean", id:"active", label:"Is active"},	
 	{ type:"number", id:"age", label:"Age"},
-    {type:"lov", id:"category", label:"Category",
+    {type:"list", id:"category", label:"Category",
         list:[
             {id:'1', label:"Family"},
             {id:'2', label:"Friends"},
@@ -17,7 +17,7 @@ var contacts=[
 	{type:"text", id:"cell", label:"Mobile"},
 	{type:"text", id:"Address1", label:"Address"},
 	{type:"text", id:"City", label:"City"},
-	{type:"lov", id:"State", label:"State", 
+	{type:"list", id:"State", label:"State",
 		list:[ 
 			{id:"AL", label:"Alabama"},
 			{id:"AK", label:"Alaska"},
@@ -73,7 +73,7 @@ var contacts=[
 		]
 	},
 	{type:"text", id:"Zip", label:"Zip"},
-	{type:"lov", id:"Country", label:"Country",
+	{type:"list", id:"Country", label:"Country",
 		list:[ 
 			{label: 'Afghanistan', id: 'AF'}, 
 			{label: 'Åland Islands', id: 'AX'},
