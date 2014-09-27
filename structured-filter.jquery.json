@@ -2,13 +2,15 @@
 	"name": "structured-filter",
 	"title": "Structured Filter",
 	"version": "1.0.1",
-	"description": "jQuery UI widget to build structured queries.",
+	"description": "Structured query editor for jQuery UI to filter or search data.",
 	"keywords": [
 		"structured",
 		"search",
 		"filter",
 		"query",
 		"metadata",
+        "input",
+        "form",
         "ui",
         "widget"
 	],
