@@ -249,11 +249,11 @@ Defaults to *false*.
 
 ## Methods
 
-### addFilter(data)
+### addCondition(data)
 Add a new filter.
 
 ```javascript
-$("#myFilter").structFilter("addFilter", {
+$("#myFilter").structFilter("addCondition", {
     field:{
         label: 'Lastname',
         value: 'lastname'
@@ -283,11 +283,11 @@ Get the number of filters.
 $("#myFilter").structFilter("length");
 ```
 
-### removeFilter(index)
+### removeCondition(index)
 Remove the filter of the specified index.
 
 ```javascript
-$("#myFilter").structFilter("removeFilter", 0);
+$("#myFilter").structFilter("removeCondition", 0);
 ```
 
 ### val([data])

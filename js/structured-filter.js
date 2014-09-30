@@ -38,9 +38,9 @@
 		//opOr:'or', 
 		yes:'Yes',
 		no:'No',
-		bNewFilter:'New filter',
-		bAddFilter:'Add filter',
-		bUpdateFilter:'Update filter',
+		bNewCond:'New filter condition',
+		bAddCond:'Add condition',
+		bUpdateCond:'Update condition',
 		bSubmit:'Submit',
 		bCancel:'Cancel'
 	},
@@ -85,12 +85,12 @@ $.widget( 'evol.structFilter', {
 			that=this,
 			e=this.element,
 			h=['<div class="evo-searchFilters"></div>',
-				'<a class="evo-bNew" href="javascript:void(0)">',evoLang.bNewFilter,'</a>'];
+				'<a class="evo-bNew" href="javascript:void(0)">',evoLang.bNewCond,'</a>'];
 		if(this.options.submitButton){
 			h.push('<a class="evo-bSubmit" href="javascript:void(0)">',evoLang.bSubmit,'</a>');
 		}
 		h.push('<div class="evo-editFilter"></div>',
-				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddFilter,'</a>',
+				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddCond,'</a>',
 				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>');
 		this._step=0;
 		e.addClass('structFilter ui-widget-content ui-corner-all')
@@ -115,7 +115,7 @@ $.widget( 'evol.structFilter', {
 					that._setEditorField();
 					that._step=1;
 				}
-				that._bAdd.find('.ui-button-text').html(evoLang.bAddFilter);
+				that._bAdd.find('.ui-button-text').html(evoLang.bAddCond);
 			});
 		// - editor button add
 		this._bAdd=e.find('.evo-bAdd').button({
@@ -126,7 +126,7 @@ $.widget( 'evol.structFilter', {
 				if(that._cFilter){
 					that._enableFilter(data, that.options.highlight);
 				}else{
-					that.addFilter(data);
+					that.addCondition(data);
 				}
 				that._removeEditor();
 			});
@@ -234,7 +234,7 @@ $.widget( 'evol.structFilter', {
 		this._field=this._type=this._operator=null;
 	},
 
-	addFilter: function(filter){
+	addCondition: function(filter){
 		var f=$(['<a href="javascript:void(0)">',this._htmlFilter(filter),'</a>'].join(''))
 			.prependTo(this._filters)
 			.button({
@@ -249,7 +249,7 @@ $.widget( 'evol.structFilter', {
 		return this;
 	},
 
-	removeFilter: function(index){
+	removeCondition: function(index){
 		this._filters.children().eq(index).remove();
 		this._triggerChange();
 		return this;
@@ -293,7 +293,6 @@ $.widget( 'evol.structFilter', {
 		this._enableFilter(null, false);
 		this._removeEditor();
 		this._cFilter=$filter.button('disable');
-		var fType=this._getFieldById(fid).type;
 		this._setEditorField(fid);
 		this._setEditorOperator(op);
 		if(op==evoAPI.sBetween){
@@ -301,7 +300,7 @@ $.widget( 'evol.structFilter', {
 		}else{
 			this._setEditorValue(fv.value);
 		}
-		this._bAdd.find('.ui-button-text').html(evoLang.bUpdateFilter);
+		this._bAdd.find('.ui-button-text').html(evoLang.bUpdateCond);
 		this._step=3;
 	},
 
@@ -564,7 +563,7 @@ $.widget( 'evol.structFilter', {
 		// --- set value
 			this._filters.empty();
 			for(var i=0,iMax=value.length;i<iMax;i++){
-				this.addFilter(value[i]);
+				this.addCondition(value[i]);
 			}
 			this._triggerChange();
 			return this;

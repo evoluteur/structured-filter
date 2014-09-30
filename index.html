@@ -25,7 +25,7 @@
 </p>
 
 <p class="demo-links">API Tests:
-    <a href="#" id="addFilter">Add Condition</a> -
+    <a href="#" id="addCondition">Add Condition</a> -
     <a href="#" id="delFilter">Remove First Condition</a> -
     <a href="#" id="length">Number of Conditions</a> -
     <a href="#" id="clear">Clear</a>
@@ -103,7 +103,7 @@
         });
 
         // *****   setup api tests links   *****
-        $('#addFilter').click(function(){
+        $('#addCondition').click(function(){
             var randomChar = String.fromCharCode(Math.floor(Math.random()*25)+65),
                 filterDef = {
                     field:{
@@ -119,11 +119,11 @@
                         value: randomChar
                     }
                 };
-            $('#evol').structFilter("addFilter", filterDef);
+            $('#evol').structFilter("addCondition", filterDef);
         });
 
         $('#delFilter').click(function(){
-            $('#evol').structFilter("removeFilter", 0);
+            $('#evol').structFilter("removeCondition", 0);
         });
 
         $('#clear').click(function(){
