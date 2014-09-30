@@ -1,7 +1,7 @@
 {
 	"name": "structured-filter",
 	"title": "Structured Filter",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Structured query editor for jQuery UI to filter or search data.",
 	"keywords": [
 		"structured",
