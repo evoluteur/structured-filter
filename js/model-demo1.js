@@ -80,7 +80,7 @@ var contacts=[
 			{label: 'Albania', id: 'AL'}, 
 			{label: 'Algeria', id: 'DZ'}, 
 			{label: 'American Samoa', id: 'AS'}, 
-			{label: 'AndorrA', id: 'AD'}, 
+			{label: 'Andorra', id: 'AD'},
 			{label: 'Angola', id: 'AO'}, 
 			{label: 'Anguilla', id: 'AI'}, 
 			{label: 'Antarctica', id: 'AQ'}, 
