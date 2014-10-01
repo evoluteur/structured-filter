@@ -188,13 +188,8 @@ $.widget( 'evol.structFilter', {
 			}
 		}).on('click', '#checkAll', function(){
 			var $this=$(this),
-				vc=$this.attr('checked'),
-				allChecks=$this.siblings();
-			if(vc=='checked'){
-				allChecks.attr('checked',vc);
-			}else{
-				allChecks.removeAttr('checked');
-			}
+				vc=$this.prop('checked');
+			allChecks=$this.siblings().prop('checked', vc);
 		});
 		this._filters=e.find('.evo-searchFilters').on('click', 'a', function(){
 			that._editFilter($(this));
@@ -438,10 +433,10 @@ $.widget( 'evol.structFilter', {
 					var $value=editor.find('#value');
 					switch (fType){
 						case fTypes.list:
-							$value.find('#'+v.split(',').join(',#')).attr('checked', 'checked');
+							$value.find('#'+v.split(',').join(',#')).prop('checked', 'checked');
 							break;
 						case fTypes.bool:
-							$value.find('#value'+v).attr('checked', 'checked');
+							$value.find('#value'+v).prop('checked', 'checked');
 							break;
 						default:
 							$value.val(v);
@@ -498,7 +493,7 @@ $.widget( 'evol.structFilter', {
 		}else if(this._type==fTypes.bool){
 			op.label=evoLang.sEqual;
 			op.value=evoAPI.sEqual;
-			var val=(v.find('#value1').attr('checked')=='checked')?1:0;
+			var val=(v.find('#value1').prop('checked'))?1:0;
 			fv.label=(val==1)?evoLang.yes:evoLang.no;
 			fv.value=val;
 		}else{
