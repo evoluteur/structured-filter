@@ -47,7 +47,7 @@ fields = [
 
 ### Conditions
 
-Search queries are a set of conditions.
+Queries are expressed as a set of conditions.
 
 Each condition is defined by:
 - a field
@@ -250,7 +250,7 @@ Defaults to *false*.
 ## Methods
 
 ### addCondition(data)
-Add a new filter.
+Add a new filter condition.
 
 ```javascript
 $("#myFilter").structFilter("addCondition", {
@@ -284,7 +284,7 @@ $("#myFilter").structFilter("length");
 ```
 
 ### removeCondition(index)
-Remove the filter of the specified index.
+Remove the condition of the specified index.
 
 ```javascript
 $("#myFilter").structFilter("removeCondition", 0);
