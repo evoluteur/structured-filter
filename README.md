@@ -54,7 +54,7 @@ Each condition is defined by:
 - an operator
 - one or several values
 
-For each field the possible operators are determined it's type.
+For each field the possible operators are determined by it's type.
 
 boolean:
 
@@ -159,7 +159,7 @@ structured-filter provides several options to customize its behaviour:
 
 ### buttonLabels (Boolean)
 
-The labels of buttons used to manipulate filters. This options applies to the 3 buttons "New filter", "Add filter"/"Update filter", and "Cancel" which use icons if the option is set to false.
+The labels of buttons used to manipulate filters. This options applies to the 3 buttons, "New filter", "Add filter"/"Update filter" and "Cancel" which use icons if the option is set to false.
 
 ```javascript
 $("#myFilter").structFilter({
@@ -224,7 +224,7 @@ Defaults to *true*.
 
 ### submitButton (Boolean)
 
-Shows or hide the "Submit" button.
+Shows or hides the "Submit" button.
 
 ```javascript
 $("#myFilter").structFilter({
@@ -236,7 +236,7 @@ Defaults to *false*.
 
 ### submitReady (Boolean)
 
-Provides hidden fields with the filters values to be submitted with the form (as an alternative to an AJAX call).
+Provides hidden fields with the conditions' values to be submitted with the form (as an alternative to an AJAX call).
 
 ```javascript
 $("#myFilter").structFilter({
@@ -250,7 +250,7 @@ Defaults to *false*.
 ## Methods
 
 ### addCondition(data)
-Add a new filter condition.
+Adds a new filter condition.
 
 ```javascript
 $("#myFilter").structFilter("addCondition", {
@@ -270,28 +270,28 @@ $("#myFilter").structFilter("addCondition", {
 ```
 
 ### clear()
-Remove all search filters.
+Removes all search filters.
 
 ```javascript
 $("#myFilter").structFilter("clear");
 ```
 
 ### length()
-Get the number of filters.
+Gets the number of filters.
 
 ```javascript
 $("#myFilter").structFilter("length");
 ```
 
 ### removeCondition(index)
-Remove the condition of the specified index.
+Removes the condition of the specified index.
 
 ```javascript
 $("#myFilter").structFilter("removeCondition", 0);
 ```
 
 ### val([data])
-Get or set the search definition (as an array of filters).
+Gets or sets the filter definition (as an array of filters).
 
 ```javascript
 $("#myFilter").structFilter("val");
@@ -321,7 +321,7 @@ Sample value:
 ```
 
 ### valText()
-Get the search definition (as a readable text string).
+Gets the filter definition (as a readable text string).
 
 ```javascript
 $("#myFilter").structFilter("valText");
@@ -332,7 +332,7 @@ Sample value:
     Lastname starts with "jo"
 
 ### valUrl()
-Get the search definition (as a URL string).
+Gets the filter definition (as a URL string).
 
 ```javascript
 $("#myFilter").structFilter("valUrl");
