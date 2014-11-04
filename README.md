@@ -304,17 +304,17 @@ Sample value:
 ```javascript
 [
     {
-        "field":{
-            "label": "Lastname",
-            "value": "Lastname"
+        field:{
+            label: "Lastname",
+            value: "Lastname"
         },
-        "operator":{
-            "label": "starts with",
-            "value": "sw"
+        operator:{
+            label: "starts with",
+            value: "sw"
         },
-        "value":{
-            "label": "\"jo\"",
-            "value": "jo"
+        value:{
+            label: "\"jo\"",
+            value: "jo"
         }
     }
 ]
