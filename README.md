@@ -10,7 +10,7 @@ It is a full jQuery UI widget, supporting various configurations and themes.
 
 Check the [demo](http://evoluteur.github.com/structured-filter/index.html) for a live example.
 
-![screenshot 1](https://raw.github.com/evoluteur/structured-filter/master/screenshot-advsrc-1.png)
+![screenshot 1](https://raw.github.com/evoluteur/structured-filter/master/screenshot1.png)
 
 ## Model
 
