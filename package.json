@@ -1,20 +1,41 @@
 {
-  "name": "structured-filter",
-  "version": "1.0.4",
-  "copyright": "(c) 2014 Olivier Giulieri",
-  "homepage": "https://github.com/evoluteur/structured-filter",
-  "license": "MIT",
-  "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.4.3",
-    "grunt-contrib-uglify": "~0.2.1"
-  },
-    "dependencies": {
-        "jquery": "2.1.1",
-        "jquery-ui": "1.10.4"
+    "name": "structured-filter",
+    "version": "1.0.4",
+    "copyright": "(c) 2014 Olivier Giulieri",
+    "homepage": "https://github.com/evoluteur/structured-filter",
+    "license": "MIT",
+    "author": {
+        "name": "Olivier Giulieri",
+        "url": "https://github.com/evoluteur"
     },
+    "license": "MIT",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md"
+        }
+    ],
     "repository": {
         "type" : "git",
         "url" : "http://github.com/evoluteur/structured-filter.git"
-    }
+    },
+    "bugs": "https://github.com/evoluteur/structured-filter/issues",
+    "dependencies": {
+        "jquery": "~1.7.0",
+        "jquery-ui": "~1.8.0"
+    },
+    "devDependencies": {
+      "grunt": "~0.4.1",
+      "grunt-contrib-jshint": "~0.4.3",
+      "grunt-contrib-uglify": "~0.2.1"
+    },
+    "keywords": [
+        "filter",
+        "query",
+        "editor",
+        "form",
+        "widget",
+        "jquery",
+        "jquery-ui"
+    ]
 }
