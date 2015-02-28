@@ -12,6 +12,18 @@ Check the [demo](http://evoluteur.github.com/structured-filter/index.html) for a
 
 ![screenshot 1](https://raw.github.com/evoluteur/structured-filter/master/screenshot1.png)
 
+## Installation
+
+You can use Bower to install structured-filter.
+
+```bash
+# To get the latest stable version, use Bower from the command line.
+bower install structured-filter
+
+# To get the most recent, latest committed-to-master version use:
+bower install structured-filter#master
+```
+
 ## Model
 
 The widget is configured with a list of fields to use in the search conditions.
