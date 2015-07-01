@@ -1,7 +1,7 @@
 ﻿/*!
  * structured-filter 1.0.4
  *
- * Copyright (c) 2014, Olivier Giulieri
+ * Copyright (c) 2015, Olivier Giulieri
  *
  * https://github.com/evoluteur/structured-filter
  *
@@ -84,17 +84,17 @@ $.widget( 'evol.structFilter', {
 		var bLabels=this.options.buttonLabels,
 			that=this,
 			e=this.element,
-			h=['<div class="evo-searchFilters"></div>',
-				'<a class="evo-bNew" href="javascript:void(0)">',evoLang.bNewCond,'</a>'];
+			h='<div class="evo-searchFilters"></div>'+
+				'<a class="evo-bNew" href="javascript:void(0)">'+evoLang.bNewCond+'</a>';
 		if(this.options.submitButton){
-			h.push('<a class="evo-bSubmit" href="javascript:void(0)">',evoLang.bSubmit,'</a>');
+			h+='<a class="evo-bSubmit" href="javascript:void(0)">'+evoLang.bSubmit+'</a>';
 		}
-		h.push('<div class="evo-editFilter"></div>',
-				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">',evoLang.bAddCond,'</a>',
-				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">',evoLang.bCancel,'</a>');
+		h+='<div class="evo-editFilter"></div>'+
+				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">'+evoLang.bAddCond+'</a>'+
+				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">'+evoLang.bCancel+'</a>';
 		this._step=0;
 		e.addClass('structFilter ui-widget-content ui-corner-all')
-			.html(h.join(''));
+			.html(h);
 		if(this.options.submitReady){
 			this._hValues=$('<span></span>').appendTo(e);
 		}
@@ -230,7 +230,7 @@ $.widget( 'evol.structFilter', {
 	},
 
 	addCondition: function(filter){
-		var f=$(['<a href="javascript:void(0)">',this._htmlFilter(filter),'</a>'].join(''))
+		var f=$('<a href="javascript:void(0)">'+this._htmlFilter(filter)+'</a>')
 			.prependTo(this._filters)
 			.button({
 				icons: {secondary:'ui-icon-close'}
@@ -251,16 +251,14 @@ $.widget( 'evol.structFilter', {
 	},
 
 	_htmlFilter: function(filter){
-		var h=[
-			'<span class="evo-lBold">', filter.field.label,'</span> ',
-			'<span class="evo-lLight">', filter.operator.label,'</span> ',
-			'<span class="evo-lBold">', filter.value.label, '</span>'
-		];
+		var h='<span class="evo-lBold">'+filter.field.label+'</span> '+
+			'<span class="evo-lLight">'+filter.operator.label+'</span> '+
+			'<span class="evo-lBold">'+filter.value.label+'</span>';
 		if(filter.operator.value==evoAPI.sBetween){
-			h.push('<span class="evo-lLight"> ', evoLang.opAnd, ' </span>',
-				'<span class="evo-lBold">', filter.value.label2, '</span>');
+			h+='<span class="evo-lLight"> '+evoLang.opAnd+' </span>'+
+				'<span class="evo-lBold">'+filter.value.label2+'</span>';
 		}
-		return h.join('');
+		return h;
 	},
 
 	_enableFilter: function(filter, anim){
@@ -308,13 +306,13 @@ $.widget( 'evol.structFilter', {
 			this._bDel.show();
 			if(!this._fList){
 				var fields=this.options.fields,
-					h=['<select id="field"><option value=""></option>'];
+					h='<select id="field"><option value=""></option>';
 				for (var i=0,iMax=fields.length;i<iMax;i++){
 					var f=fields[i];
-					h.push(EvoUI.inputOption(f.id,f.label));
+					h+=EvoUI.inputOption(f.id,f.label);
 				}
-				h.push('</select>');
-				this._fList=h.join('');
+				h+='</select>';
+				this._fList=h;
 			}
 			$(this._fList).appendTo(this._editor).focus();
 		}
@@ -329,52 +327,52 @@ $.widget( 'evol.structFilter', {
 	_setEditorOperator: function(cond){
 		var fType=this._type;
 		if(this._step<2){
-			var h=[]; 
+			var h='';
 			switch (fType){
 				case fTypes.list:
 					//h.push(evoLang.sInList);
-					h.push(EvoUI.inputHidden('operator',evoAPI.sInList));
+					h+=EvoUI.inputHidden('operator',evoAPI.sInList);
 					this._operator=evoAPI.sInList;
 					break;
 				case fTypes.bool:
 					//h.push(evoLang.sEqual);
-					h.push(EvoUI.inputHidden('operator',evoAPI.sEqual));
+					h+=EvoUI.inputHidden('operator',evoAPI.sEqual);
 					this._operator=evoAPI.sEqual;
 					break;
 				default:
-					h.push('<select id="operator"><option value=""></option>');
+					h+='<select id="operator"><option value=""></option>';
 					switch (fType){
 						case fTypes.date:
 						case fTypes.time:
 							if (fType==fTypes.time){
-								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sAt),
-									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotAt));
+								h+=EvoUI.inputOption(evoAPI.sEqual, evoLang.sAt)+
+									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotAt);
 							}else{
-								h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sOn),
-									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotOn));
+								h+=EvoUI.inputOption(evoAPI.sEqual, evoLang.sOn)+
+									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotOn);
 							}
-							h.push(EvoUI.inputOption(evoAPI.sGreater, evoLang.sAfter),
-								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sBefore),
-								EvoUI.inputOption(evoAPI.sBetween, evoLang.sBetween));
+							h+=EvoUI.inputOption(evoAPI.sGreater, evoLang.sAfter)+
+								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sBefore)+
+								EvoUI.inputOption(evoAPI.sBetween, evoLang.sBetween);
 							break;
 						case fTypes.number:
-							h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sNumEqual),
-								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNumNotEqual),
-								EvoUI.inputOption(evoAPI.sGreater, evoLang.sGreater),
-								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sSmaller));
+							h+=EvoUI.inputOption(evoAPI.sEqual, evoLang.sNumEqual)+
+								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNumNotEqual)+
+								EvoUI.inputOption(evoAPI.sGreater, evoLang.sGreater)+
+								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sSmaller);
 							break;
 						default:
-							h.push(EvoUI.inputOption(evoAPI.sEqual, evoLang.sEqual),
-								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotEqual),
-								EvoUI.inputOption(evoAPI.sStart, evoLang.sStart),
-								EvoUI.inputOption(evoAPI.sContain, evoLang.sContain),
-								EvoUI.inputOption(evoAPI.sFinish, evoLang.sFinish));
+							h+=EvoUI.inputOption(evoAPI.sEqual, evoLang.sEqual)+
+								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotEqual)+
+								EvoUI.inputOption(evoAPI.sStart, evoLang.sStart)+
+								EvoUI.inputOption(evoAPI.sContain, evoLang.sContain)+
+								EvoUI.inputOption(evoAPI.sFinish, evoLang.sFinish);
 					}
-					h.push(EvoUI.inputOption(evoAPI.sIsNull, evoLang.sIsNull),
-						EvoUI.inputOption(evoAPI.sIsNotNull, evoLang.sIsNotNull));
-					h.push('</select>');
+					h+=EvoUI.inputOption(evoAPI.sIsNull, evoLang.sIsNull)+
+						EvoUI.inputOption(evoAPI.sIsNotNull, evoLang.sIsNotNull)+
+						'</select>';
 			}
-			this._editor.append(h.join(''));
+			this._editor.append(h);
 		}
 		if(cond && fType!=fTypes.list){
 			this._editor.find('#operator').val(cond); 
@@ -394,37 +392,37 @@ $.widget( 'evol.structFilter', {
 				editor.append(EvoUI.inputHidden('value',''));
 			}else{
 				if(this._step<3){
-					var h=[];
+					var h='';
 					opBetween=opVal==evoAPI.sBetween;
 					switch (fType){
 						case fTypes.list:
-							h.push('<span id="value">',
-                                (this._field.list.length>7)?'(<input type="checkbox" id="checkAll" value="1"/><label for="checkAll">All</label>) ':'',
-                                EvoUI.inputCheckboxes(this._field.list),
-                                '</span>');
+							h+='<span id="value">'+
+								((this._field.list.length>7)?'(<input type="checkbox" id="checkAll" value="1"/><label for="checkAll">All</label>) ':'')+
+								EvoUI.inputCheckboxes(this._field.list)+
+								'</span>';
 							break;
 						case fTypes.bool:
-							h.push('<span id="value">',
-								EvoUI.inputRadio('value', '1', evoLang.yes, v!='0', 'value1'),
-								EvoUI.inputRadio('value', '0', evoLang.no, v=='0', 'value0'),
-								'</span>');
+							h+='<span id="value">'+
+								EvoUI.inputRadio('value', '1', evoLang.yes, v!='0', 'value1')+
+								EvoUI.inputRadio('value', '0', evoLang.no, v=='0', 'value0')+
+								'</span>';
 							break;
 						case fTypes.date:
 						case fTypes.time:
 						case fTypes.number:
 							var iType=(fType==fTypes.date)?'text':fType;
-							h.push('<input id="value" type="',iType,'"/>');
+							h+='<input id="value" type="'+iType+'"/>';
 							if(opBetween){
-								h.push('<span class="as-Txt">',evoLang.opAnd,' </span>',
-									'<input id="value2" type="',iType,'"/>');
+								h+='<span class="as-Txt">'+evoLang.opAnd+' </span>'+
+									'<input id="value2" type="'+iType+'"/>';
 							}
 							addOK=false;
 							break;
 						default:
-							h.push('<input id="value" type="text"/>');
+							h+='<input id="value" type="text"/>';
 							addOK=false;
 					}
-					editor.append(h.join(''));
+					editor.append(h);
 					if(fType==fTypes.date){
 						editor.find('#value,#value2').datepicker({dateFormat:this.options.dateFormat});
 					}
@@ -518,9 +516,9 @@ $.widget( 'evol.structFilter', {
 		return filter;
 	},
 
-	_hiddenValue: function(h, filter, idx){		
-		h.push(EvoUI.inputHidden('fld-'+idx, filter.field.value),
-			EvoUI.inputHidden('op-'+idx, filter.operator.value),
+	_hiddenValue: function(h, filter, idx){
+		h.push(EvoUI.inputHidden('fld-'+idx, filter.field.value)+
+			EvoUI.inputHidden('op-'+idx, filter.operator.value)+
 			EvoUI.inputHidden('val-'+idx, filter.value.value));
 		var v2=filter.value.value2;
 		if(v2){
@@ -551,7 +549,7 @@ $.widget( 'evol.structFilter', {
 		// --- get value
 			var v=[];
 			this._filters.find('a').each(function(){
-				v.push($(this).data('filter'));			
+				v.push($(this).data('filter'));
 			});
 			return v;
 		}else{ 
@@ -576,22 +574,20 @@ $.widget( 'evol.structFilter', {
 	valUrl: function(){
 		var vs=this.val(),
 			iMax=vs.length,
-			url=['filters=',iMax];
+			url='filters='+iMax;
 		if(iMax<1)
 			return '';
 		for(var i=0;i<iMax;i++){
 			var v=vs[i];
-			url.push(
-				'&field-',i,'=',v.field.value,
-				'&operator-',i,'=',v.operator.value,
-				'&value-',i,'=',encodeURIComponent(v.value.value)
-			);
+			url+='&field-'+i+'='+v.field.value+
+				'&operator-'+i+'='+v.operator.value+
+				'&value-'+i+'='+encodeURIComponent(v.value.value);
 			if(v.operator==evoAPI.sBetween){
-				url.push('&value2-',i,'=',encodeURIComponent(v.value.value2));
+				url+='&value2-'+i+'='+encodeURIComponent(v.value.value2);
 			}
 		}
-		url.push('&label=',encodeURIComponent(this.valText()));
-		return url.join('');
+		url+='&label='+encodeURIComponent(this.valText());
+		return url;
 	},
 
 	clear: function(){
@@ -608,7 +604,7 @@ $.widget( 'evol.structFilter', {
 
 	destroy: function(){
 		var e=this.element.off();
-		e.find('.evo-bNew,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();		
+		e.find('.evo-bNew,.evo-bAdd,.evo-bDel,.evo-searchFilters').off();
 		this._editor.off();
 		e.clear().removeClass('structFilter ui-widget-content ui-corner-all');
 		$.Widget.prototype.destroy.call(this);
@@ -619,25 +615,25 @@ $.widget( 'evol.structFilter', {
 var EvoUI={
 
 	inputRadio:function(fN,fV,fLbl,sel,fID){
-        return ['<label for="',fID,'"><input id="',fID,'" name="',fN,
-            '" type="radio" value="',fV,
-            sel?'" checked="checked':'',
-            '">',fLbl,'</label>&nbsp;'].join('');
+		return '<label for="'+fID+'"><input id="'+fID+'" name="'+fN+
+			'" type="radio" value="'+fV+
+			(sel?'" checked="checked':'')+
+			'">'+fLbl+'</label>&nbsp;';
 	},
 	inputHidden:function(id,val){
-		return ['<input type="hidden" name="',id,'" value="',val,'"/>'].join('');
+		return '<input type="hidden" name="'+id+'" value="'+val+'"/>';
 	},
 	inputOption:function(fID,fV){
-		return ['<option value="',fID,'">',fV,'</option>'].join('');
+		return '<option value="'+fID+'">'+fV+'</option>';
 	},
 	inputCheckboxes:function(fLOV){
-		var h=[]; 
+		var h=''; 
 		for(var i in fLOV){
 			var lv=fLOV[i];
-			h.push('<input type="checkbox" id="',lv.id,'" value="',lv.id,'"/>',
-				'<label for="',lv.id,'">',lv.label,'</label> ');
+			h+='<input type="checkbox" id="'+lv.id+'" value="'+lv.id+'"/>'+
+				'<label for="'+lv.id+'">'+lv.label+'</label> ';
 		}
-		return h.join('');
+		return h;
 	}
 
 };
