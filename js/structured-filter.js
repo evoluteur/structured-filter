@@ -241,6 +241,9 @@ $.widget( 'evol.structFilter', {
 			f.effect('highlight');
 		}
 		this._triggerChange();
+		if(this._bSubmit){
+			this._bSubmit.removeClass('ui-state-active').show();
+		}
 		return this;
 	},
 
