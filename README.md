@@ -381,7 +381,8 @@ $("#myFilter").on("submit.search", function(event){
 
 structured-filter is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
 
-There is another implementation of structured-filter using [Bootstrap](http://getbootstrap.com/) and [Backbone](http://backbonejs.org/) as part of [Evolutility](http://evoluteur.github.com/evolutility/index.html) set of metadata-driven Backbone views.
+There is another implementation of structured-filter using [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) as part of [Evolutility](http://evoluteur.github.com/evolutility/index.html) set of metadata-driven Backbone views.
+
 
 ## License
 
