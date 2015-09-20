@@ -59,13 +59,13 @@ module.exports = function (grunt) {
     //      BUILD TASKS : dev prod
     // *************************************************************************************
     // Default task(s).
-    grunt.registerTask('default', ['dev']);
+    grunt.registerTask('default', ['prod']);
 
     // Dev only task(s).
     grunt.registerTask('dev', ['less:dev']);
 
     // Prod only task(s).
-    grunt.registerTask('prod', ['less', 'jshint', 'uglify']);
+    grunt.registerTask('prod', ['jshint', 'less', 'uglify']);
 
 };
 
