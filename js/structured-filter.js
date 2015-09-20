@@ -35,7 +35,7 @@
 		sNotAt:'not at',
 		sBetween:'between',
 		opAnd:'and',
-		//opOr:'or', 
+		//opOr:'or',
 		yes:'Yes',
 		no:'No',
 		bNewCond:'New filter condition',
@@ -101,8 +101,8 @@ $.widget( 'evol.structFilter', {
 		// - button submit
 		if(this.options.submitButton){
 			this._bSubmit=e.find('.evo-bSubmit').button({
-					text: bLabels 
-				}).on('click', function(e){ 
+					text: bLabels
+				}).on('click', function(e){
 					that.element.trigger('submit.search');
 				});
 		}
@@ -110,7 +110,7 @@ $.widget( 'evol.structFilter', {
 		this._bNew=e.find('.evo-bNew').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-plusthick'}
-			}).on('click', function(e){ 
+			}).on('click', function(e){
 				if(that._step<1){
 					that._setEditorField();
 					that._step=1;
@@ -134,7 +134,7 @@ $.widget( 'evol.structFilter', {
 		this._bDel=e.find('.evo-bDel').button({
 				text: bLabels,
 				icons: {secondary:'ui-icon-close'}
-			}).on('click', function(evt){ 
+			}).on('click', function(evt){
 				that._removeEditor();
 			});
 		this._editor=e.find('.evo-editFilter')
@@ -224,7 +224,7 @@ $.widget( 'evol.structFilter', {
 		this._bNew.removeClass('ui-state-active').show().focus();
 		if(this._bSubmit){
 			this._bSubmit.removeClass('ui-state-active').show();
-		}		
+		}
 		this._step=0;
 		this._field=this._type=this._operator=null;
 	},
@@ -241,6 +241,9 @@ $.widget( 'evol.structFilter', {
 			f.effect('highlight');
 		}
 		this._triggerChange();
+		if(this._bSubmit){
+			this._bSubmit.removeClass('ui-state-active').show();
+		}
 		return this;
 	},
 
@@ -375,7 +378,7 @@ $.widget( 'evol.structFilter', {
 			this._editor.append(h);
 		}
 		if(cond && fType!=fTypes.list){
-			this._editor.find('#operator').val(cond); 
+			this._editor.find('#operator').val(cond);
 			this._operator=cond;
 		}
 		this._step=2;
@@ -448,7 +451,7 @@ $.widget( 'evol.structFilter', {
 					addOK=(fType==fTypes.list || fType==fTypes.bool);
 				}
 			}
-			this._bAdd.button(addOK?'enable':'disable').show(); 
+			this._bAdd.button(addOK?'enable':'disable').show();
 			this._step=3;
 		}
 	},
@@ -468,7 +471,7 @@ $.widget( 'evol.structFilter', {
 			op=filter.operator,
 			fv=filter.value;
 		if(this._type==fTypes.list){
-			var vs=[], ls=[]; 
+			var vs=[], ls=[];
 			v.find('input:checked').not('#checkAll').each(function(){
 				vs.push(this.value);
 				ls.push(this.nextSibling.innerHTML);
@@ -545,14 +548,14 @@ $.widget( 'evol.structFilter', {
 	},
 
 	val: function(value){
-		if (typeof value=='undefined'){ 
+		if (typeof value=='undefined'){
 		// --- get value
 			var v=[];
 			this._filters.find('a').each(function(){
 				v.push($(this).data('filter'));
 			});
 			return v;
-		}else{ 
+		}else{
 		// --- set value
 			this._filters.empty();
 			for(var i=0,iMax=value.length;i<iMax;i++){
@@ -565,7 +568,7 @@ $.widget( 'evol.structFilter', {
 
 	valText: function(){
 		var v=[];
-		this._filters.find('a').each(function(){ 
+		this._filters.find('a').each(function(){
 			v.push(this.text);
 		});
 		return v.join(' '+evoLang.opAnd+' ');
@@ -582,7 +585,7 @@ $.widget( 'evol.structFilter', {
 			url+='&field-'+i+'='+v.field.value+
 				'&operator-'+i+'='+v.operator.value+
 				'&value-'+i+'='+encodeURIComponent(v.value.value);
-			if(v.operator==evoAPI.sBetween){
+			if(v.operator.value==evoAPI.sBetween){
 				url+='&value2-'+i+'='+encodeURIComponent(v.value.value2);
 			}
 		}
@@ -627,7 +630,7 @@ var EvoUI={
 		return '<option value="'+fID+'">'+fV+'</option>';
 	},
 	inputCheckboxes:function(fLOV){
-		var h=''; 
+		var h='';
 		for(var i in fLOV){
 			var lv=fLOV[i];
 			h+='<input type="checkbox" id="'+lv.id+'" value="'+lv.id+'"/>'+

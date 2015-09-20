@@ -183,7 +183,7 @@ Defaults to *false*.
 
 ### dateFormat (String)
 
-The format for parsed and displayed dates. This attribute is one of the regionalisation attributes. 
+The format for parsed and displayed dates. This attribute is one of the regionalisation attributes.
 Common formats are: Default - "mm/dd/yy", ISO 8601 - "yy-mm-dd", Short - "d M, y", Medium - "d MM, y", Full - "DD, d MM, yy". For a full list of the possible formats see the [jQuery formatDate function](http://docs.jquery.com/UI/Datepicker/formatDate).
 
 ```javascript
@@ -240,7 +240,7 @@ Shows or hides the "Submit" button.
 
 ```javascript
 $("#myFilter").structFilter({
-    submitReady: true
+    submitButton: true
 });
 ```
 
