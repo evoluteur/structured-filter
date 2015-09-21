@@ -1,5 +1,5 @@
 ﻿/*!
- * structured-filter 1.0.5
+ * structured-filter
  *
  * Copyright (c) 2015, Olivier Giulieri
  *
@@ -64,12 +64,10 @@
 		date:'date',
 		time:'time',
 		list:'list'
-	};
-
+	},
+	isNotFirefox = navigator.userAgent.toLowerCase().indexOf('firefox')===-1;
 
 $.widget( 'evol.structFilter', {
-
-	version: '1.0.5',
 
 	options: {
 		fields: [],
@@ -221,9 +219,13 @@ $.widget( 'evol.structFilter', {
 		this._bAdd.hide();
 		this._bDel.hide();
 		this._enableFilter(null, false);
-		this._bNew.removeClass('ui-state-active').show().focus();
+		this._bNew.removeClass('ui-state-active').show();
 		if(this._bSubmit){
 			this._bSubmit.removeClass('ui-state-active').show();
+		}
+		if(isNotFirefox){
+			// setting focus w/ ff takes too long
+			this._bNew.focus();
 		}
 		this._step=0;
 		this._field=this._type=this._operator=null;
