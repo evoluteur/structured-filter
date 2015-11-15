@@ -123,15 +123,15 @@ time:
 First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and the plugin:
 
 ```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/structured-filter.js" type="text/javascript" charset="utf-8"></script>
 ```
 
 The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([structured-filter.css](http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css)). Here we use the "ui-lightness" theme as an example:
 
 ```html
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/ui-lightness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-lightness/jquery-ui.css">
 <link href="css/structured-filter.css" rel="stylesheet" type="text/css">
 ```
 
@@ -140,7 +140,7 @@ Now, let's attach it to an existing `<div>` tag:
 ```html
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#search").structFilter({
+        $("#myFilter").structFilter({
             fields: [
                 {type:"text", id:"lastname", label:"Lastname"},
                 {type:"text", id:"firstname", label:"Firstname"},
@@ -161,7 +161,7 @@ Now, let's attach it to an existing `<div>` tag:
     });
 </script>
 
-<div style="width:100px;" id="search"></div>
+<div style="width:100px;" id="myFilter"></div>
 ```
 
 This will change the `<div>` into the widget.
