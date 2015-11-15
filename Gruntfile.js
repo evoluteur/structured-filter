@@ -7,7 +7,8 @@ module.exports = function (grunt) {
         // *************************************************************************************
 
         pkg: grunt.file.readJSON('package.json'),
-        banner :  '/*\n   <%= pkg.name %> <%= pkg.version %>\n   <%= pkg.copyright %>\n   <%= pkg.homepage %>\n*/\n',
+
+        banner :  '/*\n   <%= pkg.name %> <%= pkg.version %>\n   <%= pkg.homepage %>\n   <%= pkg.copyright %>\n*/\n',
 
         // *************************************************************************************
         //      JSHINT options
@@ -40,6 +41,9 @@ module.exports = function (grunt) {
         // *************************************************************************************
         less: {
             dev: {
+                options: {
+                    banner: '<%= banner %>'
+                },
                 files: {
                     "css/structured-filter.css": "less/structured-filter.less"
                 }
@@ -54,15 +58,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-less');
 
 // Custom tasks
-
     grunt.registerTask('header', '', function(arg1) {
-/*
-             _                   _                      _      __ _ _ _ 
-         ___| |_ _ __ _   _  ___| |_ _   _ _ __ ___  __| |    / _(_) | |_ ___ _ __ 
-        / __| __| '__| | | |/ __| __| | | | '__/ _ \/ _` |___| |_| | | __/ _ \ '__|
-        \__ \ |_| |  | |_| | (__| |_| |_| | | |  __/ (_| |___|  _| | | ||  __/ |
-        |___/\__|_|   \__,_|\___|\__|\__,_|_|  \___|\__,_|   |_| |_|_|\__\___|_|
-*/
         var pkg=grunt.file.readJSON('package.json');
         console.log(
             (new Date()).toString() + '\n' + 
