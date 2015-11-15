@@ -103,6 +103,7 @@ text:
 - not equal (ne)
 - starts with (sw)
 - contains (ct)
+- doesn't contain (nct)
 - finishes with (fw)
 - is empty (null)
 - is not empty (nn)

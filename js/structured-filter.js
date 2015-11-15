@@ -19,6 +19,7 @@
 		sNotEqual:'not equal',
 		sStart:'starts with',
 		sContain:'contains',
+		sNotContain:'doesn\'t contain',
 		sFinish:'finishes with',
 		sInList:'any of',
 		sIsNull:'is empty',
@@ -49,6 +50,7 @@
 		sNotEqual:'ne',
 		sStart:'sw',
 		sContain:'ct',
+		sNotContain:'nct',
 		sFinish:'fw',
 		sInList:'in',
 		sIsNull:'null',
@@ -371,6 +373,7 @@ $.widget( 'evol.structFilter', {
 								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotEqual)+
 								EvoUI.inputOption(evoAPI.sStart, evoLang.sStart)+
 								EvoUI.inputOption(evoAPI.sContain, evoLang.sContain)+
+								EvoUI.inputOption(evoAPI.sNotContain, evoLang.sNotContain)+
 								EvoUI.inputOption(evoAPI.sFinish, evoLang.sFinish);
 					}
 					h+=EvoUI.inputOption(evoAPI.sIsNull, evoLang.sIsNull)+
