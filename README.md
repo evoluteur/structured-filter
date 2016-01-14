@@ -387,7 +387,7 @@ There is another implementation of structured-filter using [Bootstrap](http://ge
 
 ## License
 
-Copyright (c) 2015 Olivier Giulieri.
+Copyright (c) 2016 Olivier Giulieri.
 
 structured-filter is released under the [MIT license](http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md).
 
