@@ -1,0 +1,28 @@
+{
+	"name": "structured-filter",
+	"version": "1.0.9",
+	"description": "jQuery UI widget for structured queries",
+	"homepage": "http://evoluteur.github.io/structured-filter/",
+	"main": [
+		"js/structured-filter.js",
+		"less/structured-filter.less"
+	],
+	"license": "MIT",
+	"dependencies": {
+		"jquery": "~2.1.4",
+		"jquery-ui": "^1.10"
+	},
+	"keywords": [
+		"filter",
+		"query",
+		"builder"
+		"editor",
+		"search",
+		"form",
+		"ui",
+		"input",
+		"widget",
+		"jquery",
+		"jquery-ui"
+	]
+}
