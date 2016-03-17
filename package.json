@@ -25,10 +25,10 @@
     "grunt-contrib-uglify": "~0.7.0",
     "grunt-contrib-less": "~1.0.0"
   },
-  "description": "structured-filter is a generic Web UI for building structured search or filter queries. With it you can build structured search queries like \"Contacts where Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)\"...",
+  "description": "Generic Web UI for building structured search or filter queries. With it you can build structured search queries like \"Contacts where Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)\"...",
   "main": [
-    "js/evol.colorpicker.js",
-    "less/evol.colorpicker.less"
+    "js/structured-filter.js",
+    "less/structured-filter.less"
   ],
   "keywords": [
     "filter",
