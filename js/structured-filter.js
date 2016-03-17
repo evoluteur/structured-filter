@@ -1,5 +1,5 @@
 ﻿/*!
- * structured-filter 1.0.9
+ * structured-filter
  *
  * Copyright (c) 2016, Olivier Giulieri
  *
