@@ -1,8 +1,9 @@
 # structured-filter
 
 structured-filter is a generic Web UI for building structured search or filter queries.
-With it you can build structured search queries like
-"Contacts where Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)"...
+
+With it you can build structured search conditions like
+Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)...
 
 It is a full jQuery UI widget, supporting various configurations and themes.
 
@@ -14,7 +15,14 @@ Check the [demo](http://evoluteur.github.com/structured-filter/index.html) for a
 
 ## Installation
 
-You can use Bower to install structured-filter.
+You can use **NPM** to install structured-filter.
+
+```bash
+# To get the latest stable version, use npm from the command line.
+npm install structured-filter
+```
+
+You can use **Bower** to install structured-filter.
 
 ```bash
 # To get the latest stable version, use Bower from the command line.
@@ -23,6 +31,8 @@ bower install structured-filter
 # To get the most recent, latest committed-to-master version use:
 bower install structured-filter#master
 ```
+
+You can download or fork structured-filter on **GitHub**.
 
 ## Model
 
@@ -382,7 +392,8 @@ $("#myFilter").on("submit.search", function(event){
 
 structured-filter is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
 
-There is another implementation of structured-filter using [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) as part of [Evolutility](http://evoluteur.github.com/evolutility/index.html) set of metadata-driven Backbone views.
+A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) is available as part of [Evolutility](http://evoluteur.github.com/evolutility/index.html). 
+[Evolutility](http://evoluteur.github.com/evolutility/index.html) provides a set of generic views for CRUD (Create, Read, Update, Delete) and more.
 
 
 ## License
