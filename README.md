@@ -32,7 +32,7 @@ bower install structured-filter
 bower install structured-filter#master
 ```
 
-You can download or fork structured-filter on **GitHub**.
+You can [download](https://github.com/evoluteur/structured-filter) or fork structured-filter on **GitHub**.
 
 ## Model
 
