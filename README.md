@@ -3,26 +3,35 @@
 structured-filter is a generic Web UI for building structured search or filter queries.
 
 With it you can build structured search conditions like
-Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)...
-
-It is a full jQuery UI widget, supporting various configurations and themes.
-
-## Demo
-
-Check the [demo](http://evoluteur.github.com/structured-filter/index.html) for a live example.
+Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)... It is a full jQuery UI widget, supporting various configurations and themes.
 
 ![screenshot 1](https://raw.github.com/evoluteur/structured-filter/master/screenshot1.png)
 
+Check the **[demo](http://evoluteur.github.com/structured-filter/index.html)** for live examples.
+
+
+### Table of Contents
+1. [Installation](#Installation)
+2. [Usage](#Usage)
+3. [Model](#Model)
+4. [Options](#Options)
+5. [Methods](#Methods)
+6. [Events](#Events)
+7. [Theming](#Theming)
+8. [License](#License)
+
+
+<a name="Installation"></a>
 ## Installation
 
-You can use **NPM** to install structured-filter.
+You can [download](https://github.com/evoluteur/structured-filter) or fork structured-filter on **GitHub**.
 
 ```bash
-# To get the latest stable version, use npm from the command line.
-npm install structured-filter
+# To get the latest stable version, use git from the command line.
+git clone https://github.com/evoluteur/structured-filter
 ```
 
-You can use **Bower** to install structured-filter.
+or install with **Bower**:
 
 ```bash
 # To get the latest stable version, use Bower from the command line.
@@ -32,8 +41,64 @@ bower install structured-filter
 bower install structured-filter#master
 ```
 
-You can [download](https://github.com/evoluteur/structured-filter) or fork structured-filter on **GitHub**.
 
+or install with **NPM**:
+
+```bash
+# To get the latest stable version, use npm from the command line.
+npm install structured-filter
+```
+<a name="Usage"></a>
+## Usage
+
+First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and the plugin:
+
+```html
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/structured-filter.js" type="text/javascript" charset="utf-8"></script>
+```
+
+The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([structured-filter.css](http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css)). Here we use the "ui-lightness" theme as an example:
+
+```html
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-lightness/jquery-ui.css">
+<link href="css/structured-filter.css" rel="stylesheet" type="text/css">
+```
+
+Now, let's attach it to an existing `<div>` tag:
+
+```html
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#myFilter").structFilter({
+            fields: [
+                {type:"text", id:"lastname", label:"Lastname"},
+                {type:"text", id:"firstname", label:"Firstname"},
+                {type:"boolean", id:"active", label:"Is active"},
+                {type:"number", id:"age", label:"Age"},
+                {type:"date", id:"bday", label:"Birthday"},
+                {type:"list", id:"category", label:"Category",
+                    list:[
+                        {id:'1', label:"Family"},
+                        {id:'2', label:"Friends"},
+                        {id:'3', label:"Business"},
+                        {id:'4', label:"Acquaintances"},
+                        {id:'5', label:"Other"}
+                    ]
+                }
+            ]
+        });
+    });
+</script>
+
+<div style="width:100px;" id="myFilter"></div>
+```
+
+This will change the `<div>` into the widget.
+
+
+<a name="Model"></a>
 ## Model
 
 The widget is configured with a list of fields to use in the search conditions.
@@ -128,54 +193,8 @@ time:
 - is empty (null)
 - is not empty (nn)
 
-## Usage
 
-First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and the plugin:
-
-```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="js/structured-filter.js" type="text/javascript" charset="utf-8"></script>
-```
-
-The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([structured-filter.css](http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css)). Here we use the "ui-lightness" theme as an example:
-
-```html
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-lightness/jquery-ui.css">
-<link href="css/structured-filter.css" rel="stylesheet" type="text/css">
-```
-
-Now, let's attach it to an existing `<div>` tag:
-
-```html
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#myFilter").structFilter({
-            fields: [
-                {type:"text", id:"lastname", label:"Lastname"},
-                {type:"text", id:"firstname", label:"Firstname"},
-                {type:"boolean", id:"active", label:"Is active"},
-                {type:"number", id:"age", label:"Age"},
-                {type:"date", id:"bday", label:"Birthday"},
-                {type:"list", id:"category", label:"Category",
-                    list:[
-                        {id:'1', label:"Family"},
-                        {id:'2', label:"Friends"},
-                        {id:'3', label:"Business"},
-                        {id:'4', label:"Acquaintances"},
-                        {id:'5', label:"Other"}
-                    ]
-                }
-            ]
-        });
-    });
-</script>
-
-<div style="width:100px;" id="myFilter"></div>
-```
-
-This will change the `<div>` into the widget.
-
+<a name="Options"></a>
 ## Options
 
 structured-filter provides several options to customize its behaviour:
@@ -270,6 +289,7 @@ $("#myFilter").structFilter({
 Defaults to *false*.
 
 
+<a name="Methods"></a>
 ## Methods
 
 ### addCondition(data)
@@ -366,6 +386,7 @@ Sample value:
     filters=1&field-0=Lastname&operator-0=sw&value-0=jo&label=Lastname%20starts%20with%20%22jo%22%0A
 
 
+<a name="Events"></a>
 ## Events
 
 ### change.search
@@ -388,6 +409,7 @@ $("#myFilter").on("submit.search", function(event){
 });
 ```
 
+<a name="Theming"></a>
 ## Theming
 
 structured-filter is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
@@ -396,6 +418,7 @@ A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Ba
 set of [generic views](http://evoluteur.github.io/evolutility/doc/views.html) for CRUD (Create, Read, Update, Delete) and more.
 
 
+<a name="License"></a>
 ## License
 
 Copyright (c) 2016 Olivier Giulieri.
