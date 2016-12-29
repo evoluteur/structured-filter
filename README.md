@@ -31,6 +31,13 @@ You can [download](https://github.com/evoluteur/structured-filter) or fork struc
 git clone https://github.com/evoluteur/structured-filter
 ```
 
+or install the [npm package](https://www.npmjs.com/package/structured-filter):
+
+```bash
+# To get the latest stable version, use npm from the command line.
+npm install structured-filter
+```
+
 or install with **Bower**:
 
 ```bash
@@ -42,12 +49,6 @@ bower install structured-filter#master
 ```
 
 
-or install with **NPM**:
-
-```bash
-# To get the latest stable version, use npm from the command line.
-npm install structured-filter
-```
 <a name="Usage"></a>
 ## Usage
 
@@ -73,12 +74,12 @@ Now, let's attach it to an existing `<div>` tag:
     $(document).ready(function() {
         $("#myFilter").structFilter({
             fields: [
-                {type:"text", id:"lastname", label:"Lastname"},
-                {type:"text", id:"firstname", label:"Firstname"},
-                {type:"boolean", id:"active", label:"Is active"},
-                {type:"number", id:"age", label:"Age"},
-                {type:"date", id:"bday", label:"Birthday"},
-                {type:"list", id:"category", label:"Category",
+                {id:"lastname", type:"text", label:"Lastname"},
+                {id:"firstname", type:"text", label:"Firstname"},
+                {id:"active", type:"boolean", label:"Is active"},
+                {id:"age", type:"number", label:"Age"},
+                {id:"bday", type:"date", label:"Birthday"},
+                {id:"category", type:"list", label:"Category",
                     list:[
                         {id:'1', label:"Family"},
                         {id:'2', label:"Friends"},
@@ -114,21 +115,21 @@ Each field must have an ID, a type and a label.
 Example:
 
 ```javascript
-fields = [
-    { type:"text", id:"lastname", label:"Lastname"},
-    { type:"text", id:"firstname", label:"Firstname"},
-    { type:"boolean", id:"active", label:"Is active"},
-    { type:"number", id:"age", label:"Age"},
-    { type:"date", id:"bday", label:"Birthday"},
-	{type:"list", id:"category", label:"Category",
-		list:[
-			{id:'1', label:"Family"},
-			{id:'2', label:"Friends"},
-			{id:'3', label:"Business"},
-			{id:'4', label:"Acquaintances"},
-			{id:'5', label:"Other"}
-		]
-	}
+fields = fields: [
+    {id:"lastname", type:"text", label:"Lastname"},
+    {id:"firstname", type:"text", label:"Firstname"},
+    {id:"active", type:"boolean", label:"Is active"},
+    {id:"age", type:"number", label:"Age"},
+    {id:"bday", type:"date", label:"Birthday"},
+    {id:"category", type:"list", label:"Category",
+        list:[
+            {id:'1', label:"Family"},
+            {id:'2', label:"Friends"},
+            {id:'3', label:"Business"},
+            {id:'4', label:"Acquaintances"},
+            {id:'5', label:"Other"}
+        ]
+    }
 ];
 ```
 
@@ -232,12 +233,12 @@ Possible types are: text, boolean, number, date, time, and list.
 ```javascript
 $("#myFilter").structFilter({
     fields: [
-        {type:"text", id:"lastname", label:"Lastname"},
-        {type:"text", id:"firstname", label:"Firstname"},
-        {type:"boolean", id:"active", label:"Is active"},
-        {type:"number", id:"age", label:"Age"},
-        {type:"date", id:"bday", label:"Birthday"},
-        {type:"list", id:"category", label:"Category",
+        {id:"lastname", type:"text", label:"Lastname"},
+        {id:"firstname", type:"text", label:"Firstname"},
+        {id:"active", type:"boolean", label:"Is active"},
+        {id:"age", type:"number", label:"Age"},
+        {id:"bday", type:"date", label:"Birthday"},
+        {id:"category", type:"list", label:"Category",
             list:[
                 {id:'1', label:"Family"},
                 {id:'2', label:"Friends"},
@@ -421,7 +422,7 @@ set of [generic views](http://evoluteur.github.io/evolutility/doc/views.html) fo
 <a name="License"></a>
 ## License
 
-Copyright (c) 2016 Olivier Giulieri.
+Copyright (c) 2016 [Olivier Giulieri](https://evoluteur.github.io/).
 
 structured-filter is released under the [MIT license](http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md).
 
