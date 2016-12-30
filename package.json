@@ -1,12 +1,10 @@
 {
   "name": "structured-filter",
-  "version": "1.0.11",
-  "copyright": "(c) 2016 Olivier Giulieri",
+  "version": "1.0.11",  
+  "description": "Generic Web UI for building structured search or filter queries. With it you can build structured search conditions like Firstname starts with 'A' and Birthday after 1/1/1990 and State in (CA, NY, FL)...",
+  "copyright": "(c) 2017 Olivier Giulieri",
   "homepage": "http://evoluteur.github.io/structured-filter/",
-  "author": {
-      "name": "Olivier Giulieri",
-      "url": "https://github.com/evoluteur"
-  },
+  "author": "Olivier Giulieri (https://evoluteur.github.io/)",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -25,7 +23,6 @@
     "grunt-contrib-uglify": "~0.7.0",
     "grunt-contrib-less": "~1.0.0"
   },
-  "description": "Generic Web UI for building structured search or filter queries. With it you can build structured search conditions like Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)...",
   "main": "js/structured-filter.js",
   "keywords": [
     "filter",
@@ -35,6 +32,7 @@
     "form",
     "widget",
     "jquery",
-    "jquery-ui"
+    "jquery-ui",
+    "jquery-plugin"
   ]
 }

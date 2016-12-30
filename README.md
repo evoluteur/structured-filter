@@ -24,7 +24,7 @@ Check the **[demo](http://evoluteur.github.com/structured-filter/index.html)** f
 <a name="Installation"></a>
 ## Installation
 
-You can [download](https://github.com/evoluteur/structured-filter) or fork structured-filter on **GitHub**.
+You can [download](https://github.com/evoluteur/structured-filter/archive/master.zip) or fork structured-filter on [GitHub](https://github.com/evoluteur/structured-filter).
 
 ```bash
 # To get the latest stable version, use git from the command line.
@@ -93,7 +93,7 @@ Now, let's attach it to an existing `<div>` tag:
     });
 </script>
 
-<div style="width:100px;" id="myFilter"></div>
+<div id="myFilter"></div>
 ```
 
 This will change the `<div>` into the widget.
@@ -415,14 +415,14 @@ $("#myFilter").on("submit.search", function(event){
 
 structured-filter is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
 
-A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) is available as part of [Evolutility](http://evoluteur.github.com/evolutility/index.html) 
-set of [generic views](http://evoluteur.github.io/evolutility/doc/views.html) for CRUD (Create, Read, Update, Delete) and more.
+A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) is available as part of [Evolutility-UI-jQuery](http://evoluteur.github.com/evolutility-ui-jquery/index.html) 
+set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/views.html) for CRUD (Create, Read, Update, Delete) and more.
 
 
 <a name="License"></a>
 ## License
 
-Copyright (c) 2016 [Olivier Giulieri](https://evoluteur.github.io/).
+Copyright (c) 2017 [Olivier Giulieri](https://evoluteur.github.io/).
 
 structured-filter is released under the [MIT license](http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md).
 

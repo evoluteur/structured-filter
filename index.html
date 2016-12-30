@@ -1,27 +1,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml" > 
 <head>
-    <title>structured-filter Demo</title>
+    <title>Structured-Filter Demo</title>
     <meta name="description" content="Structured filter widget for jQuery UI.">
-    <meta name="keywords" content="jQuery UI widget metadata advanced structured filter search form">
+    <meta name="keywords" content="jQuery UI widget plugin metadata advanced structured filter query builder editor search form">
 
-	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
+	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/demo.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/structured-filter.css" type="text/css" media="all">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
-	<script src="js/structured-filter.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+	<script src="js/structured-filter.min.js" type="text/javascript" type="text/javascript"></script>
 	<script src="js/model-demo1.js" type="text/javascript"></script> 
 </head>
 <body>
 
-<h1>Structured Filter Demo</h1>
 
 <h2 id="github">
-    <a href="https://github.com/evoluteur/structured-filter">GitHub</a>
+    <a href="https://github.com/evoluteur/structured-filter">GitHub</a><br/>
+    <iframe src="https://ghbtns.com/github-btn.html?user=evoluteur&repo=structured-filter&type=star&count=true&size=small" frameborder="0" scrolling="0" width="100px" height="30px"></iframe>
 </h2>
 
-<p>structured-filter (currently v1.0.11) is a Web UI for building structured search queries. It is a full jQuery UI widget, supporting various configurations and themes.
+<h1>Structured-Filter</h1>
+
+<p>Structured-Filter (currently v1.0.11) is a Web UI for building structured search queries. It is a full jQuery UI widget, supporting various configurations and themes.
+</p>
+
+<p>
+With it you can build structured search conditions like
+Firstname starts with 'A' and Birthday after 1/1/1990 and State in (CA, NY, FL)... It is a full jQuery UI widget, supporting various configurations and themes.
 </p>
 
 <p class="demo-links">API Tests:
@@ -31,8 +38,6 @@
     <a href="#" id="clear">Clear</a>
 </p>
 
-<div id="evol"></div>
-
 <p class="demo-links">Themes:
     <a href="#" class="css sel">ui-lightness</a> -
     <a href="#" class="css">ui-darkness</a> -
@@ -40,6 +45,8 @@
     <a href="#" class="css">start</a> -
     <a href="#" class="css">le-frog</a>
 </p>
+
+<div id="evol"></div>
 
 <p class="demo-links" id="linksValues">Value Formats:
     <a href="#" data-id="json" class="sel">JSON</a> -
@@ -52,102 +59,109 @@
 </p>
 
 <p><br/>
-    The <a href="https://github.com/evoluteur/structured-filter#readme">documentation</a> and source code are available at <a href="https://github.com/evoluteur/structured-filter" target="git">GitHub</a>
-    under <a href="http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md">MIT license</a>.</p>
-<p>There is a fork of the code using <a href="http://getbootstrap.com">Bootstrap</a> and <a href="http://backbonejs.org">Backbone.js</a> as part of <a href="http://evoluteur.github.com/evolutility/index.html">Evolutility</a>.
-</p>
-<br/><br/>
-<div class="footer">&#169; 2016 Olivier Giulieri</div>
+    <a href="https://github.com/evoluteur/structured-filter/archive/master.zip">Download</a> and <a href="https://github.com/evoluteur/structured-filter#readme">documentation</a> 
+    are available at 
+    <a href="https://github.com/evoluteur/structured-filter" target="git">GitHub</a>.</p>
 
+    <p>Structured-Filter is released under the <a href="http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md">MIT license</a>.</p>
+
+    <p>&#169; 2017 <a href="https://evoluteur.github.io/">Olivier Giulieri</a></p>
+<br/><br/>
+
+ 
 <script>
 
-    $(document).ready(function(){
-
-        var v,
-            valueFormat = 'json';
-
-        function updateValue(format){
-            switch(format){
-                case 'json':
-                    v = JSON.stringify($('#evol').structFilter("val"), null, 2);
-                    break;
-                case 'text':
-                    v = $('#evol').structFilter("valText");
-                    break;
-                case 'url':
-                    v = $('#evol').structFilter("valUrl");
+function addRandomCondition(){
+    var randomChar = String.fromCharCode(Math.floor(Math.random()*25)+65),
+        filterDef = {
+            field:{
+                label: 'Lastname',
+                value: 'Lastname'
+            },
+            operator:{
+                label: 'contains',
+                value: 'ct'
+            },
+            value:{
+                label: '"' + randomChar + '"',
+                value: randomChar
             }
-            $('#myFilter').val(v);
+        };
+    $('#evol').structFilter("addCondition", filterDef);
+}
+
+$(document).ready(function(){
+
+    var v,
+        valueFormat = 'json';
+
+    function updateValue(format){
+        switch(format){
+            case 'json':
+                v = JSON.stringify($('#evol').structFilter("val"), null, 2);
+                break;
+            case 'text':
+                v = $('#evol').structFilter("valText");
+                break;
+            case 'url':
+                v = $('#evol').structFilter("valUrl");
         }
+        $('#myFilter').val(v);
+    }
 
-        // *****   setup theme links   *****
-        $('.css').click(function(){
-            $('#jquiCSS').attr('href','http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/'+this.innerHTML+'/jquery-ui.css');
-            $('.css').removeClass('sel');
-            $(this).addClass('sel');
-        });
-
-        // *****   setup structured filter widget   *****
-        $('#evol').structFilter({fields:contacts })
-            .on('submit.search change.search', function(evt){
-                updateValue(valueFormat);
-            });
-
-        // *****   setup values   *****
-        $('#linksValues > a').on('click',function(){
-            var $this=$(this),
-                    id=$this.data('id');
-            $this.addClass('sel')
-                    .siblings().removeClass('sel');
-            valueFormat=id;
-            updateValue(id);
-        });
-
-        // *****   setup api tests links   *****
-        $('#addCondition').click(function(){
-            var randomChar = String.fromCharCode(Math.floor(Math.random()*25)+65),
-                filterDef = {
-                    field:{
-                        label: 'Lastname',
-                        value: 'Lastname'
-                    },
-                    operator:{
-                        label: 'contains',
-                        value: 'ct'
-                    },
-                    value:{
-                        label: '"' + randomChar + '"',
-                        value: randomChar
-                    }
-                };
-            $('#evol').structFilter("addCondition", filterDef);
-        });
-
-        $('#delFilter').click(function(){
-            $('#evol').structFilter("removeCondition", 0);
-        });
-
-        $('#clear').click(function(){
-            $('#evol').structFilter("clear");
-        });
-
-        $('#length').click(function(){
-            var v = $('#evol').structFilter("length"),
-                    msg;
-            if(v===0){
-                msg = 'No conditions specified.';
-            }else if(v===1){
-                msg = '1 condition in filter.';
-            }else{
-                msg = v + ' conditions in filter.';
-            }
-            alert(msg);
-        });
-
-        // *****   Prevent links from scrolling   *****
-        $('.demo-links > a[href="#"]').attr('href', 'javascript:void(0)');
-
+    // *****   setup theme links   *****
+    $('.css').click(function(){
+        $('#jquiCSS').attr('href','http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/'+this.innerHTML+'/jquery-ui.css');
+        $('.css').removeClass('sel');
+        $(this).addClass('sel');
     });
+
+    // *****   setup structured filter widget   *****
+    $('#evol').structFilter({fields:contacts })
+        .on('submit.search change.search', function(evt){
+            updateValue(valueFormat);
+        });
+
+    // *****   setup values   *****
+    $('#linksValues > a').on('click',function(){
+        var $this=$(this),
+                id=$this.data('id');
+        $this.addClass('sel')
+                .siblings().removeClass('sel');
+        valueFormat=id;
+        updateValue(id);
+    });
+
+    // *****   setup api tests links   *****
+    $('#addCondition').click(addRandomCondition);
+
+    $('#delFilter').click(function(){
+        $('#evol').structFilter("removeCondition", 0);
+    });
+
+    $('#clear').click(function(){
+        $('#evol').structFilter("clear");
+    });
+
+    $('#length').click(function(){
+        var v = $('#evol').structFilter("length"),
+                msg;
+        if(v===0){
+            msg = 'No conditions specified.';
+        }else if(v===1){
+            msg = '1 condition in filter.';
+        }else{
+            msg = v + ' conditions in filter.';
+        }
+        alert(msg);
+    });
+
+    addRandomCondition();
+
+    // *****   Prevent links from scrolling   *****
+    $('.demo-links > a[href="#"]').attr('href', 'javascript:void(0)');
+
+});
 
 </script>
 

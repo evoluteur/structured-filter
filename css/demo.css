@@ -35,13 +35,12 @@ a.sel {
 }
 
 #github{
-    position:absolute;
-    right:30px;
-    top: 7px;
+    float: right;
+    margin: 0 0 10px 30px;
 }
-@media only screen and (max-width: 465px) {
-
-    #github{
-        display: none;
-    }
+#github a {
+    text-decoration: none;
+}
+#github iframe {
+    margin-top:10px;
 }
