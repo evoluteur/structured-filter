@@ -8,11 +8,16 @@
 		"less/structured-filter.less"
 	],
 	"license": "MIT",
-  	"copyright": "(c) 2016 Olivier Giulieri",
+	"copyright": "(c) 2017 Olivier Giulieri",
+	"authors": "Olivier Giulieri (https://evoluteur.github.io/)",
 	"dependencies": {
 		"jquery": "~2.1.4",
-		"jquery-ui": "^1.10"
+		"jquery-ui": "^1.11.4"
 	},
+	"ignore": [
+		"node_modules",
+		"bower_components"
+	],
 	"keywords": [
 		"filter",
 		"query",
