@@ -312,12 +312,10 @@ $.widget( 'evol.structFilter', {
 			}
 			this._bDel.show();
 			if(!this._fList){
-				var fields=this.options.fields,
-					h='<select id="field"><option value=""></option>';
-				for (var i=0,iMax=fields.length;i<iMax;i++){
-					var f=fields[i];
-					h+=EvoUI.inputOption(f.id,f.label);
-				}
+				var h='<select id="field">'+EvoUI.optNull;
+				h+=this.options.fields.map(function(f){
+					return EvoUI.inputOption(f.id,f.label);
+				})
 				h+='</select>';
 				this._fList=h;
 			}
@@ -347,7 +345,7 @@ $.widget( 'evol.structFilter', {
 					this._operator=evoAPI.sEqual;
 					break;
 				default:
-					h+='<select id="operator"><option value=""></option>';
+					h+='<select id="operator">'+EvoUI.optNull;
 					switch (fType){
 						case fTypes.date:
 						case fTypes.time:
@@ -555,11 +553,9 @@ $.widget( 'evol.structFilter', {
 	val: function(value){
 		if (typeof value=='undefined'){
 		// --- get value
-			var v=[];
-			this._filters.find('a').each(function(){
-				v.push($(this).data('filter'));
+			return this._filters.find('a').map(function(){
+				return $(this).data('filter');
 			});
-			return v;
 		}else{
 		// --- set value
 			this._filters.empty();
@@ -572,11 +568,9 @@ $.widget( 'evol.structFilter', {
 	},
 
 	valText: function(){
-		var v=[];
-		this._filters.find('a').each(function(){
-			v.push(this.text);
-		});
-		return v.join(' '+evoLang.opAnd+' ');
+		return this._filters.find('a').map(function(){
+			return this.text;
+		}).join(' '+evoLang.opAnd+' ');
 	},
 
 	valUrl: function(){
@@ -634,6 +628,7 @@ var EvoUI={
 	inputOption:function(fID,fV){
 		return '<option value="'+fID+'">'+fV+'</option>';
 	},
+	optNull:'<option value=""></option>',
 	inputCheckboxes:function(fLOV){
 		var h='';
 		for(var i=0;i<fLOV.length;i++){
