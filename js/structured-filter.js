@@ -315,7 +315,7 @@ $.widget( 'evol.structFilter', {
 				var h='<select id="field">'+EvoUI.optNull;
 				h+=this.options.fields.map(function(f){
 					return EvoUI.inputOption(f.id,f.label);
-				})
+				});
 				h+='</select>';
 				this._fList=h;
 			}
@@ -553,9 +553,11 @@ $.widget( 'evol.structFilter', {
 	val: function(value){
 		if (typeof value=='undefined'){
 		// --- get value
-			return this._filters.find('a').map(function(){
-				return $(this).data('filter');
+			var ret=[];
+			this._filters.find('a').each(function(){
+				ret.push($(this).data('filter'));
 			});
+			return ret;
 		}else{
 		// --- set value
 			this._filters.empty();
@@ -568,9 +570,11 @@ $.widget( 'evol.structFilter', {
 	},
 
 	valText: function(){
-		return this._filters.find('a').map(function(){
-			return this.text;
-		}).join(' '+evoLang.opAnd+' ');
+		var ret=[];
+		this._filters.find('a').each(function(){
+			ret.push(this.text);
+		});
+		return ret.join(' '+evoLang.opAnd+' ');
 	},
 
 	valUrl: function(){
