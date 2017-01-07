@@ -551,6 +551,7 @@ $.widget( 'evol.structFilter', {
 	},
 
 	val: function(value){
+		// - sets or returns filter object
 		if (typeof value=='undefined'){
 		// --- get value
 			var ret=[];
@@ -570,6 +571,7 @@ $.widget( 'evol.structFilter', {
 	},
 
 	valText: function(){
+		// - returns filter "text" value as displayed to the user.
 		var ret=[];
 		this._filters.find('a').each(function(){
 			ret.push(this.text);
@@ -578,6 +580,7 @@ $.widget( 'evol.structFilter', {
 	},
 
 	valUrl: function(){
+		// - returns filter url
 		var vs=this.val(),
 			iMax=vs.length,
 			url='filters='+iMax;
@@ -618,6 +621,7 @@ $.widget( 'evol.structFilter', {
 
 });
 
+// - helpers to generate HTML
 var EvoUI={
 
 	inputRadio:function(fN,fV,fLbl,sel,fID){
@@ -626,13 +630,17 @@ var EvoUI={
 			(sel?'" checked="checked':'')+
 			'">'+fLbl+'</label>&nbsp;';
 	},
+
 	inputHidden:function(id,val){
 		return '<input type="hidden" name="'+id+'" value="'+val+'"/>';
 	},
+
 	inputOption:function(fID,fV){
 		return '<option value="'+fID+'">'+fV+'</option>';
 	},
+
 	optNull:'<option value=""></option>',
+
 	inputCheckboxes:function(fLOV){
 		var h='';
 		for(var i=0;i<fLOV.length;i++){

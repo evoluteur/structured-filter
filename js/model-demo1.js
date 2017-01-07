@@ -1,3 +1,8 @@
+// sample data for Structured-Filter demo
+
+// code: https://github.com/evoluteur/structured-filter
+// demo: http://evoluteur.github.io/structured-filter
+
 var contacts=[
 	{ type:"text", id:"Lastname", label:"Lastname"},
 	{ type:"text", id:"Firstname", label:"Firstname"},
