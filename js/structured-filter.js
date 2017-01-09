@@ -14,7 +14,20 @@
 
 (function( $, undefined){
 
-	var i18n={
+	// - field types
+	var fTypes={
+		text:'text',
+		bool:'boolean',
+		number:'number',
+		date:'date',
+		time:'time',
+		list:'list',
+		listOpts: 'list-options',
+		listDropdown: 'list-dropdown'
+	},
+
+	// - i18n strings (to translate in other languages)
+	i18n={
 		sEqual:'equals',
 		sNotEqual:'not equal',
 		sStart:'starts with',
@@ -45,6 +58,8 @@
 		bSubmit:'Submit',
 		bCancel:'Cancel'
 	},
+
+	// - list of operators (for conditions)
 	evoAPI={
 		sEqual:'eq',
 		sNotEqual:'ne',
@@ -58,16 +73,6 @@
 		sGreater:'gt',
 		sSmaller:'lt',
 		sBetween:'bw'
-	},
-	fTypes={
-		text:'text',
-		bool:'boolean',
-		number:'number',
-		date:'date',
-		time:'time',
-		list:'list',
-		exList: 'list-options',
-		selList: 'list-dropdown'
 	},
 	isNotFirefox = navigator.userAgent.toLowerCase().indexOf('firefox')===-1;
 
@@ -159,7 +164,7 @@ $.widget( 'evol.structFilter', {
 				that._field=that._getFieldById(fieldID);
 				var fType=that._type=that._field.type;
 				that._setEditorOperator();
-				if([fTypes.list, fTypes.bool, fTypes.exList, fTypes.selList].indexOf(fType) > -1){
+				if(fType===fTypes.bool || fType.startsWith('list')){
 					that._setEditorValue();
 				}
 			}else{
@@ -176,10 +181,10 @@ $.widget( 'evol.structFilter', {
 			that._setEditorValue();
 		}).on('change keyup', '#value,#value2', function(evt){
 			evt.stopPropagation();
-			var type=that._type,
+			var fType=that._type,
 				value=$(this).val(),
-				valid=(value!=='') || ([fTypes.list, fTypes.bool, fTypes.exList, fTypes.selList].indexOf(type) > -1);
-			if(type==fTypes.number){
+				valid= value!=='' || fType===fTypes.bool || fType.startsWith('list');
+			if(fType==fTypes.number){
 				valid=valid && !isNaN(value);
 			}else if(that._operator==evoAPI.sBetween){
 				valid=that._editor.find('#value').val()!=='' && that._editor.find('#value2').val()!=='';
@@ -346,8 +351,8 @@ $.widget( 'evol.structFilter', {
 					h+=EvoUI.inputHidden('operator',evoAPI.sInList);
 					this._operator=evoAPI.sInList;
 					break;
-				case fTypes.exList:
-				case fTypes.selList:
+				case fTypes.listOpts:
+				case fTypes.listDropdown:
 				case fTypes.bool:
 					//h.push(i18n.sEqual);
 					h+=EvoUI.inputHidden('operator',evoAPI.sEqual);
@@ -423,14 +428,14 @@ $.widget( 'evol.structFilter', {
 								EvoUI.inputCheckboxes(fld.list)+
 								'</span>';
 							break;
-						case fTypes.exList:
+						case fTypes.listOpts:
 							h+='<span id="value">';
 							h+=fld.list.map(function(item){
 								return EvoUI.inputRadio(fld.id, item.id, item.label, v==item.id, 'value' + item.id);
 							}).join('');
 							h +='</span>';
 							break;
-						case fTypes.selList:
+						case fTypes.listDropdown:
 							h+='<select id="value">'+EvoUI.optNull;
 							h+=fld.list.map(function(item){
 								return EvoUI.inputOption(item.id, item.label);
@@ -463,7 +468,7 @@ $.widget( 'evol.structFilter', {
 						case fTypes.list:
 							$value.find('#'+v.split(',').join(',#')).prop('checked', 'checked');
 							break;
-						case fTypes.exList:
+						case fTypes.listOpts:
 						case fTypes.bool:
 							$value.find('#value'+v).prop('checked', 'checked');
 							break;
@@ -476,7 +481,7 @@ $.widget( 'evol.structFilter', {
 							}
 					}
 				}else{
-					addOK=(fType==fTypes.list || fType==fTypes.listSelect || fType==fTypes.bool);
+					addOK=(fType==fTypes.list || fType==fTypes.listDropdown || fType==fTypes.bool);
 				}
 			}
 			this._bAdd.button(addOK?'enable':'disable').show();
@@ -525,13 +530,13 @@ $.widget( 'evol.structFilter', {
 			var val=(v.find('#value1').prop('checked'))?1:0;
 			fv.label=(val==1)?i18n.yes:i18n.no;
 			fv.value=val;
-		}else if(this._type==fTypes.exList){
+		}else if(this._type==fTypes.listOpts){
 			op.label=i18n.sEqual;
 			op.value=evoAPI.sEqual;
 			var sel = v.find('input:checked');
 			fv.label = sel.parent().text();
 			fv.value = sel.prop('id').slice(5);
-		}else if(this._type==fTypes.selList){
+		}else if(this._type==fTypes.listDropdown){
 			op.label=i18n.sEqual;
 			op.value=evoAPI.sEqual;
 			var vval=v.val();
