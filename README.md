@@ -112,6 +112,8 @@ Each field must have an ID, a type and a label.
 - label - displayed field name.
 - type - data type. Possible types of field: text, number, boolean, date, time, list.
 
+Fields of type "list" also have a property "list" for the list of values (array of "id-label" objects).
+
 Example:
 
 ```javascript
