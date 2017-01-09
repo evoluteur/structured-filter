@@ -66,8 +66,8 @@
 		date:'date',
 		time:'time',
 		list:'list',
-		exList: 'exclusiveList',
-		selList: 'selectList'
+		exList: 'list-options',
+		selList: 'list-dropdown'
 	},
 	isNotFirefox = navigator.userAgent.toLowerCase().indexOf('firefox')===-1;
 
@@ -476,7 +476,7 @@ $.widget( 'evol.structFilter', {
 							}
 					}
 				}else{
-					addOK=(fType==fTypes.list || fType==fTypes.bool);
+					addOK=(fType==fTypes.list || fType==fTypes.listSelect || fType==fTypes.bool);
 				}
 			}
 			this._bAdd.button(addOK?'enable':'disable').show();
@@ -534,7 +534,8 @@ $.widget( 'evol.structFilter', {
 		}else if(this._type==fTypes.selList){
 			op.label=i18n.sEqual;
 			op.value=evoAPI.sEqual;
-			fv.label = v.find('option[value='+v.val()+']').text();
+			var vval=v.val();
+			fv.label = vval?v.find('option[value='+vval+']').text():i18n.sIsNull;
 			fv.value = v.val();
 		}else{
 			var o=e.find('#operator'),
