@@ -65,7 +65,9 @@
 		number:'number',
 		date:'date',
 		time:'time',
-		list:'list'
+		list:'list',
+		exList: 'exclusiveList',
+		selList: 'selectList'
 	},
 	isNotFirefox = navigator.userAgent.toLowerCase().indexOf('firefox')===-1;
 
@@ -153,7 +155,7 @@ $.widget( 'evol.structFilter', {
 				that._field=that._getFieldById(fieldID);
 				var fType=that._type=that._field.type;
 				that._setEditorOperator();
-				if(fType==fTypes.list || fType==fTypes.bool){
+				if([fTypes.list, fTypes.bool, fTypes.exList, fTypes.selList].indexOf(fType) > -1){
 					that._setEditorValue();
 				}
 			}else{
@@ -172,7 +174,7 @@ $.widget( 'evol.structFilter', {
 			evt.stopPropagation();
 			var type=that._type,
 				value=$(this).val(),
-				valid=(value!=='') || type==fTypes.list || type==fTypes.bool;
+				valid=(value!=='') || ([fTypes.list, fTypes.bool, fTypes.exList, fTypes.selList].indexOf(type) > -1);
 			if(type==fTypes.number){
 				valid=valid && !isNaN(value);
 			}else if(that._operator==evoAPI.sBetween){
@@ -339,6 +341,8 @@ $.widget( 'evol.structFilter', {
 					h+=EvoUI.inputHidden('operator',evoAPI.sInList);
 					this._operator=evoAPI.sInList;
 					break;
+				case fTypes.exList:
+				case fTypes.selList:
 				case fTypes.bool:
 					//h.push(evoLang.sEqual);
 					h+=EvoUI.inputHidden('operator',evoAPI.sEqual);
@@ -413,6 +417,22 @@ $.widget( 'evol.structFilter', {
 								EvoUI.inputRadio('value', '0', evoLang.no, v=='0', 'value0')+
 								'</span>';
 							break;
+						case fTypes.exList:
+							var arrayLength = this._field.list.length;
+							h+='<span id="value">';
+							for (var i = 0; i < arrayLength; i++) {
+								h+= EvoUI.inputRadio(this._field.list[i].label, this._field.list[i].id, this._field.list[i].label, v==this._field.list[i].id, 'value' + this._field.list[i].id);
+							}
+							h +='</span>';
+							break;
+						case fTypes.selList:
+							var arrayLength = this._field.list.length;
+							h+='<select id="value">'+EvoUI.optNull;
+							for (var i = 0; i < arrayLength; i++) {
+								h+=EvoUI.inputOption(this._field.list[i].id, this._field.list[i].label);
+							}
+							h+='</select>';
+							break;
 						case fTypes.date:
 						case fTypes.time:
 						case fTypes.number:
@@ -439,6 +459,7 @@ $.widget( 'evol.structFilter', {
 						case fTypes.list:
 							$value.find('#'+v.split(',').join(',#')).prop('checked', 'checked');
 							break;
+						case fTypes.exList:
 						case fTypes.bool:
 							$value.find('#value'+v).prop('checked', 'checked');
 							break;
@@ -500,6 +521,17 @@ $.widget( 'evol.structFilter', {
 			var val=(v.find('#value1').prop('checked'))?1:0;
 			fv.label=(val==1)?evoLang.yes:evoLang.no;
 			fv.value=val;
+		}else if(this._type==fTypes.exList){
+			op.label=evoLang.sEqual;
+			op.value=evoAPI.sEqual;
+			var sel = v.find('input:checked');
+			fv.label = sel.prop('name');
+			fv.value = sel.val();
+		}else if(this._type==fTypes.selList){
+			op.label=evoLang.sEqual;
+			op.value=evoAPI.sEqual;
+			fv.label = v.find('option[value='+v.val()+']').text();
+			fv.value = v.val();
 		}else{
 			var o=e.find('#operator'),
 				opVal=o.val();
