@@ -1,6 +1,6 @@
 {
 	"name": "structured-filter",
-	"version": "1.0.11",
+	"version": "1.1.0",
 	"description": "jQuery UI widget for structured queries",
 	"homepage": "http://evoluteur.github.io/structured-filter/",
 	"main": [

@@ -1,5 +1,5 @@
 /*
-   structured-filter 1.0.11
+   structured-filter 1.1.0
    http://evoluteur.github.io/structured-filter/
    (c) 2017 Olivier Giulieri
 */
@@ -21,10 +21,9 @@
   font-weight: normal;
 }
 .evo-searchFilters a {
+  border-radius: 14px;
   -moz-border-radius: 14px;
   -webkit-border-radius: 14px;
-  -khtml-border-radius: 14px;
-  border-radius: 14px;
 }
 .evo-searchFilters a span.ui-button-text {
   padding: 4px 33px 4px 12px;
@@ -44,6 +43,7 @@
 .evo-editFilter span#value {
   margin-right: 5px;
 }
+.evo-editFilter #value input[type="radio"],
 .evo-editFilter #value input[type="checkbox"] {
   margin-left: 5px;
 }
@@ -64,6 +64,8 @@
   color: #555;
   border: 1px solid #ccc;
   border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
