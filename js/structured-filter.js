@@ -14,7 +14,7 @@
 
 (function( $, undefined){
 
-	var evoLang={
+	var i18n={
 		sEqual:'equals',
 		sNotEqual:'not equal',
 		sStart:'starts with',
@@ -86,14 +86,18 @@ $.widget( 'evol.structFilter', {
 		var bLabels=this.options.buttonLabels,
 			that=this,
 			e=this.element,
+			fnLink=function(css, label, hidden){
+				return '<a class="'+css+'"'+(hidden?' style="display:none;"':'')+
+					' href="javascript:void(0)">'+label+'</a>';
+			}
 			h='<div class="evo-searchFilters"></div>'+
-				'<a class="evo-bNew" href="javascript:void(0)">'+evoLang.bNewCond+'</a>';
+				fnLink('evo-bNew', i18n.bNewCond);
 		if(this.options.submitButton){
-			h+='<a class="evo-bSubmit" href="javascript:void(0)">'+evoLang.bSubmit+'</a>';
+			h+=fnLink('evo-bSubmit', i18n.bSubmit);
 		}
 		h+='<div class="evo-editFilter"></div>'+
-				'<a class="evo-bAdd" style="display:none;" href="javascript:void(0)">'+evoLang.bAddCond+'</a>'+
-				'<a class="evo-bDel" style="display:none;" href="javascript:void(0)">'+evoLang.bCancel+'</a>';
+				fnLink('evo-bAdd', i18n.bAddCond, true)+
+				fnLink('evo-bDel', i18n.bCancel, true);
 		this._step=0;
 		e.addClass('structFilter ui-widget-content ui-corner-all')
 			.html(h);
@@ -117,7 +121,7 @@ $.widget( 'evol.structFilter', {
 					that._setEditorField();
 					that._step=1;
 				}
-				that._bAdd.find('.ui-button-text').html(evoLang.bAddCond);
+				that._bAdd.find('.ui-button-text').html(i18n.bAddCond);
 			});
 		// - editor button add
 		this._bAdd=e.find('.evo-bAdd').button({
@@ -264,7 +268,7 @@ $.widget( 'evol.structFilter', {
 			'<span class="evo-lLight">'+filter.operator.label+'</span> '+
 			'<span class="evo-lBold">'+filter.value.label+'</span>';
 		if(filter.operator.value==evoAPI.sBetween){
-			h+='<span class="evo-lLight"> '+evoLang.opAnd+' </span>'+
+			h+='<span class="evo-lLight"> '+i18n.opAnd+' </span>'+
 				'<span class="evo-lBold">'+filter.value.label2+'</span>';
 		}
 		return h;
@@ -302,7 +306,7 @@ $.widget( 'evol.structFilter', {
 		}else{
 			this._setEditorValue(fv.value);
 		}
-		this._bAdd.find('.ui-button-text').html(evoLang.bUpdateCond);
+		this._bAdd.find('.ui-button-text').html(i18n.bUpdateCond);
 		this._step=3;
 	},
 
@@ -334,17 +338,18 @@ $.widget( 'evol.structFilter', {
 	_setEditorOperator: function(cond){
 		var fType=this._type;
 		if(this._step<2){
-			var h='';
+			var h='',
+				opt=EvoUI.inputOption;
 			switch (fType){
 				case fTypes.list:
-					//h.push(evoLang.sInList);
+					//h.push(i18n.sInList);
 					h+=EvoUI.inputHidden('operator',evoAPI.sInList);
 					this._operator=evoAPI.sInList;
 					break;
 				case fTypes.exList:
 				case fTypes.selList:
 				case fTypes.bool:
-					//h.push(evoLang.sEqual);
+					//h.push(i18n.sEqual);
 					h+=EvoUI.inputHidden('operator',evoAPI.sEqual);
 					this._operator=evoAPI.sEqual;
 					break;
@@ -354,32 +359,32 @@ $.widget( 'evol.structFilter', {
 						case fTypes.date:
 						case fTypes.time:
 							if (fType==fTypes.time){
-								h+=EvoUI.inputOption(evoAPI.sEqual, evoLang.sAt)+
-									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotAt);
+								h+=opt(evoAPI.sEqual, i18n.sAt)+
+									opt(evoAPI.sNotEqual, i18n.sNotAt);
 							}else{
-								h+=EvoUI.inputOption(evoAPI.sEqual, evoLang.sOn)+
-									EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotOn);
+								h+=opt(evoAPI.sEqual, i18n.sOn)+
+									opt(evoAPI.sNotEqual, i18n.sNotOn);
 							}
-							h+=EvoUI.inputOption(evoAPI.sGreater, evoLang.sAfter)+
-								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sBefore)+
-								EvoUI.inputOption(evoAPI.sBetween, evoLang.sBetween);
+							h+=opt(evoAPI.sGreater, i18n.sAfter)+
+								opt(evoAPI.sSmaller, i18n.sBefore)+
+								opt(evoAPI.sBetween, i18n.sBetween);
 							break;
 						case fTypes.number:
-							h+=EvoUI.inputOption(evoAPI.sEqual, evoLang.sNumEqual)+
-								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNumNotEqual)+
-								EvoUI.inputOption(evoAPI.sGreater, evoLang.sGreater)+
-								EvoUI.inputOption(evoAPI.sSmaller, evoLang.sSmaller);
+							h+=opt(evoAPI.sEqual, i18n.sNumEqual)+
+								opt(evoAPI.sNotEqual, i18n.sNumNotEqual)+
+								opt(evoAPI.sGreater, i18n.sGreater)+
+								opt(evoAPI.sSmaller, i18n.sSmaller);
 							break;
 						default:
-							h+=EvoUI.inputOption(evoAPI.sEqual, evoLang.sEqual)+
-								EvoUI.inputOption(evoAPI.sNotEqual, evoLang.sNotEqual)+
-								EvoUI.inputOption(evoAPI.sStart, evoLang.sStart)+
-								EvoUI.inputOption(evoAPI.sContain, evoLang.sContain)+
-								EvoUI.inputOption(evoAPI.sNotContain, evoLang.sNotContain)+
-								EvoUI.inputOption(evoAPI.sFinish, evoLang.sFinish);
+							h+=opt(evoAPI.sEqual, i18n.sEqual)+
+								opt(evoAPI.sNotEqual, i18n.sNotEqual)+
+								opt(evoAPI.sStart, i18n.sStart)+
+								opt(evoAPI.sContain, i18n.sContain)+
+								opt(evoAPI.sNotContain, i18n.sNotContain)+
+								opt(evoAPI.sFinish, i18n.sFinish);
 					}
-					h+=EvoUI.inputOption(evoAPI.sIsNull, evoLang.sIsNull)+
-						EvoUI.inputOption(evoAPI.sIsNotNull, evoLang.sIsNotNull)+
+					h+=opt(evoAPI.sIsNull, i18n.sIsNull)+
+						opt(evoAPI.sIsNotNull, i18n.sIsNotNull)+
 						'</select>';
 			}
 			this._editor.append(h);
@@ -408,8 +413,8 @@ $.widget( 'evol.structFilter', {
 					switch (fType){
 						case fTypes.bool:
 							h+='<span id="value">'+
-								EvoUI.inputRadio('value', '1', evoLang.yes, v!='0', 'value1')+
-								EvoUI.inputRadio('value', '0', evoLang.no, v=='0', 'value0')+
+								EvoUI.inputRadio('value', '1', i18n.yes, v!='0', 'value1')+
+								EvoUI.inputRadio('value', '0', i18n.no, v=='0', 'value0')+
 								'</span>';
 							break;
 						case fTypes.list:
@@ -438,7 +443,7 @@ $.widget( 'evol.structFilter', {
 							var iType=(fType==fTypes.date)?'text':fType;
 							h+='<input id="value" type="'+iType+'"/>';
 							if(opBetween){
-								h+='<span class="as-Txt">'+evoLang.opAnd+' </span>'+
+								h+='<span class="as-Txt">'+i18n.opAnd+' </span>'+
 									'<input id="value2" type="'+iType+'"/>';
 							}
 							addOK=false;
@@ -459,8 +464,6 @@ $.widget( 'evol.structFilter', {
 							$value.find('#'+v.split(',').join(',#')).prop('checked', 'checked');
 							break;
 						case fTypes.exList:
-							$value.find('#value'+v).prop('checked', 'checked');
-							break;
 						case fTypes.bool:
 							$value.find('#value'+v).prop('checked', 'checked');
 							break;
@@ -502,34 +505,34 @@ $.widget( 'evol.structFilter', {
 				ls.push(this.nextSibling.innerHTML);
 			});
 			if(vs.length===0){
-				op.label=evoLang.sIsNull;
+				op.label=i18n.sIsNull;
 				op.value=evoAPI.sIsNull;
 				fv.label=fv.value='';
 			}else if(vs.length==1){
-				op.label=evoLang.sEqual;
+				op.label=i18n.sEqual;
 				op.value=evoAPI.sEqual;
 				fv.label='"'+ls[0]+'"';
 				fv.value=vs[0];
 			}else{
-				op.label=evoLang.sInList;
+				op.label=i18n.sInList;
 				op.value=evoAPI.sInList;
 				fv.label='('+ls.join(', ')+')';
 				fv.value=vs.join(',');
 			}
 		}else if(this._type==fTypes.bool){
-			op.label=evoLang.sEqual;
+			op.label=i18n.sEqual;
 			op.value=evoAPI.sEqual;
 			var val=(v.find('#value1').prop('checked'))?1:0;
-			fv.label=(val==1)?evoLang.yes:evoLang.no;
+			fv.label=(val==1)?i18n.yes:i18n.no;
 			fv.value=val;
 		}else if(this._type==fTypes.exList){
-			op.label=evoLang.sEqual;
+			op.label=i18n.sEqual;
 			op.value=evoAPI.sEqual;
 			var sel = v.find('input:checked');
 			fv.label = sel.parent().text();
 			fv.value = sel.prop('id').slice(5);
 		}else if(this._type==fTypes.selList){
-			op.label=evoLang.sEqual;
+			op.label=i18n.sEqual;
 			op.value=evoAPI.sEqual;
 			fv.label = v.find('option[value='+v.val()+']').text();
 			fv.value = v.val();
@@ -609,7 +612,7 @@ $.widget( 'evol.structFilter', {
 		this._filters.find('a').each(function(){
 			ret.push(this.text);
 		});
-		return ret.join(' '+evoLang.opAnd+' ');
+		return ret.join(' '+i18n.opAnd+' ');
 	},
 
 	valUrl: function(){
@@ -617,17 +620,17 @@ $.widget( 'evol.structFilter', {
 		var vs=this.val(),
 			iMax=vs.length,
 			url='filters='+iMax;
-		if(iMax<1)
+		if(iMax<1){
 			return '';
-		for(var i=0;i<iMax;i++){
-			var v=vs[i];
-			url+='&field-'+i+'='+v.field.value+
-				'&operator-'+i+'='+v.operator.value+
-				'&value-'+i+'='+encodeURIComponent(v.value.value);
-			if(v.operator.value==evoAPI.sBetween){
-				url+='&value2-'+i+'='+encodeURIComponent(v.value.value2);
-			}
 		}
+		vs.forEach(function(v, idx){
+			url+='&field-'+idx+'='+v.field.value+
+				'&operator-'+idx+'='+v.operator.value+
+				'&value-'+idx+'='+encodeURIComponent(v.value.value);
+			if(v.operator.value==evoAPI.sBetween){
+				url+='&value2-'+idx+'='+encodeURIComponent(v.value.value2);
+			}
+		});
 		url+='&label='+encodeURIComponent(this.valText());
 		return url;
 	},
@@ -675,13 +678,10 @@ var EvoUI={
 	optNull:'<option value=""></option>',
 
 	inputCheckboxes:function(fLOV){
-		var h='';
-		for(var i=0;i<fLOV.length;i++){
-			var lv=fLOV[i];
-			h+='<input type="checkbox" id="'+lv.id+'" value="'+lv.id+'"/>'+
+		return fLOV.map(function(lv){
+			return '<input type="checkbox" id="'+lv.id+'" value="'+lv.id+'"/>'+
 				'<label for="'+lv.id+'">'+lv.label+'</label> ';
-		}
-		return h;
+		}).join('');
 	}
 
 };
