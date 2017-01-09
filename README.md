@@ -106,18 +106,18 @@ The widget is configured with a list of fields to use in the search conditions.
 
 ### Fields
 
-Each field must have an ID, a type and a label.
+Each field must have an ID, a type, and a label.
 
 - id - unique identifier for the field.
 - label - displayed field name.
 - type - data type. Possible types of field: text, number, boolean, date, time, list.
 
-Fields of type "list" also have a property "list" for the list of values (array of "id-label" objects).
+Fields of type "list" must also have a "list" property for the values (array of objects with id and label). 
 
 Example:
 
 ```javascript
-fields = fields: [
+fields = [
     {id:"lastname", type:"text", label:"Lastname"},
     {id:"firstname", type:"text", label:"Firstname"},
     {id:"active", type:"boolean", label:"Is active"},
@@ -127,13 +127,14 @@ fields = fields: [
         list:[
             {id:'1', label:"Family"},
             {id:'2', label:"Friends"},
-            {id:'3', label:"Business"},
-            {id:'4', label:"Acquaintances"},
-            {id:'5', label:"Other"}
+            ...
         ]
     }
 ];
 ```
+
+Note: To change the behavior of a "list" field, use the type "list-options" and "list-dropdown" instead of "list".
+
 
 ### Conditions
 
