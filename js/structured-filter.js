@@ -89,7 +89,7 @@ $.widget( 'evol.structFilter', {
 			fnLink=function(css, label, hidden){
 				return '<a class="'+css+'"'+(hidden?' style="display:none;"':'')+
 					' href="javascript:void(0)">'+label+'</a>';
-			}
+			},
 			h='<div class="evo-searchFilters"></div>'+
 				fnLink('evo-bNew', i18n.bNewCond);
 		if(this.options.submitButton){
