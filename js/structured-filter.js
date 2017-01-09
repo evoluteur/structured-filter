@@ -393,6 +393,7 @@ $.widget( 'evol.structFilter', {
 
 	_setEditorValue: function( v, v2){
 		var editor=this._editor,
+			fld = this._field,
 			fType=this._type,
 			opVal=editor.find('#operator').val(),
 			opBetween=false,
@@ -405,32 +406,30 @@ $.widget( 'evol.structFilter', {
 					var h='';
 					opBetween=opVal==evoAPI.sBetween;
 					switch (fType){
-						case fTypes.list:
-							h+='<span id="value">'+
-								((this._field.list.length>7)?'(<input type="checkbox" id="checkAll" value="1"/><label for="checkAll">All</label>) ':'')+
-								EvoUI.inputCheckboxes(this._field.list)+
-								'</span>';
-							break;
 						case fTypes.bool:
 							h+='<span id="value">'+
 								EvoUI.inputRadio('value', '1', evoLang.yes, v!='0', 'value1')+
 								EvoUI.inputRadio('value', '0', evoLang.no, v=='0', 'value0')+
 								'</span>';
 							break;
+						case fTypes.list:
+							h+='<span id="value">'+
+								((fld.list.length>7)?'(<input type="checkbox" id="checkAll" value="1"/><label for="checkAll">All</label>) ':'')+
+								EvoUI.inputCheckboxes(fld.list)+
+								'</span>';
+							break;
 						case fTypes.exList:
-							var arrayLength = this._field.list.length;
 							h+='<span id="value">';
-							for (var i = 0; i < arrayLength; i++) {
-								h+= EvoUI.inputRadio(this._field.list[i].label, this._field.list[i].id, this._field.list[i].label, v==this._field.list[i].id, 'value' + this._field.list[i].id);
-							}
+							h+=fld.list.map(function(item){
+								return EvoUI.inputRadio(fld.id, item.id, item.label, v==item.id, 'value' + item.id);
+							}).join('');
 							h +='</span>';
 							break;
 						case fTypes.selList:
-							var arrayLength = this._field.list.length;
 							h+='<select id="value">'+EvoUI.optNull;
-							for (var i = 0; i < arrayLength; i++) {
-								h+=EvoUI.inputOption(this._field.list[i].id, this._field.list[i].label);
-							}
+							h+=fld.list.map(function(item){
+								return EvoUI.inputOption(item.id, item.label);
+							}).join('');
 							h+='</select>';
 							break;
 						case fTypes.date:
@@ -460,6 +459,8 @@ $.widget( 'evol.structFilter', {
 							$value.find('#'+v.split(',').join(',#')).prop('checked', 'checked');
 							break;
 						case fTypes.exList:
+							$value.find('#value'+v).prop('checked', 'checked');
+							break;
 						case fTypes.bool:
 							$value.find('#value'+v).prop('checked', 'checked');
 							break;
@@ -525,8 +526,8 @@ $.widget( 'evol.structFilter', {
 			op.label=evoLang.sEqual;
 			op.value=evoAPI.sEqual;
 			var sel = v.find('input:checked');
-			fv.label = sel.prop('name');
-			fv.value = sel.val();
+			fv.label = sel.parent().text();
+			fv.value = sel.prop('id').slice(5);
 		}else if(this._type==fTypes.selList){
 			op.label=evoLang.sEqual;
 			op.value=evoAPI.sEqual;

@@ -37,14 +37,17 @@
   }
 
   select, input{
-    margin:1px 6px 6px 1px;
+    margin: 1px 6px 6px 1px;
     font-size: 1.1em;
   }
   span#value {
     margin-right:5px;
   }
-  #value input[type="checkbox"] {
-    margin-left:5px;
+  #value {
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-left:5px;
+    }
   }
   input[type="number"]#value,
   input[type="time"]#value,
