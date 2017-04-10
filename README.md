@@ -171,8 +171,8 @@ number:
 
 - = (eq)
 - != (ne)
-- > (gt)
-- < (lt)
+- &gt; (gt)
+- &lt; (lt)
 - is empty (null)
 - is not empty (nn)
 
