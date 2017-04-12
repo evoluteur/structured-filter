@@ -112,15 +112,16 @@ $.widget( 'evol.structFilter', {
 		// - button submit
 		if(this.options.submitButton){
 			this._bSubmit=e.find('.evo-bSubmit').button({
-					text: bLabels
+					showLabel: bLabels
 				}).on('click', function(e){
 					that.element.trigger('submit.search');
 				});
 		}
 		// - editor button new
 		this._bNew=e.find('.evo-bNew').button({
-				text: bLabels,
-				icons: {secondary:'ui-icon-plusthick'}
+                showLabel: bLabels,
+				icon: 'ui-icon-plusthick',
+                iconPosition: 'end'
 			}).on('click', function(e){
 				if(that._step<1){
 					that._setEditorField();
@@ -130,8 +131,9 @@ $.widget( 'evol.structFilter', {
 			});
 		// - editor button add
 		this._bAdd=e.find('.evo-bAdd').button({
-				text: bLabels,
-				icons: {secondary:'ui-icon-check'}
+                showLabel: bLabels,
+				icon: 'ui-icon-check',
+                iconPosition: 'end'
 			}).on('click', function(evt){
 				var data=that._getEditorData();
 				if(that._cFilter){
@@ -143,8 +145,9 @@ $.widget( 'evol.structFilter', {
 			});
 		// - editor button cancel
 		this._bDel=e.find('.evo-bDel').button({
-				text: bLabels,
-				icons: {secondary:'ui-icon-close'}
+                showLabel: bLabels,
+				icon: 'ui-icon-close',
+                iconPosition: 'end'
 			}).on('click', function(evt){
 				that._removeEditor();
 			});
@@ -204,7 +207,7 @@ $.widget( 'evol.structFilter', {
 		});
 		this._filters=e.find('.evo-searchFilters').on('click', 'a', function(){
 			that._editFilter($(this));
-		}).on('click', 'a .ui-button-icon-secondary', function(evt){
+		}).on('click', 'a .ui-button-icon', function(evt){
 			evt.stopPropagation();
 			var filter=$(this).parent();
 			if(!filter.hasClass('ui-state-disabled')){
@@ -245,10 +248,11 @@ $.widget( 'evol.structFilter', {
 	},
 
 	addCondition: function(filter){
-		var f=$('<a href="javascript:void(0)">'+this._htmlFilter(filter)+'</a>')
+		var f=$('<a href="javascript:void(0)"><span>'+this._htmlFilter(filter)+'</span></a>')
 			.prependTo(this._filters)
 			.button({
-				icons: {secondary:'ui-icon-close'}
+				icon: 'ui-icon-close',
+                iconPosition: 'end'
 			})
 			.data('filter', filter)
 			.fadeIn();
