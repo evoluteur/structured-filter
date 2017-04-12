@@ -55,15 +55,15 @@ bower install structured-filter#master
 First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and the plugin:
 
 ```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/structured-filter.js" type="text/javascript" charset="utf-8"></script>
 ```
 
 The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([structured-filter.css](http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css)). Here we use the "ui-lightness" theme as an example:
 
 ```html
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/ui-lightness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
 <link href="css/structured-filter.css" rel="stylesheet" type="text/css">
 ```
 
@@ -81,11 +81,11 @@ Now, let's attach it to an existing `<div>` tag:
                 {id:"bday", type:"date", label:"Birthday"},
                 {id:"category", type:"list", label:"Category",
                     list:[
-                        {id:'1', label:"Family"},
-                        {id:'2', label:"Friends"},
-                        {id:'3', label:"Business"},
-                        {id:'4', label:"Acquaintances"},
-                        {id:'5', label:"Other"}
+                        {id:"1", label:"Family"},
+                        {id:"2", label:"Friends"},
+                        {id:"3", label:"Business"},
+                        {id:"4", label:"Acquaintances"},
+                        {id:"5", label:"Other"}
                     ]
                 }
             ]
@@ -125,8 +125,8 @@ fields = [
     {id:"bday", type:"date", label:"Birthday"},
     {id:"category", type:"list", label:"Category",
         list:[
-            {id:'1', label:"Family"},
-            {id:'2', label:"Friends"},
+            {id:"1", label:"Family"},
+            {id:"2", label:"Friends"},
             ...
         ]
     }
@@ -243,11 +243,11 @@ $("#myFilter").structFilter({
         {id:"bday", type:"date", label:"Birthday"},
         {id:"category", type:"list", label:"Category",
             list:[
-                {id:'1', label:"Family"},
-                {id:'2', label:"Friends"},
-                {id:'3', label:"Business"},
-                {id:'4', label:"Acquaintances"},
-                {id:'5', label:"Other"}
+                {id:"1", label:"Family"},
+                {id:"2", label:"Friends"},
+                {id:"3", label:"Business"},
+                {id:"4", label:"Acquaintances"},
+                {id:"5", label:"Other"}
             ]
         }
     ]
@@ -302,16 +302,16 @@ Adds a new filter condition.
 ```javascript
 $("#myFilter").structFilter("addCondition", {
     field:{
-        label: 'Lastname',
-        value: 'lastname'
+        label: "Lastname",
+        value: "lastname"
     },
     operator:{
-        label: 'starts with',
-        value: 'sw'
+        label: "starts with",
+        value: "sw"
     },
     value:{
-        label: '"a"',
-        value: 'a'
+        label: "\"a\"",
+        value: "a"
     }
 });
 ```
@@ -427,5 +427,6 @@ set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/view
 
 Copyright (c) 2017 [Olivier Giulieri](https://evoluteur.github.io/).
 
-structured-filter is released under the [MIT license](http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md).
+structured-filter is released under the [MIT license](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter).
+
 

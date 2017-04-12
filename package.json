@@ -14,8 +14,8 @@
     "url": "https://github.com/evoluteur/structured-filter/issues"
   },
   "dependencies": {
-    "jquery": "~2.1.4",
-    "jquery-ui": "^1.11.4"
+    "jquery": "~3.2.1",
+    "jquery-ui": "^1.12.1"
   },
   "devDependencies": {
     "grunt": "~1.0.1",
