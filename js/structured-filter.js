@@ -48,6 +48,7 @@
 		sAt:'at',
 		sNotAt:'not at',
 		sBetween:'between',
+		sNotBetween:'not between',
 		opAnd:'and',
 		//opOr:'or',
 		yes:'Yes',
@@ -72,7 +73,8 @@
 		sIsNotNull:'nn',
 		sGreater:'gt',
 		sSmaller:'lt',
-		sBetween:'bw'
+		sBetween:'bw',
+		sNotBetween:'nbw'
 	},
 	isNotFirefox = navigator.userAgent.toLowerCase().indexOf('firefox')===-1;
 
@@ -189,7 +191,7 @@ $.widget( 'evol.structFilter', {
 				valid= value!=='' || fType===fTypes.bool || fType.startsWith('list');
 			if(fType==fTypes.number){
 				valid=valid && !isNaN(value);
-			}else if(that._operator==evoAPI.sBetween){
+			}else if(that._operator==evoAPI.sBetween || that._operator==evoAPI.sNotBetween){
 				valid=that._editor.find('#value').val()!=='' && that._editor.find('#value2').val()!=='';
 			}
 			if(valid){
@@ -276,7 +278,7 @@ $.widget( 'evol.structFilter', {
 		var h='<span class="evo-lBold">'+filter.field.label+'</span> '+
 			'<span class="evo-lLight">'+filter.operator.label+'</span> '+
 			'<span class="evo-lBold">'+filter.value.label+'</span>';
-		if(filter.operator.value==evoAPI.sBetween){
+		if(filter.operator.value==evoAPI.sBetween || filter.operator.value==evoAPI.sNotBetween){
 			h+='<span class="evo-lLight"> '+i18n.opAnd+' </span>'+
 				'<span class="evo-lBold">'+filter.value.label2+'</span>';
 		}
@@ -310,7 +312,7 @@ $.widget( 'evol.structFilter', {
 		this._cFilter=$filter.button('disable');
 		this._setEditorField(fid);
 		this._setEditorOperator(op);
-		if(op==evoAPI.sBetween){
+		if(op==evoAPI.sBetween || op==evoAPI.sNotBetween){
 			this._setEditorValue(fv.value, fv.value2);
 		}else{
 			this._setEditorValue(fv.value);
@@ -376,7 +378,8 @@ $.widget( 'evol.structFilter', {
 							}
 							h+=opt(evoAPI.sGreater, i18n.sAfter)+
 								opt(evoAPI.sSmaller, i18n.sBefore)+
-								opt(evoAPI.sBetween, i18n.sBetween);
+								opt(evoAPI.sBetween, i18n.sBetween)+
+								opt(evoAPI.sNotBetween, i18n.sNotBetween);
 							break;
 						case fTypes.number:
 							h+=opt(evoAPI.sEqual, i18n.sNumEqual)+
@@ -418,7 +421,7 @@ $.widget( 'evol.structFilter', {
 			}else{
 				if(this._step<3){
 					var h='';
-					opBetween=opVal==evoAPI.sBetween;
+					opBetween=(opVal==evoAPI.sBetween || opVal==evoAPI.sNotBetween);
 					switch (fType){
 						case fTypes.bool:
 							h+='<span id="value">'+
@@ -560,7 +563,7 @@ $.widget( 'evol.structFilter', {
 					fv.label='"'+v.val()+'"';
 				}
 				fv.value=v.val();
-				if(opVal==evoAPI.sBetween){
+				if(opVal==evoAPI.sBetween || opVal==evoAPI.sNotBetween){
 					fv.label2=fv.value2=v.next().next().val();
 				}
 			}
@@ -637,7 +640,7 @@ $.widget( 'evol.structFilter', {
 			url+='&field-'+idx+'='+v.field.value+
 				'&operator-'+idx+'='+v.operator.value+
 				'&value-'+idx+'='+encodeURIComponent(v.value.value);
-			if(v.operator.value==evoAPI.sBetween){
+			if(v.operator.value==evoAPI.sBetween || v.operator.value==evoAPI.sNotBetween){
 				url+='&value2-'+idx+'='+encodeURIComponent(v.value.value2);
 			}
 		});

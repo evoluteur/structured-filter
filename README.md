@@ -159,6 +159,7 @@ date:
 - after (gt)
 - before (lt)
 - between (bw)
+- not between (nbw)
 - is empty (null)
 - is not empty (nn)
 
@@ -194,6 +195,7 @@ time:
 - after (gt)
 - before (lt)
 - between (bw)
+- not between (nbw)
 - is empty (null)
 - is not empty (nn)
 
