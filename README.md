@@ -48,6 +48,8 @@ bower install structured-filter
 bower install structured-filter#master
 ```
 
+Notes: If you use a version of jQuery-UI smaller than 1.12.1, you must use Structured-Filter version 1.1.0.
+ 
 
 <a name="Usage"></a>
 ## Usage
