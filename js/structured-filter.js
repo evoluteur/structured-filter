@@ -670,6 +670,15 @@ $.widget( 'evol.structFilter', {
 
 });
 
+$.widget( 'evol.seti18n', {
+	options: {
+	},
+	_create: function(){
+		i18n = this.options;
+	}
+
+});
+
 // - helpers to generate HTML
 var EvoUI={
 
