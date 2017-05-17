@@ -5,7 +5,7 @@
     <meta name="keywords" content="jQuery UI widget plugin metadata advanced structured filter query builder editor search form">
 
     <link rel="icon" type="image/png" href="favicon.png" />
-	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css" type="text/css" media="all">
+	<link id="jquiCSS" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/demo.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/structured-filter.css" type="text/css" media="all">
 
@@ -40,11 +40,13 @@ Firstname starts with 'A' and Birthday after 1/1/1990 and State in (CA, NY, FL).
 </p>
 
 <p class="demo-links">Themes:
-    <a href="#" class="css sel">ui-lightness</a> -
-    <a href="#" class="css">ui-darkness</a> -
-    <a href="#" class="css">redmond</a> -
-    <a href="#" class="css">start</a> -
-    <a href="#" class="css">le-frog</a>
+    <a href="#" class="css sel">Base</a> -
+    <a href="#" class="css">UI lightness</a> -
+    <a href="#" class="css">UI darkness</a> -
+    <a href="#" class="css">Redmond</a> -
+    <a href="#" class="css">Start</a> -
+    <a href="#" class="css">Le Frog</a> -
+    <a href="#" class="css">Swanky Purse</a>
 </p>
 
 <div id="evol"></div>
@@ -112,7 +114,9 @@ $(document).ready(function(){
 
     // *****   setup theme links   *****
     $('.css').click(function(){
-        $('#jquiCSS').attr('href','http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/'+this.innerHTML+'/jquery-ui.css');
+        var theme=this.innerHTML.toLowerCase().replace(' ', '-'),
+            url='http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/'+theme+'/jquery-ui.css';
+        $('#jquiCSS').attr('href', url);
         $('.css').removeClass('sel');
         $(this).addClass('sel');
     });
