@@ -429,7 +429,7 @@ set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/view
 <a name="License"></a>
 ## License
 
-Copyright (c) 2017 [Olivier Giulieri](https://evoluteur.github.io/).
+Copyright (c) 2018 [Olivier Giulieri](https://evoluteur.github.io/).
 
 structured-filter is released under the [MIT license](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter).
 

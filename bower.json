@@ -8,7 +8,7 @@
 		"less/structured-filter.less"
 	],
 	"license": "MIT",
-	"copyright": "(c) 2017 Olivier Giulieri",
+	"copyright": "(c) 2018 Olivier Giulieri",
 	"authors": "Olivier Giulieri (https://evoluteur.github.io/)",
 	"dependencies": {
 		"jquery": "~3.2.1",
