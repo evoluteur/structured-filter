@@ -1,4 +1,4 @@
-# structured-filter
+# Structured-Filter
 
 structured-filter is a generic Web UI for building structured search or filter queries.
 
@@ -48,7 +48,10 @@ bower install structured-filter
 bower install structured-filter#master
 ```
 
-Notes: If you use a version of jQuery-UI smaller than 1.12.1, you must use Structured-Filter version 1.1.0.
+Notes: 
+
+- If you use a version of jQuery-UI smaller than 1.12.1, you must use Structured-Filter version 1.1.0.
+- For React, use [Structured-Filter-React](https://github.com/evoluteur/structured-filter-react).
  
 
 <a name="Usage"></a>
