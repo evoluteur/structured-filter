@@ -1,6 +1,6 @@
 # Structured-Filter
 
-structured-filter is a generic Web UI for building structured search or filter queries.
+Structured-Filter is a generic Web UI for building structured search or filter queries.
 
 With it you can build structured search conditions like
 Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)... It is a full jQuery UI widget, supporting various configurations and themes.
@@ -429,11 +429,14 @@ A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Ba
 set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/views.html) for CRUD (Create, Read, Update, Delete) and more.
 
 
+A re-write for React in under construction at [Structured-Filter-React](https://github.com/evoluteur/structured-filter-react).
+
+
 <a name="License"></a>
 ## License
 
-Copyright (c) 2018 [Olivier Giulieri](https://evoluteur.github.io/).
+Copyright (c) 2019 [Olivier Giulieri](https://evoluteur.github.io/).
 
-structured-filter is released under the [MIT license](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter).
+Structured-Filter is released under the [MIT license](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter).
 
 
