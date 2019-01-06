@@ -1,7 +1,7 @@
 ﻿/*!
- * structured-filter 2.0
+ * structured-filter 2.0.1
  *
- * (c) 2018 Olivier Giulieri
+ * (c) 2019 Olivier Giulieri
  *
  * https://github.com/evoluteur/structured-filter
  *
