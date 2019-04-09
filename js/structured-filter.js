@@ -86,7 +86,8 @@ $.widget( 'evol.structFilter', {
 		highlight: true,
 		buttonLabels: false,
 		submitButton: false,
-		submitReady: false
+		submitReady: false,
+		disableOperators: false
 	},
 
 	_create: function(){
@@ -347,6 +348,11 @@ $.widget( 'evol.structFilter', {
 	},
 
 	_setEditorOperator: function(cond){
+		if(this.options.disableOperators) {
+			this._step=2;
+			return this._setEditorValue();
+		}
+		
 		var fType=this._type;
 		if(this._step<2){
 			var h='',
