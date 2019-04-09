@@ -235,6 +235,18 @@ $("#myFilter").structFilter({
 
 Defaults to *"mm/dd/yy"*.
 
+### disableOperators (boolean)
+
+This option disables operators from conditions. This changes the structure of conditions from "field-operator-value" to "field-value" which simplifies the backend implementation of filtering. 
+
+```javascript
+$("#myFilter").structFilter({
+    disableOperators: true
+});
+```
+
+Defaults to *"false"*.
+
 ### fields (array)
 
 The list of fields (as an array of objects with id, label and type) to participate in the query definition.
