@@ -11,7 +11,7 @@
 	"copyright": "(c) 2019 Olivier Giulieri",
 	"authors": "Olivier Giulieri (https://evoluteur.github.io/)",
 	"dependencies": {
-		"jquery": "~3.3.1",
+		"jquery": "~3.4.1",
 		"jquery-ui": "^1.12.1"
 	},
 	"ignore": [
