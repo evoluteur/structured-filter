@@ -1,4 +1,4 @@
-# Structured-Filter &middot; [![GitHub license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md) [![npm version](https://img.shields.io/npm/v/structured-filter)](https://www.npmjs.com/package/structured-filter)
+# Structured-Filter &middot; [![GitHub license](https://img.shields.io/github/license/evoluteur/structured-filter)](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md) [![npm version](https://img.shields.io/npm/v/structured-filter)](https://www.npmjs.com/package/structured-filter)
 
 
 Structured-Filter is a generic Web UI for building structured search or filter queries.
