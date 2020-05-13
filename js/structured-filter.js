@@ -1,7 +1,7 @@
 ﻿/*!
- * structured-filter 2.0.3
+ * structured-filter 2.0.4
  *
- * (c) 2019 Olivier Giulieri
+ * (c) 2020 Olivier Giulieri
  *
  * https://github.com/evoluteur/structured-filter
  *
@@ -437,7 +437,7 @@ $.widget( 'evol.structFilter', {
 							break;
 						case fTypes.list:
 							h+='<span id="value">'+
-								((fld.list.length>7)?'(<input type="checkbox" id="checkAll" value="1"/><label for="checkAll">All</label>) ':'')+
+								((fld.list.length>7)?'(<input type="checkbox" id="checkAll" value="1"><label for="checkAll">All</label>) ':'')+
 								EvoUI.inputCheckboxes(fld.list)+
 								'</span>';
 							break;
@@ -459,15 +459,15 @@ $.widget( 'evol.structFilter', {
 						case fTypes.time:
 						case fTypes.number:
 							var iType=(fType==fTypes.date)?'text':fType;
-							h+='<input id="value" type="'+iType+'"/>';
+							h+='<input id="value" type="'+iType+'">';
 							if(opBetween){
 								h+='<span class="as-Txt">'+i18n.opAnd+' </span>'+
-									'<input id="value2" type="'+iType+'"/>';
+									'<input id="value2" type="'+iType+'">';
 							}
 							addOK=false;
 							break;
 						default:
-							h+='<input id="value" type="text"/>';
+							h+='<input id="value" type="text">';
 							addOK=false;
 					}
 					editor.append(h);
@@ -697,7 +697,7 @@ var EvoUI={
 	},
 
 	inputHidden:function(id,val){
-		return '<input type="hidden" name="'+id+'" value="'+val+'"/>';
+		return '<input type="hidden" name="'+id+'" value="'+val+'">';
 	},
 
 	inputOption:function(fID,fV){
@@ -708,7 +708,7 @@ var EvoUI={
 
 	inputCheckboxes:function(fLOV){
 		return fLOV.map(function(lv){
-			return '<input type="checkbox" id="'+lv.id+'" value="'+lv.id+'"/>'+
+			return '<input type="checkbox" id="'+lv.id+'" value="'+lv.id+'">'+
 				'<label for="'+lv.id+'">'+lv.label+'</label> ';
 		}).join('');
 	}
