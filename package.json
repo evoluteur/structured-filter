@@ -29,6 +29,7 @@
     "faceted",
     "filter",
     "query",
+    "query-builder",
     "editor",
     "search",
     "form",
@@ -36,6 +37,7 @@
     "UI",
     "jquery",
     "jquery-ui",
-    "jquery-plugin"
+    "jquery-plugin",
+    "evolutility"
   ]
 }
