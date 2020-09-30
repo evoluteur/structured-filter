@@ -6,7 +6,11 @@ Structured-Filter is a generic Web UI for building structured search or filter q
 With it you can build structured search conditions like
 Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)... It is a full jQuery UI widget, supporting various configurations and themes.
 
-![screenshot 1](https://raw.github.com/evoluteur/structured-filter/master/screenshot1.png)
+![screenshot 1](https://raw.github.com/evoluteur/structured-filter/master/screenshots/condition-list.gif)
+
+![screenshot 2](https://raw.github.com/evoluteur/structured-filter/master/screenshots/condition-number.gif)
+
+![screenshot 3](https://raw.github.com/evoluteur/structured-filter/master/screenshots/condition-string.gif)
 
 Check the **[demo](http://evoluteur.github.com/structured-filter/index.html)** for live examples.
 
@@ -437,6 +441,9 @@ $("#myFilter").on("submit.search", function(event){
 ## Theming
 
 structured-filter is as easily themeable as any jQuery UI widget, using one of the [jQuery UI themes](http://jqueryui.com/themeroller/#themeGallery) or your own custom theme made with [Themeroller](http://jqueryui.com/themeroller/).
+
+
+![screenshot themes](https://raw.github.com/evoluteur/structured-filter/master/screenshots/themes.gif)
 
 A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) is available as part of [Evolutility-UI-jQuery](http://evoluteur.github.com/evolutility-ui-jquery/index.html) 
 set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/views.html) for CRUD (Create, Read, Update, Delete) and more.
