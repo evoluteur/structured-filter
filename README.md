@@ -58,7 +58,7 @@ Notes:
 <a name="Usage"></a>
 ## Usage
 
-First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and the plugin:
+First, load [jQuery](https://jquery.com/), [jQuery UI](https://jqueryui.com/), and the plugin:
 
 ```html
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
@@ -69,7 +69,7 @@ First, load [jQuery](http://jquery.com/), [jQuery UI](http://jqueryui.com/), and
 The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([structured-filter.css](http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css)). Here we use the "ui-lightness" theme as an example:
 
 ```html
-<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
 <link href="css/structured-filter.css" rel="stylesheet" type="text/css">
 ```
 
