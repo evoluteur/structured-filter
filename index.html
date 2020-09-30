@@ -114,7 +114,7 @@ $(document).ready(function(){
     // *****   setup theme links   *****
     $('.css').click(function(){
         var theme=this.innerHTML.toLowerCase().replace(' ', '-'),
-            url='http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/'+theme+'/jquery-ui.css';
+            url='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/'+theme+'/jquery-ui.css';
         $('#jquiCSS').attr('href', url);
         $('.css').removeClass('sel');
         $(this).addClass('sel');
