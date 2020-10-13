@@ -66,10 +66,10 @@ First, load [jQuery](https://jquery.com/), [jQuery UI](https://jqueryui.com/), a
 <script src="js/structured-filter.js" type="text/javascript" charset="utf-8"></script>
 ```
 
-The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([structured-filter.css](http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css)). Here we use the "ui-lightness" theme as an example:
+The widget requires a jQuery UI theme to be present, as well as its own included base CSS file ([structured-filter.css](http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css)). Here we use the "base" theme as an example:
 
 ```html
-<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css">
 <link href="css/structured-filter.css" rel="stylesheet" type="text/css">
 ```
 
@@ -252,7 +252,7 @@ $("#myFilter").structFilter({
 
 Defaults to *"mm/dd/yy"*.
 
-### disableOperators (boolean)
+### disableOperators (Boolean)
 
 This option disables operators from conditions. This changes the structure of conditions from "field-operator-value" to "field-value" which simplifies the backend implementation of filtering. 
 
@@ -264,7 +264,7 @@ $("#myFilter").structFilter({
 
 Defaults to *"false"*.
 
-### fields (array)
+### fields (Array of Fields)
 
 The list of fields (as an array of objects with id, label and type) to participate in the query definition.
 Possible types are: text, boolean, number, date, time, and list.
@@ -456,6 +456,15 @@ structured-filter is as easily themeable as any jQuery UI widget, using one of t
 
 
 ![screenshot themes](https://raw.github.com/evoluteur/structured-filter/master/screenshots/themes.gif)
+
+CSS for themes can be accessed from Google Hosted Libraries.
+
+Dark theme ("ui-darkness"):
+
+```html
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css" rel="stylesheet" type="text/css">
+```
+
 
 A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) is available as part of [Evolutility-UI-jQuery](http://evoluteur.github.com/evolutility-ui-jquery/index.html) 
 set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/views.html) for CRUD (Create, Read, Update, Delete) and more.
