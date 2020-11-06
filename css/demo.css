@@ -37,10 +37,11 @@ code{
 h1 {
     color: white;
     margin: 10px 10px;
+    font-size: 30px;
 }
 h1 > span{
     font-weight: 300;
-    font-size: .7em;
+    font-size: 18px;
 }
 a {
     color: #39C;
@@ -73,7 +74,7 @@ a.sel {
     font-size: 20px;
 } 
 #github iframe {
-    margin-top:10px;
+    margin-top:15px;
 }
 footer{
     margin: 50px 0 0; 
