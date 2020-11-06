@@ -1,23 +1,54 @@
-/*  demo page CSS for structured-filter  */
-/*  (c) 2019 Olivier Giulieri  */
-/*  https://github.com/evoluteur/structured-filter */
-
+/*  
+    Demo page CSS for structured-filter 
+    (c) 2020 Olivier Giulieri
+    https://github.com/evoluteur/structured-filter 
+*/
+html{margin:0;}
 body{
-	padding: 10px 20px;
 	font-size: 12pt;
 	font-family: "Century Gothic",arial;	
 	color: #777;
 	font-weight: 300;
+    background-image: url("bg.gif");
+}
+header{
+    padding: 10px 20px;
+    background-color: #5d85b7;
+}
+section {
+    padding: 0 0 30px;
+    position: relative;
+    margin: 0 auto;
+    max-width: 800px;
+    background-color: white;
+    border: 1px solid rgb(214, 212, 212);
+}
+section > div{
+    padding: 10px 20px;
+    margin: 0 10px;
+}
+code{
+    margin: 40px 0;
+    padding: 20px 40px 20px 10px;
+    background-color: #fafafa;
+    border: solid 1px silver;
+    font-size: 14px;
 }
 h1 {
-    color: #31859b;
+    color: white;
+    margin: 10px 10px;
+}
+h1 > span{
+    font-weight: 300;
+    font-size: .7em;
 }
 a {
     color: #39C;
     font-weight: 400;
+    text-decoration: none;
 }
 a:hover {
-    color: #FF9900;
+    color: navy;
 }
 a.sel {
     color: #000;
@@ -25,7 +56,7 @@ a.sel {
 }
 
 .demoValue{
-	width:100%;
+	width:99%;
 	min-height:60px;
 }
 .footer{
@@ -35,13 +66,15 @@ a.sel {
 }
 
 #github{
-    float: right;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     margin: 0 0 10px 30px;
     font-size: 20px;
-}
-#github a {
-    text-decoration: none;
-}
+} 
 #github iframe {
     margin-top:10px;
+}
+footer{
+    margin: 50px 0 0; 
 }

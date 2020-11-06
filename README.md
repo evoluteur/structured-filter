@@ -155,7 +155,7 @@ Each condition is defined by:
 For each field the possible operators are determined by it's type.
 
 
-### ![boolean](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-bool.gif) boolean:
+### ![boolean](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-bool.gif) boolean
 
 - Yes (1)
 - No (0)
@@ -163,7 +163,7 @@ For each field the possible operators are determined by it's type.
 ![Boolean field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-bool.gif)
 
 
-### ![date](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-date.gif) date:
+### ![date](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-date.gif) date
 
 - on (eq)
 - not on (ne)
@@ -177,7 +177,7 @@ For each field the possible operators are determined by it's type.
 ![Date field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-date.gif)
 
 
-### ![list](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-list.gif) list:
+### ![list](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-list.gif) list
 
 - any of (in)
 - equal (eq)
@@ -185,7 +185,7 @@ For each field the possible operators are determined by it's type.
 ![List field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-list.gif)
 
 
-### ![number](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-int.gif) number:
+### ![number](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-int.gif) number
 
 - = (eq)
 - != (ne)
@@ -197,7 +197,7 @@ For each field the possible operators are determined by it's type.
 ![Number field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-number.gif)
 
 
-### ![text](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-txt.gif) text:
+### ![text](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-txt.gif) text
 
 - equals (eq)
 - not equal (ne)
@@ -210,7 +210,7 @@ For each field the possible operators are determined by it's type.
 
 ![Text field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-text.gif)
 
-### ![time](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-time.gif) time:
+### ![time](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-time.gif) time
 
 - at (eq)
 - not at (ne)
@@ -476,8 +476,8 @@ A re-write for React in under construction at [Structured-Filter-React](https://
 <a name="License"></a>
 ## License
 
-Copyright (c) 2020 [Olivier Giulieri](https://evoluteur.github.io/).
 
 Structured-Filter is released under the [MIT license](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter).
 
+Copyright (c) 2020 [Olivier Giulieri](https://evoluteur.github.io/).
 
