@@ -7,7 +7,7 @@
 
  * structured-filter 2.0.4
  * https://github.com/evoluteur/structured-filter
- * (c) 2020 Olivier Giulieri
+ * (c) 2021 Olivier Giulieri
  *
  * Depends:
  *	jquery.ui.core.js
