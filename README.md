@@ -8,7 +8,7 @@ Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL).
 ![Structured-Filter screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/structured-filter.gif)
 
 
-Check the **[demo](http://evoluteur.github.com/structured-filter/index.html)** for live examples.
+Check the **[demo](http://evoluteur.github.io/structured-filter/index.html)** for live examples.
 
 
 ### Table of Contents
@@ -466,7 +466,7 @@ Dark theme ("ui-darkness"):
 ```
 
 
-A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) is available as part of [Evolutility-UI-jQuery](http://evoluteur.github.com/evolutility-ui-jquery/index.html) 
+A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) is available as part of [Evolutility-UI-jQuery](http://evoluteur.github.io/evolutility-ui-jquery/index.html) 
 set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/views.html) for CRUD (Create, Read, Update, Delete) and more.
 
 
