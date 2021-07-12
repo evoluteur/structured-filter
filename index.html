@@ -10,10 +10,10 @@
 	<link rel="stylesheet" href="css/demo.css" type="text/css" media="all">
 	<link rel="stylesheet" href="css/structured-filter.css" type="text/css" media="all">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
 	<script src="js/structured-filter.min.js" type="text/javascript" type="text/javascript"></script>
-	<script src="js/model-demo1.js" type="text/javascript"></script> 
+	<script src="js/model-demo1.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
     </header>
 
     <div>
-            
+
         <p>Structured-Filter is a Web UI for building structured search queries. It is a full jQuery UI widget, supporting various configurations and themes.
         </p>
 
@@ -67,20 +67,20 @@
             <textarea id="myFilter" class="demoValue" rows="16"></textarea>
         </p>
 
-        <p><br/>Code and documentation at    
-            <a href="https://github.com/evoluteur/structured-filter" target="_blank" rel="noopener">GitHub</a> 
+        <p><br/>Code and documentation at
+            <a href="https://github.com/evoluteur/structured-filter" target="_blank" rel="noopener">GitHub</a>
             or
             <a href="https://www.npmjs.com/package/structured-filter" target="_blank" rel="noopener">NPM</a>.
         </p>
 
         <br/>
         <code>npm install structured-filter</code>
-        <br/> 
-        <br/> 
-        <br/> 
+        <br/>
+        <br/>
+        <br/>
 
         <p>Structured-Filter is Open Source with <a href="http://github.com/evoluteur/structured-filter/raw/master/LICENSE.md" target="_blank" rel="noopener">MIT license</a>.</p>
-        
+
         <footer>&#169; 2021 <a href="https://evoluteur.github.io/">Olivier Giulieri</a></footer>
     </div>
 
@@ -152,7 +152,7 @@ var cl = sampleConditions.length - 2;
 
 function addNewCondition(){
     condIdx = condIdx > cl ? 0 : (condIdx+1)
-    filterDef = sampleConditions[condIdx] 
+    filterDef = sampleConditions[condIdx]
     $('#evol').structFilter("addCondition", filterDef);
 }
 
