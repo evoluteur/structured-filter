@@ -1,81 +1,84 @@
-/*  
-    Demo page CSS for structured-filter 
-    (c) 2021 Olivier Giulieri
-    https://github.com/evoluteur/structured-filter 
+/*
+    Demo page CSS for structured-filter
+    (c) 2022 Olivier Giulieri
+    https://github.com/evoluteur/structured-filter
 */
-html{margin:0;}
-body{
-	font-size: 12pt;
-	font-family: "Century Gothic",arial;	
-	color: #777;
-	font-weight: 300;
-    background-image: url("bg.gif");
+html {
+  margin: 0;
 }
-header{
-    padding: 10px 20px;
-    background-color: #5d85b7;
+body {
+  font-size: 12pt;
+  font-family: "Century Gothic", arial;
+  color: #777;
+  font-weight: 300;
+  background-image: url("bg.gif");
+}
+header {
+  padding: 10px 20px;
+  background-color: #285b9e;
+  border-radius: 20px 20px 0 0;
 }
 section {
-    padding: 0 0 30px;
-    position: relative;
-    margin: 0 auto;
-    max-width: 800px;
-    background-color: white;
-    border: 1px solid rgb(214, 212, 212);
+  padding: 0 0 30px;
+  position: relative;
+  margin: 0 auto;
+  max-width: 800px;
+  background-color: white;
+  border: 1px solid rgb(214, 212, 212);
+  border-radius: 20px;
 }
-section > div{
-    padding: 10px 20px;
-    margin: 0 10px;
+section > div {
+  padding: 10px 20px;
+  margin: 0 10px;
 }
-code{
-    margin: 40px 0;
-    padding: 20px 40px 20px 10px;
-    background-color: #fafafa;
-    border: solid 1px silver;
-    font-size: 14px;
+code {
+  margin: 40px 0;
+  padding: 20px 40px 20px 10px;
+  background-color: #fafafa;
+  border: solid 1px silver;
+  font-size: 14px;
 }
 h1 {
-    color: white;
-    margin: 10px 10px;
-    font-size: 30px;
+  color: white;
+  margin: 10px 10px;
+  font-size: 30px;
 }
-h1 > span{
-    font-weight: 300;
-    font-size: 18px;
+h1 > span {
+  font-weight: 300;
+  font-size: 18px;
 }
 a {
-    color: #39C;
-    font-weight: 400;
-    text-decoration: none;
+  color: #39c;
+  font-weight: 400;
+  text-decoration: none;
 }
 a:hover {
-    color: navy;
+  color: navy;
+  text-decoration: underline;
 }
 a.sel {
-    color: #000;
-    text-decoration: none;
+  color: #000;
+  text-decoration: none;
 }
 
-.demoValue{
-	width:99%;
-	min-height:60px;
+.demoValue {
+  width: 99%;
+  min-height: 60px;
+  resize: vertical;
 }
-.footer{
-	text-align: center;
-	font-size:smaller;
-	color:Gray;
+.footer {
+  margin: 50px 0 0;
+  font-size: smaller;
+  color: Gray;
 }
 
-#github{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    margin: 0 0 10px 30px;
-    font-size: 20px;
-} 
+#github {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin: 0 0 10px 30px;
+  font-size: 20px;
+}
 #github iframe {
-    margin-top:15px;
-}
-footer{
-    margin: 50px 0 0; 
+  margin-top: 15px;
 }
