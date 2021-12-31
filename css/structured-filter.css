@@ -1,7 +1,7 @@
 /*
-   structured-filter 2.0.4
+   structured-filter 2.0.5
    https://evoluteur.github.io/structured-filter/
-   (c) 2021 Olivier Giulieri
+   (c) 2022 Olivier Giulieri
 */
 .structFilter {
   min-height: 20px;
@@ -46,6 +46,10 @@
 .evo-editFilter #value input[type="radio"],
 .evo-editFilter #value input[type="checkbox"] {
   margin-left: 5px;
+}
+.evo-editFilter #value > label {
+  margin-right: 10px;
+  white-space: nowrap;
 }
 .evo-editFilter input[type="number"]#value,
 .evo-editFilter input[type="time"]#value,
