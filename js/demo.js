@@ -3,6 +3,8 @@
 // code: https://github.com/evoluteur/structured-filter
 // demo: http://evoluteur.github.io/structured-filter
 
+var version = "1.12.1";
+
 var contacts = [
   { id: "lastname", type: "text", label: "Lastname" },
   { id: "firstname", type: "text", label: "Firstname" },
@@ -426,7 +428,9 @@ $(document).ready(function () {
   $(".css").click(function () {
     var theme = this.innerHTML.toLowerCase().replace(" ", "-"),
       url =
-        "https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/" +
+        "https://ajax.googleapis.com/ajax/libs/jqueryui/" +
+        version +
+        "/themes/" +
         theme +
         "/jquery-ui.css";
     $("#jquiCSS").attr("href", url);
