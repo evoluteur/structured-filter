@@ -479,5 +479,4 @@ A re-write for React in under construction at [Structured-Filter-React](https://
 
 Structured-Filter is released under the [MIT license](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter).
 
-Copyright (c) 2021 [Olivier Giulieri](https://evoluteur.github.io/).
-
+Copyright (c) 2022 [Olivier Giulieri](https://evoluteur.github.io/).
