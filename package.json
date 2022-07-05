@@ -1,7 +1,7 @@
 {
   "name": "structured-filter",
   "version": "2.0.5",
-  "description": "Generic Web UI for building structured search or filter queries. With it you can build structured search conditions like Firstname starts with 'A' and Birthday after 1/1/1990 and State in (CA, NY, FL)...",
+  "description": "Generic Web UI for building structured search or filter queries. With it you can build structured search conditions like First name starts with 'A' and Birthday after 1/1/1990 and State in (CA, NY, FL)...",
   "copyright": "(c) 2022 Olivier Giulieri",
   "homepage": "https://evoluteur.github.io/structured-filter/",
   "author": "Olivier Giulieri (https://evoluteur.github.io/)",
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "jquery": "~3.6.0",
-    "jquery-ui": "^1.13.0"
+    "jquery-ui": "^1.13.1"
   },
   "devDependencies": {
     "grunt": "^1.4.1",
