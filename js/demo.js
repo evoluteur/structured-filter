@@ -3,7 +3,7 @@
 // code: https://github.com/evoluteur/structured-filter
 // demo: http://evoluteur.github.io/structured-filter
 
-var version = "1.12.1";
+var version = "1.13.2";
 
 var contacts = [
   { id: "lastname", type: "text", label: "Lastname" },
