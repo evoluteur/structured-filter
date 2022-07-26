@@ -336,6 +336,11 @@ var contacts = [
       { label: "Zimbabwe", id: "ZW" },
     ],
   },
+  [
+      {id:"Fruits", type:"input-autocomplete", label:"fruit",
+          api: "{{url('api/fruit')}}"
+      }
+  ]
 ];
 
 var sampleConditions = [
