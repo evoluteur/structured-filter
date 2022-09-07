@@ -12,7 +12,7 @@
 	"authors": "Olivier Giulieri (https://evoluteur.github.io/)",
 	"dependencies": {
 		"jquery": "~3.6.0",
-		"jquery-ui": "^1.13.1"
+		"jquery-ui": "^1.13.2"
 	},
 	"ignore": [
 		"node_modules",
