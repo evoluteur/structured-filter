@@ -1,35 +1,29 @@
 {
-	"name": "structured-filter",
-	"version": "2.0.5",
-	"description": "jQuery UI widget for structured queries",
-	"homepage": "https://evoluteur.github.io/structured-filter/",
-	"main": [
-		"js/structured-filter.js",
-		"less/structured-filter.less"
-	],
-	"license": "MIT",
-	"copyright": "(c) 2022 Olivier Giulieri",
-	"authors": "Olivier Giulieri (https://evoluteur.github.io/)",
-	"dependencies": {
-		"jquery": "~3.6.0",
-		"jquery-ui": "^1.13.2"
-	},
-	"ignore": [
-		"node_modules",
-		"bower_components"
-	],
-	"keywords": [
-		"filter",
-		"query",
-		"builder",
-		"editor",
-		"search",
-		"form",
-		"ui",
-		"input",
-		"model",
-		"metadata",
-		"jquery",
-		"jquery-ui"
-	]
+  "name": "structured-filter",
+  "version": "2.0.5",
+  "description": "jQuery UI widget for structured queries",
+  "homepage": "https://evoluteur.github.io/structured-filter/",
+  "main": ["js/structured-filter.js", "less/structured-filter.less"],
+  "license": "MIT",
+  "copyright": "(c) 2023 Olivier Giulieri",
+  "authors": "Olivier Giulieri (https://evoluteur.github.io/)",
+  "dependencies": {
+    "jquery": "~3.6.0",
+    "jquery-ui": "^1.13.2"
+  },
+  "ignore": ["node_modules", "bower_components"],
+  "keywords": [
+    "filter",
+    "query",
+    "builder",
+    "editor",
+    "search",
+    "form",
+    "ui",
+    "input",
+    "model",
+    "metadata",
+    "jquery",
+    "jquery-ui"
+  ]
 }
