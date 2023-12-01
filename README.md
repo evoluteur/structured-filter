@@ -473,6 +473,8 @@ set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/view
 A re-write for React in under construction at [Structured-Filter-React](https://github.com/evoluteur/structured-filter-react).
 
 
+Check out my other jQuery UI wdget [ColorPicker](https://evoluteur.github.io/colorpicker/).
+
 <a name="License"></a>
 ## License
 
