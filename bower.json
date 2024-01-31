@@ -5,7 +5,7 @@
   "homepage": "https://evoluteur.github.io/structured-filter/",
   "main": ["js/structured-filter.js", "less/structured-filter.less"],
   "license": "MIT",
-  "copyright": "(c) 2023 Olivier Giulieri",
+  "copyright": "(c) 2024 Olivier Giulieri",
   "authors": "Olivier Giulieri (https://evoluteur.github.io/)",
   "dependencies": {
     "jquery": "~3.6.0",

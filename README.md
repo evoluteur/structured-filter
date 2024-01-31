@@ -481,4 +481,4 @@ Check out my other jQuery UI wdget [ColorPicker](https://evoluteur.github.io/col
 
 Structured-Filter is released under the [MIT license](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter).
 
-Copyright (c) 2023 [Olivier Giulieri](https://evoluteur.github.io/).
+Copyright (c) 2024 [Olivier Giulieri](https://evoluteur.github.io/).
