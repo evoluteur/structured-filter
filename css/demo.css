@@ -1,6 +1,6 @@
 /*
     Demo page CSS for structured-filter
-    (c) 2024 Olivier Giulieri
+    (c) 2026 Olivier Giulieri
     https://github.com/evoluteur/structured-filter
 */
 html {
@@ -31,12 +31,29 @@ section > div {
   padding: 10px 20px;
   margin: 0 10px;
 }
-code {
-  margin: 40px 0;
-  padding: 20px 40px 20px 10px;
+pre {
+  margin: 20px 0;
+  padding: 16px 20px;
   background-color: #fafafa;
   border: solid 1px silver;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+pre code {
+  display: block;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
   font-size: 14px;
+  white-space: pre;
+}
+code {
+  padding: 2px 6px;
+  background-color: #fafafa;
+  border: solid 1px silver;
+  border-radius: 3px;
+  font-size: 0.9em;
 }
 h1 {
   color: white;

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <script
@@ -87,7 +87,12 @@
         <p>
           Structured-Filter is a Web UI component for building structured search
           queries. It is a full jQuery UI widget, supporting various
-          configurations and themes.
+          configurations and themes. For the React version use
+          <a
+            href="https://github.com/evoluteur/structured-filter-react"
+            target="_blank"
+            >structured-filter-react</a
+          >.
         </p>
 
         <p>
@@ -95,6 +100,8 @@
           starts with 'A' and Birthday after 1/1/1990 and State in (CA, NY,
           FL)...
         </p>
+
+        <h2>Demo</h2>
 
         <p class="demo-links">
           Themes: <a href="#" class="css sel">Base</a> -
@@ -150,10 +157,9 @@
             >NPM</a
           >
           (<a
-            href="https://npm-stat.com/charts.html?package=structured-filter&from=2016-01-01&to=2023-12-31"
-            >18,000 downloads</a
-          >
-          in 2023).
+            href="https://npm-stat.com/charts.html?package=structured-filter&from=2016-01-01&to=2026-07-19"
+            >85,363 downloads</a
+          >).
         </p>
 
         <br />
@@ -168,16 +174,545 @@
           >.<br /><br />
         </div>
 
+        <h2>Documentation</h2>
+
+        <p>
+          Structured-Filter is a generic Web UI for building structured search
+          or filter queries.
+        </p>
+        <p>
+          With it you can build structured search conditions like Firstname
+          starts with &#39;A&#39; and Birthday after 1/1/1980 and State in (CA,
+          NY, FL)... It is a full jQuery UI widget, supporting various
+          configurations and themes.
+        </p>
+        <p>
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/structured-filter.gif"
+            alt="Structured-Filter screenshot"
+          />
+        </p>
+        <h3 id="table-of-contents">Table of Contents</h3>
+        <ol>
+          <li><a href="#Installation">Installation</a></li>
+          <li><a href="#Usage">Usage</a></li>
+          <li><a href="#Model">Model</a></li>
+          <li><a href="#Options">Options</a></li>
+          <li><a href="#Methods">Methods</a></li>
+          <li><a href="#Events">Events</a></li>
+          <li><a href="#Theming">Theming</a></li>
+          <li><a href="#License">License</a></li>
+        </ol>
+        <p><a name="Installation"></a></p>
+        <h2 id="installation">Installation</h2>
+        <p>
+          You can
+          <a
+            href="https://github.com/evoluteur/structured-filter/archive/master.zip"
+            >download</a
+          >
+          or fork structured-filter on
+          <a href="https://github.com/evoluteur/structured-filter">GitHub</a>.
+        </p>
+        <pre><code class="language-bash"># To get the latest stable version, use git from the command line.
+git clone https://github.com/evoluteur/structured-filter
+</code></pre>
+        <p>
+          or install the
+          <a href="https://www.npmjs.com/package/structured-filter"
+            >npm package</a
+          >:
+        </p>
+        <pre><code class="language-bash"># To get the latest stable version, use npm from the command line.
+npm install structured-filter
+</code></pre>
+        <p>or install with <strong>Bower</strong>:</p>
+        <pre><code class="language-bash"># To get the latest stable version, use Bower from the command line.
+bower install structured-filter
+
+# To get the most recent, latest committed-to-master version use:
+bower install structured-filter#master
+</code></pre>
+        <p>Notes:</p>
+        <ul>
+          <li>
+            If you use a version of jQuery-UI smaller than 1.12.1, you must use
+            Structured-Filter version 1.1.0.
+          </li>
+          <li>
+            For React, use
+            <a href="https://github.com/evoluteur/structured-filter-react"
+              >Structured-Filter-React</a
+            >.
+          </li>
+        </ul>
+        <p><a name="Usage"></a></p>
+        <h2 id="usage">Usage</h2>
+        <p>
+          First, load <a href="https://jquery.com/">jQuery</a>,
+          <a href="https://jqueryui.com/">jQuery UI</a>, and the plugin:
+        </p>
+        <pre><code class="language-html">&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;js/structured-filter.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+</code></pre>
+        <p>
+          The widget requires a jQuery UI theme to be present, as well as its
+          own included base CSS file (<a
+            href="http://github.com/evoluteur/structured-filter/raw/master/css/structured-filter.css"
+            >structured-filter.css</a
+          >). Here we use the &quot;base&quot; theme as an example:
+        </p>
+        <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/base/jquery-ui.css&quot;&gt;
+&lt;link href=&quot;css/structured-filter.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+</code></pre>
+        <p>
+          Now, let&#39;s attach it to an existing <code>&lt;div&gt;</code> tag:
+        </p>
+        <pre><code class="language-html">&lt;script type=&quot;text/javascript&quot;&gt;
+    $(document).ready(function() {
+        $(&quot;#myFilter&quot;).structFilter({
+            fields: [
+                {id:&quot;lastname&quot;, type:&quot;text&quot;, label:&quot;Lastname&quot;},
+                {id:&quot;firstname&quot;, type:&quot;text&quot;, label:&quot;Firstname&quot;},
+                {id:&quot;active&quot;, type:&quot;boolean&quot;, label:&quot;Is active&quot;},
+                {id:&quot;age&quot;, type:&quot;number&quot;, label:&quot;Age&quot;},
+                {id:&quot;bday&quot;, type:&quot;date&quot;, label:&quot;Birthday&quot;},
+                {id:&quot;category&quot;, type:&quot;list&quot;, label:&quot;Category&quot;,
+                    list:[
+                        {id:&quot;1&quot;, label:&quot;Family&quot;},
+                        {id:&quot;2&quot;, label:&quot;Friends&quot;},
+                        {id:&quot;3&quot;, label:&quot;Business&quot;},
+                        {id:&quot;4&quot;, label:&quot;Acquaintances&quot;},
+                        {id:&quot;5&quot;, label:&quot;Other&quot;}
+                    ]
+                }
+            ]
+        });
+    });
+&lt;/script&gt;
+
+&lt;div id=&quot;myFilter&quot;&gt;&lt;/div&gt;
+</code></pre>
+        <p>This will change the <code>&lt;div&gt;</code> into the widget.</p>
+        <p><a name="Model"></a></p>
+        <h2 id="model">Model</h2>
+        <p>
+          The widget is configured with a list of fields to use in the search
+          conditions.
+        </p>
+        <h3 id="fields">Fields</h3>
+        <p>Each field must have an ID, a type, and a label.</p>
+        <ul>
+          <li>id - unique identifier for the field.</li>
+          <li>label - displayed field name.</li>
+          <li>
+            type - data type. Possible types of field: text, number, boolean,
+            date, time, list.
+          </li>
+        </ul>
+        <p>
+          Fields of type &quot;list&quot; must also have a &quot;list&quot;
+          property for the values (array of objects with id and label).
+        </p>
+        <p>Example:</p>
+        <pre><code class="language-javascript">fields = [
+    {id:&quot;lastname&quot;, type:&quot;text&quot;, label:&quot;Lastname&quot;},
+    {id:&quot;firstname&quot;, type:&quot;text&quot;, label:&quot;Firstname&quot;},
+    {id:&quot;active&quot;, type:&quot;boolean&quot;, label:&quot;Is active&quot;},
+    {id:&quot;age&quot;, type:&quot;number&quot;, label:&quot;Age&quot;},
+    {id:&quot;bday&quot;, type:&quot;date&quot;, label:&quot;Birthday&quot;},
+    {id:&quot;category&quot;, type:&quot;list&quot;, label:&quot;Category&quot;,
+        list:[
+            {id:&quot;1&quot;, label:&quot;Family&quot;},
+            {id:&quot;2&quot;, label:&quot;Friends&quot;},
+            ...
+        ]
+    }
+];
+</code></pre>
+        <p>
+          Note: To change the behavior of a &quot;list&quot; field, use the type
+          &quot;list-options&quot; and &quot;list-dropdown&quot; instead of
+          &quot;list&quot;.
+        </p>
+        <h3 id="conditions">Conditions</h3>
+        <p>Queries are expressed as a set of conditions.</p>
+        <p>Each condition is defined by:</p>
+        <ul>
+          <li>a field</li>
+          <li>an operator</li>
+          <li>one or several values</li>
+        </ul>
+        <p>
+          For each field the possible operators are determined by it&#39;s type.
+        </p>
+        <h3 id="boolean-boolean">
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-bool.gif"
+            alt="boolean"
+          />
+          boolean
+        </h3>
+        <ul>
+          <li>Yes (1)</li>
+          <li>No (0)</li>
+        </ul>
+        <p>
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-bool.gif"
+            alt="Boolean field screenshot"
+          />
+        </p>
+        <h3 id="date-date">
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-date.gif"
+            alt="date"
+          />
+          date
+        </h3>
+        <ul>
+          <li>on (eq)</li>
+          <li>not on (ne)</li>
+          <li>after (gt)</li>
+          <li>before (lt)</li>
+          <li>between (bw)</li>
+          <li>not between (nbw)</li>
+          <li>is empty (null)</li>
+          <li>is not empty (nn)</li>
+        </ul>
+        <p>
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-date.gif"
+            alt="Date field screenshot"
+          />
+        </p>
+        <h3 id="list-list">
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-list.gif"
+            alt="list"
+          />
+          list
+        </h3>
+        <ul>
+          <li>any of (in)</li>
+          <li>equal (eq)</li>
+        </ul>
+        <p>
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-list.gif"
+            alt="List field screenshot"
+          />
+        </p>
+        <h3 id="number-number">
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-int.gif"
+            alt="number"
+          />
+          number
+        </h3>
+        <ul>
+          <li>= (eq)</li>
+          <li>!= (ne)</li>
+          <li>&gt; (gt)</li>
+          <li>&lt; (lt)</li>
+          <li>is empty (null)</li>
+          <li>is not empty (nn)</li>
+        </ul>
+        <p>
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-number.gif"
+            alt="Number field screenshot"
+          />
+        </p>
+        <h3 id="text-text">
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-txt.gif"
+            alt="text"
+          />
+          text
+        </h3>
+        <ul>
+          <li>equals (eq)</li>
+          <li>not equal (ne)</li>
+          <li>starts with (sw)</li>
+          <li>contains (ct)</li>
+          <li>doesn&#39;t contain (nct)</li>
+          <li>finishes with (fw)</li>
+          <li>is empty (null)</li>
+          <li>is not empty (nn)</li>
+        </ul>
+        <p>
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-text.gif"
+            alt="Text field screenshot"
+          />
+        </p>
+        <h3 id="time-time">
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-time.gif"
+            alt="time"
+          />
+          time
+        </h3>
+        <ul>
+          <li>at (eq)</li>
+          <li>not at (ne)</li>
+          <li>after (gt)</li>
+          <li>before (lt)</li>
+          <li>between (bw)</li>
+          <li>not between (nbw)</li>
+          <li>is empty (null)</li>
+          <li>is not empty (nn)</li>
+        </ul>
+        <p><a name="Options"></a></p>
+        <h2 id="options">Options</h2>
+        <p>
+          structured-filter provides several options to customize its behaviour:
+        </p>
+        <h3 id="buttonlabels-boolean">buttonLabels (Boolean)</h3>
+        <p>
+          The labels of buttons used to manipulate filters. This options applies
+          to the 3 buttons, &quot;New filter&quot;, &quot;Add
+          filter&quot;/&quot;Update filter&quot; and &quot;Cancel&quot; which
+          use icons if the option is set to false.
+        </p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter({
+    buttonLabels: true
+});
+</code></pre>
+        <p>Defaults to <em>false</em>.</p>
+        <h3 id="dateformat-string">dateFormat (String)</h3>
+        <p>
+          The format for parsed and displayed dates. This attribute is one of
+          the regionalisation attributes. Common formats are: Default -
+          &quot;mm/dd/yy&quot;, ISO 8601 - &quot;yy-mm-dd&quot;, Short - &quot;d
+          M, y&quot;, Medium - &quot;d MM, y&quot;, Full - &quot;DD, d MM,
+          yy&quot;. For a full list of the possible formats see the
+          <a href="http://docs.jquery.com/UI/Datepicker/formatDate"
+            >jQuery formatDate function</a
+          >.
+        </p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter({
+    dateFormat: &quot;d M, y&quot;
+});
+</code></pre>
+        <p>Defaults to <em>&quot;mm/dd/yy&quot;</em>.</p>
+        <h3 id="disableoperators-boolean">disableOperators (Boolean)</h3>
+        <p>
+          This option disables operators from conditions. This changes the
+          structure of conditions from &quot;field-operator-value&quot; to
+          &quot;field-value&quot; which simplifies the backend implementation of
+          filtering.
+        </p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter({
+    disableOperators: true
+});
+</code></pre>
+        <p>Defaults to <em>&quot;false&quot;</em>.</p>
+        <h3 id="fields-array-of-fields">fields (Array of Fields)</h3>
+        <p>
+          The list of fields (as an array of objects with id, label and type) to
+          participate in the query definition. Possible types are: text,
+          boolean, number, date, time, and list.
+        </p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter({
+    fields: [
+        {id:&quot;lastname&quot;, type:&quot;text&quot;, label:&quot;Lastname&quot;},
+        {id:&quot;firstname&quot;, type:&quot;text&quot;, label:&quot;Firstname&quot;},
+        {id:&quot;active&quot;, type:&quot;boolean&quot;, label:&quot;Is active&quot;},
+        {id:&quot;age&quot;, type:&quot;number&quot;, label:&quot;Age&quot;},
+        {id:&quot;bday&quot;, type:&quot;date&quot;, label:&quot;Birthday&quot;},
+        {id:&quot;category&quot;, type:&quot;list&quot;, label:&quot;Category&quot;,
+            list:[
+                {id:&quot;1&quot;, label:&quot;Family&quot;},
+                {id:&quot;2&quot;, label:&quot;Friends&quot;},
+                {id:&quot;3&quot;, label:&quot;Business&quot;},
+                {id:&quot;4&quot;, label:&quot;Acquaintances&quot;},
+                {id:&quot;5&quot;, label:&quot;Other&quot;}
+            ]
+        }
+    ]
+});
+</code></pre>
+        <p>Defaults to <em>[ ]</em>.</p>
+        <h3 id="highlight-boolean">highlight (Boolean)</h3>
+        <p>
+          A highlight animation performed on the last added or modified filter.
+        </p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter({
+    highlight: false
+});
+</code></pre>
+        <p>Defaults to <em>true</em>.</p>
+        <h3 id="submitbutton-boolean">submitButton (Boolean)</h3>
+        <p>Shows or hides the &quot;Submit&quot; button.</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter({
+    submitButton: true
+});
+</code></pre>
+        <p>Defaults to <em>false</em>.</p>
+        <h3 id="submitready-boolean">submitReady (Boolean)</h3>
+        <p>
+          Provides hidden fields with the conditions&#39; values to be submitted
+          with the form (as an alternative to an AJAX call).
+        </p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter({
+    submitReady: true
+});
+</code></pre>
+        <p>Defaults to <em>false</em>.</p>
+        <p><a name="Methods"></a></p>
+        <h2 id="methods">Methods</h2>
+        <h3 id="addconditiondata">addCondition(data)</h3>
+        <p>Adds a new filter condition.</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter(&quot;addCondition&quot;, {
+    field:{
+        label: &quot;Lastname&quot;,
+        value: &quot;lastname&quot;
+    },
+    operator:{
+        label: &quot;starts with&quot;,
+        value: &quot;sw&quot;
+    },
+    value:{
+        label: &quot;\&quot;a\&quot;&quot;,
+        value: &quot;a&quot;
+    }
+});
+</code></pre>
+        <h3 id="clear">clear()</h3>
+        <p>Removes all search filters.</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter(&quot;clear&quot;);
+</code></pre>
+        <h3 id="length">length()</h3>
+        <p>Gets the number of filters.</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter(&quot;length&quot;);
+</code></pre>
+        <h3 id="removeconditionindex">removeCondition(index)</h3>
+        <p>Removes the condition of the specified index.</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter(&quot;removeCondition&quot;, 0);
+</code></pre>
+        <h3 id="valdata">val([data])</h3>
+        <p>Gets or sets the filter definition (as an array of filters).</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter(&quot;val&quot;);
+
+$(&quot;#myFilter&quot;).structFilter(&quot;val&quot;, data);
+</code></pre>
+        <p>Sample value:</p>
+        <pre><code class="language-javascript">[
+    {
+        field:{
+            label: &quot;Lastname&quot;,
+            value: &quot;Lastname&quot;
+        },
+        operator:{
+            label: &quot;starts with&quot;,
+            value: &quot;sw&quot;
+        },
+        value:{
+            label: &quot;\&quot;jo\&quot;&quot;,
+            value: &quot;jo&quot;
+        }
+    }
+]
+</code></pre>
+        <h3 id="valtext">valText()</h3>
+        <p>Gets the filter definition (as a readable text string).</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter(&quot;valText&quot;);
+</code></pre>
+        <p>Sample value:</p>
+        <pre><code>Lastname starts with &quot;jo&quot;
+</code></pre>
+        <h3 id="valurl">valUrl()</h3>
+        <p>Gets the filter definition (as a URL string).</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).structFilter(&quot;valUrl&quot;);
+</code></pre>
+        <p>Sample value:</p>
+        <pre><code>filters=1&amp;field-0=Lastname&amp;operator-0=sw&amp;value-0=jo&amp;label=Lastname%20starts%20with%20%22jo%22%0A
+</code></pre>
+        <p><a name="Events"></a></p>
+        <h2 id="events">Events</h2>
+        <h3 id="changesearch">change.search</h3>
+        <p>
+          This event is triggered when the list of search conditions is
+          modified.
+        </p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).on(&quot;change.search&quot;, function(event){
+    // do something
+});
+</code></pre>
+        <h3 id="submitsearch">submit.search</h3>
+        <p>This event is triggered when the submit button is clicked.</p>
+        <pre><code class="language-javascript">$(&quot;#myFilter&quot;).on(&quot;submit.search&quot;, function(event){
+    // do something
+});
+</code></pre>
+        <p><a name="Theming"></a></p>
+        <h2 id="theming">Theming</h2>
+        <p>
+          structured-filter is as easily themeable as any jQuery UI widget,
+          using one of the
+          <a href="http://jqueryui.com/themeroller/#themeGallery"
+            >jQuery UI themes</a
+          >
+          or your own custom theme made with
+          <a href="http://jqueryui.com/themeroller/">Themeroller</a>.
+        </p>
+        <p>
+          <img
+            src="https://raw.github.com/evoluteur/structured-filter/master/screenshots/themes.gif"
+            alt="screenshot themes"
+          />
+        </p>
+        <p>CSS for themes can be accessed from Google Hosted Libraries.</p>
+        <p>Dark theme (&quot;ui-darkness&quot;):</p>
+        <pre><code class="language-html">&lt;link href=&quot;https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/ui-darkness/jquery-ui.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+</code></pre>
+        <p>
+          A version of structured-filter for
+          <a href="http://getbootstrap.com/">Bootstrap</a> and
+          <a href="http://backbonejs.org/">Backbone.js</a> is available as part
+          of
+          <a href="http://evoluteur.github.io/evolutility-ui-jquery/index.html"
+            >Evolutility-UI-jQuery</a
+          >
+          set of
+          <a
+            href="http://evoluteur.github.io/evolutility-ui-jquery/doc/views.html"
+            >generic views</a
+          >
+          for CRUD (Create, Read, Update, Delete) and more.
+        </p>
+        <p>
+          A React version is available at
+          <a href="https://github.com/evoluteur/structured-filter-react"
+            >Structured-Filter-React</a
+          >.
+        </p>
+        <p>
+          Check out my other jQuery UI wdget
+          <a href="https://evoluteur.github.io/colorpicker/">ColorPicker</a>.
+        </p>
+        <p><a name="License"></a></p>
+        <h2 id="license">License</h2>
+        <p>
+          Structured-Filter is made in California with
+          <span class="heart">♥</span> and open-source with the
+          <a
+            href="https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter"
+            >MIT license</a
+          >.
+        </p>
+
         <span class="madeInCA">
           <div>
-            Made in California with
-            <div class="heart">♥</div>
             <br />
             <br />
           </div>
         </span>
         <footer>
-          &#169; 2024
+          &#169; 2026
           <a href="https://evoluteur.github.io/">Olivier Giulieri</a>
         </footer>
       </div>

@@ -3,13 +3,14 @@
 Structured-Filter is a generic Web UI for building structured search or filter queries.
 
 With it you can build structured search conditions like
-Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)... It is a full jQuery UI widget, supporting various configurations and themes.
+Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL)...
 
-![Structured-Filter screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/structured-filter.gif)
+It is a full jQuery UI widget, supporting various configurations and themes. For the React version use
+ [structured-filter-react](https://github.com/evoluteur/structured-filter-react).
 
+![Structured-Filter screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/structured-filter.gif
 
 Check the **[demo](http://evoluteur.github.io/structured-filter/index.html)** for live examples.
-
 
 ### Table of Contents
 1. [Installation](#Installation)
@@ -20,7 +21,6 @@ Check the **[demo](http://evoluteur.github.io/structured-filter/index.html)** fo
 6. [Events](#Events)
 7. [Theming](#Theming)
 8. [License](#License)
-
 
 <a name="Installation"></a>
 ## Installation
@@ -54,14 +54,13 @@ Notes:
 - If you use a version of jQuery-UI smaller than 1.12.1, you must use Structured-Filter version 1.1.0.
 - For React, use [Structured-Filter-React](https://github.com/evoluteur/structured-filter-react).
 
-
 <a name="Usage"></a>
 ## Usage
 
 First, load [jQuery](https://jquery.com/), [jQuery UI](https://jqueryui.com/), and the plugin:
 
 ```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/structured-filter.js" type="text/javascript" charset="utf-8"></script>
 ```
@@ -104,7 +103,6 @@ Now, let's attach it to an existing `<div>` tag:
 
 This will change the `<div>` into the widget.
 
-
 <a name="Model"></a>
 ## Model
 
@@ -141,7 +139,6 @@ fields = [
 
 Note: To change the behavior of a "list" field, use the type "list-options" and "list-dropdown" instead of "list".
 
-
 ### Conditions
 
 Queries are expressed as a set of conditions.
@@ -154,14 +151,12 @@ Each condition is defined by:
 
 For each field the possible operators are determined by it's type.
 
-
 ### ![boolean](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-bool.gif) boolean
 
 - Yes (1)
 - No (0)
 
 ![Boolean field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-bool.gif)
-
 
 ### ![date](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-date.gif) date
 
@@ -176,14 +171,12 @@ For each field the possible operators are determined by it's type.
 
 ![Date field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-date.gif)
 
-
 ### ![list](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-list.gif) list
 
 - any of (in)
 - equal (eq)
 
 ![List field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-list.gif)
-
 
 ### ![number](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-int.gif) number
 
@@ -195,7 +188,6 @@ For each field the possible operators are determined by it's type.
 - is not empty (nn)
 
 ![Number field screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/sf-cond-number.gif)
-
 
 ### ![text](https://raw.github.com/evoluteur/structured-filter/master/screenshots/ft-txt.gif) text
 
@@ -220,7 +212,6 @@ For each field the possible operators are determined by it's type.
 - not between (nbw)
 - is empty (null)
 - is not empty (nn)
-
 
 <a name="Options"></a>
 ## Options
@@ -327,7 +318,6 @@ $("#myFilter").structFilter({
 ```
 
 Defaults to *false*.
-
 
 <a name="Methods"></a>
 ## Methods
@@ -465,20 +455,19 @@ Dark theme ("ui-darkness"):
 <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/ui-darkness/jquery-ui.css" rel="stylesheet" type="text/css">
 ```
 
-
 A version of structured-filter for [Bootstrap](http://getbootstrap.com/) and [Backbone.js](http://backbonejs.org/) is available as part of [Evolutility-UI-jQuery](http://evoluteur.github.io/evolutility-ui-jquery/index.html)
 set of [generic views](http://evoluteur.github.io/evolutility-ui-jquery/doc/views.html) for CRUD (Create, Read, Update, Delete) and more.
 
-
 A re-write for React in under construction at [Structured-Filter-React](https://github.com/evoluteur/structured-filter-react).
-
 
 Check out my other jQuery UI wdget [ColorPicker](https://evoluteur.github.io/colorpicker/).
 
 <a name="License"></a>
-## License
 
+## License
 
 Structured-Filter is released under the [MIT license](https://github.com/evoluteur/structured-filter/blob/master/LICENSE.md#structured-filter).
 
-Copyright (c) 2024 [Olivier Giulieri](https://evoluteur.github.io/).
+Encourage Structured-Filter by [becoming a sponsor](https://github.com/sponsors/evoluteur).
+
+Copyright (c) 2026 [Olivier Giulieri](https://evoluteur.github.io/).
