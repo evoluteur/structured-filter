@@ -8,7 +8,7 @@ Firstname starts with 'A' and Birthday after 1/1/1980 and State in (CA, NY, FL).
 It is a full jQuery UI widget, supporting various configurations and themes. For the React version use
  [structured-filter-react](https://github.com/evoluteur/structured-filter-react).
 
-![Structured-Filter screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/structured-filter.gif
+![Structured-Filter screenshot](https://raw.github.com/evoluteur/structured-filter/master/screenshots/structured-filter.gif)
 
 Check the **[demo](http://evoluteur.github.io/structured-filter/index.html)** for live examples.
 
