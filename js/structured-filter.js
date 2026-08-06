@@ -27,6 +27,7 @@
       list: "list",
       listOpts: "list-options",
       listDropdown: "list-dropdown",
+      inputAutoc: "input-autocomplete"
     },
     // - i18n strings (to translate in other languages)
     i18n = {
@@ -191,7 +192,7 @@
             that._field = that._getFieldById(fieldID);
             var fType = (that._type = that._field.type);
             that._setEditorOperator();
-            if (fType === fTypes.bool || fType.startsWith("list")) {
+            if (fType === fTypes.bool || fType.startsWith("list") || fType.startsWith('input')) {
               that._setEditorValue();
             }
           } else {
@@ -213,7 +214,7 @@
           var fType = that._type,
             value = $(this).val(),
             valid =
-              value !== "" || fType === fTypes.bool || fType.startsWith("list");
+            value !== "" || fType === fTypes.bool || fType.startsWith("list") || fType.startsWith('input');
           if (fType == fTypes.number) {
             valid = valid && !isNaN(value);
           } else if (
@@ -388,7 +389,7 @@
         this._bDel.show();
         if (!this._fList) {
           this._fList =
-            '<select id="field">' +
+          '<select id="field" class="selectize">' +
             EvoUI.optNull +
             this.options.fields.map(function (f) {
               return EvoUI.inputOption(f.id, f.label);
@@ -423,6 +424,7 @@
             break;
           case fTypes.listOpts:
           case fTypes.listDropdown:
+            case fTypes.inputAutoc:
           case fTypes.bool:
             //h.push(i18n.sEqual);
             h += EvoUI.inputHidden("operator", evoAPI.sEqual);
@@ -537,6 +539,12 @@
                     })
                     .join("") +
                   "</select>";
+                  break;
+              case fTypes.inputAutoc:
+                console.log('autocomplete input');
+                var autoCompleteObj = '<input id="value" type="text" class="basicAutoComplete" data-url="'+fld.api+'" autocomplete="off">';
+                h +=
+                  autoCompleteObj;
                 break;
               case fTypes.date:
               case fTypes.time:
@@ -563,6 +571,24 @@
               editor
                 .find("#value,#value2")
                 .datepicker({ dateFormat: this.options.dateFormat });
+            }
+            if (fType == fTypes.inputAutoc) {
+              editor
+                .find("#value")
+                .each(function(){
+                  var $this = $(this);
+                  var url = $(this).data('url');
+                  $this.autocomplete({
+                    source: function (request, response) {
+                      jQuery.get(url, {
+                        s: request.term
+                        }, function (data) {
+                            response(data);
+                        });
+                    },
+                      minLength: 3
+                  });
+                });
             }
           }
           if (v) {
@@ -657,7 +683,16 @@
           fv.label = i18n.sIsNull;
         }
         fv.value = v.val();
-      } else {
+      } 
+      else if (this._type == fTypes.inputAutoc) {
+        op.label = i18n.sIs;
+        op.value = evoAPI.sEqual;
+        var val = v.val()
+        console.log(val);
+        fv.label = val;
+        fv.value = val;
+      } 
+      else {
         var o = e.find("#operator"),
           opVal = o.val();
         op.label = o.find("option:selected").text();
